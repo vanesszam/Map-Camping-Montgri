@@ -6,15 +6,15 @@
 <title>Camping Castell Montgrí</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e8;min-height:100vh}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;min-height:100vh}
 
 /* ── HOME SCREEN ── */
 #home-screen{
-  position:fixed;inset:0;background:#0d140d;z-index:9999;
+  position:fixed;inset:0;background:#111d11;z-index:9999;
   display:flex;flex-direction:column;overflow-y:auto;
 }
 .home-header{
-  background:#162616;padding:18px 16px 14px;border-bottom:1px solid #2d4a2d;
+  background:#1e3320;padding:18px 16px 14px;border-bottom:1px solid #2d4a2d;
   display:flex;align-items:center;gap:10px;flex-shrink:0;
 }
 .home-header h1{font-size:18px;font-weight:800;color:#a8d5a2;flex:1}
@@ -24,15 +24,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
 .section-title{font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:18px 0 8px}
 
 .map-card{
-  background:#162616;border-radius:12px;border:1px solid #2d4a2d;
+  background:#1e3320;border-radius:12px;border:1px solid #2d4a2d;
   padding:13px 14px;margin-bottom:8px;cursor:pointer;
   display:flex;align-items:center;gap:12px;
 }
-.map-card:active{background:#1e3320}
+.map-card:active{background:#253d25}
 .map-card-left{flex:1}
 .map-card-num{font-size:15px;font-weight:800;color:#a8d5a2}
 .map-card-sub{font-size:12px;color:#6b9e6b;margin-top:2px}
-.map-card-badge{background:#22c55e;color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:2px 8px}
+.map-card-badge{background:#dc2626;color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:2px 8px}
 .map-card-del{background:#3d1a1a;color:#f87171;border:none;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer}
 .map-card-del:active{background:#5a2222}
 
@@ -48,18 +48,18 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
 
 /* name input dialog */
 .name-dialog{
-  position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:10001;
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10001;
   display:none;align-items:center;justify-content:center;
 }
 .name-dialog.open{display:flex}
 .name-box{
-  background:#162616;border-radius:16px;padding:22px 18px;width:290px;
+  background:#1e3320;border-radius:16px;padding:22px 18px;width:290px;
   border:1px solid #2d4a2d;
 }
 .name-box h3{font-size:15px;font-weight:700;color:#a8d5a2;margin-bottom:12px}
 .name-box input{
   width:100%;font-size:18px;font-weight:700;
-  background:#0d140d;border:1px solid #3d5c3d;border-radius:10px;
+  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
   padding:11px 13px;color:#e8f5e8;font-family:inherit;margin-bottom:12px;
 }
 .name-box input:focus{outline:none;border-color:#22c55e}
@@ -72,8 +72,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
 #map-view{display:none;flex-direction:column;height:100vh;position:fixed;inset:0;z-index:100}
 #map-view.open{display:flex}
 
+/* header */
 #mv-header{
-  background:#162616;padding:8px 10px;flex-shrink:0;
+  background:#1e3320;padding:8px 10px;flex-shrink:0;
   display:flex;align-items:center;gap:8px;border-bottom:1px solid #2d4a2d;
 }
 #mv-back{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
@@ -84,18 +85,21 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
 .mv-pdf{background:#7c3aed;color:#fff}
 .mv-reset{background:#dc2626;color:#fff}
 
+/* readonly banner */
 #ro-banner{
   display:none;background:#b45309;color:#fff;
   text-align:center;padding:8px 14px;font-size:12px;font-weight:700;flex-shrink:0;
 }
 #ro-banner button{background:#fff;color:#b45309;border:none;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-left:8px}
 
-#mv-hint{background:#0d140d;text-align:center;font-size:11px;color:#6b9e6b;padding:4px;flex-shrink:0}
+#mv-hint{background:#162616;text-align:center;font-size:11px;color:#6b9e6b;padding:4px;flex-shrink:0}
 
-#map-container{flex:1;overflow:auto;position:relative;background:#0d140d;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+/* map container — scrollable/zoomable */
+#map-container{flex:1;overflow:auto;position:relative;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
 #map-wrapper{position:relative;width:100%;min-width:100%}
 #mapImg{width:100%;display:block;touch-action:auto;user-select:none}
 
+/* pin */
 .pin{
   position:absolute;
   transform:translate(-50%,-50%);
@@ -111,29 +115,31 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
   box-shadow:0 0 2px rgba(0,0,0,1),0 0 4px rgba(220,38,38,.6);
   transition:transform .1s;
   pointer-events:none;
+  flex-shrink:0;
 }
 .pin:active .pin-dot{transform:scale(3)}
 
+/* list panel */
 #mv-toggle-list{
-  width:100%;background:#162616;border:none;border-top:1px solid #2d4a2d;
-  color:#6b9e6b;font-size:11px;padding:10px;cursor:pointer;text-align:center;flex-shrink:0;
+  width:100%;background:#1a2e1a;border:none;border-top:1px solid #2d4a2d;
+  color:#6b9e6b;font-size:11px;padding:6px;cursor:pointer;text-align:center;flex-shrink:0;
 }
-#mv-list-panel{background:#0d140d;max-height:0;overflow:hidden;transition:max-height .3s ease;flex-shrink:0}
+#mv-list-panel{background:#162616;max-height:0;overflow:hidden;transition:max-height .3s ease;flex-shrink:0}
 #mv-list-panel.open{max-height:40vh;overflow-y:auto}
-.list-item{display:flex;align-items:flex-start;gap:8px;padding:12px 14px;border-bottom:1px solid #162616;cursor:pointer}
-.list-item:active{background:#162616}
+.list-item{display:flex;align-items:flex-start;gap:8px;padding:9px 14px;border-bottom:1px solid #1e3320;cursor:pointer}
+.list-item:active{background:#1e3320}
 .li-num{background:#dc2626;color:#fff;font-size:11px;font-weight:800;border-radius:5px;min-width:30px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0 5px}
 .li-zone{font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;flex-shrink:0;align-self:center}
 .li-text{font-size:12px;color:#c8e6c8;white-space:pre-wrap;word-break:break-word;flex:1;line-height:1.4}
 
-/* ── MODALS ── */
+/* ── FULLSCREEN NOTE MODAL ── */
 .fs-modal{
   display:none;position:fixed;inset:0;z-index:500;
-  background:#0d140d;flex-direction:column;
+  background:#111d11;flex-direction:column;
 }
 .fs-modal.open{display:flex}
 .fs-top{
-  background:#162616;padding:12px 14px 10px;flex-shrink:0;
+  background:#1e3320;padding:12px 14px 10px;flex-shrink:0;
   display:flex;align-items:center;gap:10px;border-bottom:1px solid #2d4a2d;
 }
 .fs-top h2{font-size:16px;font-weight:700;color:#a8d5a2;flex:1}
@@ -146,48 +152,61 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
   background:#162616;border:1px solid #3d5c3d;border-radius:10px;
   padding:11px 13px;color:#e8f5e8;font-family:inherit;
 }
+.fs-input:focus{outline:none;border-color:#22c55e}
 .fs-textarea{
   width:100%;flex:1;min-height:200px;font-size:15px;
   background:#162616;border:1px solid #3d5c3d;border-radius:10px;
   padding:12px 13px;color:#e8f5e8;resize:none;font-family:inherit;line-height:1.6;
 }
+.fs-textarea:focus{outline:none;border-color:#22c55e}
 .note-view-text{
   background:#162616;border:1px solid #2d4a2d;border-radius:10px;
-  padding:166px;font-size:16px;line-height:1.7;color:#e8f5e8;
+  padding:16px;font-size:16px;line-height:1.7;color:#e8f5e8;
   white-space:pre-wrap;word-break:break-word;flex:1;
 }
 .fs-footer{
-  background:#162616;padding:12px 14px 28px;border-top:1px solid #2d4a2d;flex-shrink:0;
+  background:#1e3320;padding:12px 14px 28px;border-top:1px solid #2d4a2d;flex-shrink:0;
   display:flex;gap:8px;
 }
 .fs-footer button{flex:1;padding:13px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
-.fsf-del{background:#7f1d1d;color:#fca5a5;flex:0 0 auto!important}
+.fs-footer button:active{opacity:.75}
+.fsf-del{background:#7f1d1d;color:#fca5a5;flex:0 0 auto!important;padding:13px 16px!important}
 .fsf-cancel{background:#3d5c3d;color:#c8e6c8}
-.fsf-save{background:#22c55e;color:#fff}
+.fsf-save{background:#1d4ed8;color:#fff}
 .fsf-edit{background:#3d5c3d;color:#c8e6c8}
 .fsf-done{background:#22c55e;color:#fff}
 
-/* ── SHARE & CONFIRM ── */
+/* ── SHARE MODAL ── */
 #share-modal{
   display:none;position:fixed;inset:0;z-index:600;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,0.82);
   align-items:center;justify-content:center;padding:16px;
 }
 #share-modal.open{display:flex}
 #share-inner{
-  background:#162616;border-radius:16px;border:1px solid #2d4a2d;
+  background:#1e3320;border-radius:16px;border:1px solid #2d4a2d;
   width:100%;max-width:480px;display:flex;flex-direction:column;
+  max-height:90vh;overflow:hidden;
 }
+#share-inner .fs-top{border-radius:16px 16px 0 0}
+#share-inner .fs-body{padding:14px}
+#share-inner .fs-footer{border-radius:0 0 16px 16px;padding:12px 14px 16px}
 .share-ta{
-  width:100%;height:90px;background:#0d140d;border:1px solid #3d5c3d;
-  border-radius:10px;padding:10px 12px;color:#c8e6c8;font-size:11px;font-family:monospace;resize:none;word-break:break-all;
+  width:100%;height:90px;background:#162616;border:1px solid #3d5c3d;
+  border-radius:10px;padding:10px 12px;color:#c8e6c8;font-size:11px;
+  font-family:monospace;resize:none;word-break:break-all;
 }
+
+/* ── CONFIRM DIALOG ── */
 .confirm-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:700;
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;
   align-items:center;justify-content:center;
 }
 .confirm-overlay.open{display:flex}
-.confirm-box{background:#162616;border-radius:16px;padding:24px 20px;width:285px;text-align:center;border:1px solid #2d4a2d}
+.confirm-box{background:#1e3320;border-radius:16px;padding:24px 20px;width:285px;text-align:center;border:1px solid #2d4a2d}
+.confirm-box p{font-size:15px;color:#c8e6c8;margin-bottom:18px;line-height:1.5}
+.confirm-btns{display:flex;gap:8px;justify-content:center}
+.confirm-btns button{flex:none;padding:11px 22px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
 .cb-yes{background:#dc2626;color:#fff}
 .cb-no{background:#3d5c3d;color:#c8e6c8}
 </style>
@@ -203,7 +222,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
     </div>
   </div>
   <div class="home-body">
-    <div class="section-title">My Maps[cite: 2]</div>
+    <div class="section-title">My Maps</div>
     <div id="my-maps-list"></div>
     <div class="section-title">Received Maps</div>
     <div id="recv-maps-list"><p style="font-size:12px;color:#6b9e6b">No received maps yet.</p></div>
@@ -237,13 +256,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
   <div id="map-container">
     <div id="map-wrapper">
       <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" alt="Camping map"/>
+      <canvas id="zoneCanvas" style="display:none"></canvas>
     </div>
   </div>
   <button id="mv-toggle-list">▼ NOTE LIST</button>
   <div id="mv-list-panel"></div>
 </div>
 
-<!-- ══ EDIT NOTE ══ -->
+<!-- ══ EDIT NOTE (fullscreen) ══ -->
 <div class="fs-modal" id="edit-modal">
   <div class="fs-top">
     <h2 id="edit-modal-title">New note</h2>
@@ -254,7 +274,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
     <div><div class="fs-label">Bungalow number</div><input class="fs-input" id="edit-num" type="number" inputmode="numeric" placeholder="e.g. 26"/></div>
     <div style="flex:1;display:flex;flex-direction:column;gap:6px">
       <div class="fs-label">Notes</div>
-      <textarea class="fs-textarea" id="edit-text" placeholder="BBQ No Fire..."></textarea>
+      <textarea class="fs-textarea" id="edit-text" placeholder="BBQ No Fire&#10;Grill Grate&#10;Arrives Saturday&#10;..."></textarea>
     </div>
   </div>
   <div class="fs-footer">
@@ -264,7 +284,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
   </div>
 </div>
 
-<!-- ══ VIEW NOTE ══ -->
+<!-- ══ VIEW NOTE (fullscreen) ══ -->
 <div class="fs-modal" id="view-modal">
   <div class="fs-top">
     <h2 id="view-modal-title">Bungalow</h2>
@@ -288,10 +308,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
       <button class="fs-close" id="share-close">✕</button>
     </div>
     <div class="fs-body">
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <div class="fs-label">Map link</div>
-        <textarea class="share-ta" id="share-link-ta" readonly></textarea>
+      <p style="font-size:13px;color:#6b9e6b;line-height:1.6">
+        Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download PDF.<br>
+        Map stays saved until they delete it.
+      </p>
+      <div id="share-map-info" style="background:#162616;border-radius:12px;padding:14px;border:1px solid #2d4a2d">
+        <div style="font-size:16px;font-weight:800;color:#a8d5a2" id="share-map-name">—</div>
+        <div style="font-size:12px;color:#6b9e6b;margin-top:4px" id="share-map-detail">—</div>
       </div>
+      <textarea id="share-link-ta" readonly style="position:absolute;left:-9999px;height:1px;opacity:0"></textarea>
     </div>
     <div class="fs-footer">
       <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
@@ -304,22 +329,22 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
 <div class="confirm-overlay" id="confirm-overlay">
   <div class="confirm-box">
     <p id="confirm-msg">Are you sure?</p>
-    <div class="confirm-btns" style="display:flex;gap:8px;margin-top:18px">
-      <button class="cb-yes" id="confirm-yes" style="flex:1;padding:11px;border-radius:10px;border:none;font-weight:700">Yes</button>
-      <button class="cb-no"  id="confirm-no" style="flex:1;padding:11px;border-radius:10px;border:none;font-weight:700">Cancel</button>
+    <div class="confirm-btns">
+      <button class="cb-yes" id="confirm-yes">Yes</button>
+      <button class="cb-no"  id="confirm-no">Cancel</button>
     </div>
   </div>
 </div>
 
 <script>
 // ═══════════════════════════════
-// PINCH ZOOM & PAN (900 lines logic part 1)
+// PINCH ZOOM & PAN on map
 // ═══════════════════════════════
 (function(){
   const container = document.getElementById('map-container');
   const wrapper   = document.getElementById('map-wrapper');
   let scale=1, lastScale=1;
-  let originX=0, originY=0;
+  let originX=0, originY=0;       // current translation
   let startDist=0, startScale=1;
   let startX=0, startY=0, startOX=0, startOY=0;
   let isPinching=false, isDragging=false;
@@ -328,6 +353,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
   function clamp(v,mn,mx){return Math.min(Math.max(v,mn),mx)}
 
   function applyTransform(){
+    // clamp pan so map doesn't go too far off screen
     const cw=container.clientWidth, ch=container.clientHeight;
     const iw=wrapper.offsetWidth*scale, ih=wrapper.offsetHeight*scale;
     const maxX=Math.max(0,(iw-cw)/2);
@@ -356,6 +382,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
       isDragging=true; isPinching=false;
       startX=e.touches[0].clientX; startY=e.touches[0].clientY;
       startOX=originX; startOY=originY;
+      // double-tap to reset zoom
       const now=Date.now();
       if(now-lastTap<300 && scale>1){scale=1;originX=0;originY=0;applyTransform();}
       lastTap=now;
@@ -366,6 +393,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
     if(isPinching && e.touches.length===2){
       const newDist=dist(e.touches);
       const newScale=clamp(startScale*(newDist/startDist),1,10);
+      // zoom toward pinch midpoint
       const mid=midpoint(e.touches);
       const rect=container.getBoundingClientRect();
       const px=mid.x-rect.left-rect.width/2;
@@ -389,6 +417,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
     if(e.touches.length===0) isDragging=false;
   });
 
+  // Desktop: mouse wheel zoom
   container.addEventListener('wheel',e=>{
     e.preventDefault();
     const factor=e.deltaY<0?1.15:0.87;
@@ -403,31 +432,51 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d140d;color:#e8f5e
     applyTransform();
   },{passive:false});
 
+  // Expose reset function
   window.resetMapZoom=function(){scale=1;originX=0;originY=0;applyTransform();}
 })();
 
 // ═══════════════════════════════
-// ZONES & STORAGE (Logic Part 2)
+// ZONES — pixel-based detection
 // ═══════════════════════════════
-const ZONES=[
-  {name:'Red',    color:'#fff',bg:'#dc2626',xMin:65, xMax:100,yMin:65,yMax:100},
-  {name:'Yellow', color:'#000',bg:'#eab308',xMin:0,  xMax:22, yMin:60,yMax:100},
-  {name:'Grey',   color:'#fff',bg:'#6b7280',xMin:50, xMax:74, yMin:16,yMax:58 },
-  {name:'Brown',  color:'#fff',bg:'#92400e',xMin:15, xMax:55, yMin:43,yMax:76 },
-  {name:'Orange', color:'#fff',bg:'#ea580c',xMin:50, xMax:90, yMin:36,yMax:88 },
-  {name:'Blue',   color:'#fff',bg:'#1d4ed8',xMin:0,  xMax:55, yMin:0, yMax:62 },
-];
-function detectZone(x,y){
-  const xp=parseFloat(x),yp=parseFloat(y);
-  for(const z of ZONES)if(xp>=z.xMin&&xp<=z.xMax&&yp>=z.yMin&&yp<=z.yMax)return z;
-  return null;
-}
-function applyZoneTag(el,zone){
-  el.textContent=zone?zone.name+' zone':'Unknown zone';
-  el.style.background=zone?zone.bg:'#374151';
-  el.style.color=zone?zone.color:'#d1d5db';
-}
+const mapImg = document.getElementById('mapImg');
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
+const ZONES_CONFIG = [
+  { name: 'Grey',   rgb: [179, 179, 179], bg: '#6b7280', color: '#fff' }, 
+  { name: 'Yellow', rgb: [252, 242, 31],  bg: '#facc15', color: '#000' }, 
+  { name: 'Orange', rgb: [235, 130, 12],  bg: '#ea580c', color: '#fff' },
+  { name: 'Blue',   rgb: [25, 145, 205],  bg: '#1d4ed8', color: '#fff' },
+  { name: 'Brown',  rgb: [141, 99, 83],   bg: '#92400e', color: '#fff' }, 
+  { name: 'Red',    rgb: [220, 38, 38],   bg: '#dc2626', color: '#fff' }
+];
+
+mapImg.onload = () => {
+    canvas.width = mapImg.naturalWidth;
+    canvas.height = mapImg.naturalHeight;
+    ctx.drawImage(mapImg, 0, 0);
+};
+
+function getZoneByPixel(xPct, yPct) {
+    if (canvas.width === 0) return null;
+    const x = (xPct / 100) * canvas.width;
+    const y = (yPct / 100) * canvas.height;
+    const p = ctx.getImageData(x, y, 1, 1).data;
+    const bright = p[0] + p[1] + p[2];
+    if (bright > 745 || bright < 35) return null;
+
+    let closest = null;
+    let minDistance = Infinity;
+    for (let z of ZONES_CONFIG) {
+        const d = Math.sqrt(Math.pow(p[0]-z.rgb[0],2)+Math.pow(p[1]-z.rgb[1],2)+Math.pow(p[2]-z.rgb[2],2));
+        if (d < minDistance) { minDistance = d; closest = z; }
+    }
+    return closest; 
+}
+// ═══════════════════════════════
+// STORAGE
+// ═══════════════════════════════
 const SK='montgri_v5';
 function loadStore(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch{return{}}}
 function saveStore(s){try{localStorage.setItem(SK,JSON.stringify(s))}catch{}}
@@ -436,14 +485,17 @@ let store=loadStore();
 if(!store.myMaps)store.myMaps={};
 if(!store.recvMaps)store.recvMaps={};
 
+// ═══════════════════════════════
+// STATE
+// ═══════════════════════════════
 let currentMapId=null;
-let currentMap=null;
+let currentMap=null;   // {id,num,userName,date,annotations,isReadOnly?}
 let isReadOnly=false;
 let pendingX,pendingY,editingId=null,viewingId=null;
 let confirmCallback=null;
 
 // ═══════════════════════════════
-// MAP EVENTS (900 lines logic part 3)
+// CHECK SHARED LINK ON LOAD
 // ═══════════════════════════════
 (function checkLink(){
   const params=new URLSearchParams(window.location.search);
@@ -451,23 +503,30 @@ let confirmCallback=null;
   if(!raw)return;
   try{
     const payload=JSON.parse(decodeURIComponent(atob(raw)));
+    // Save to recvMaps if not already there
     const rid='recv_'+payload.id;
     if(!store.recvMaps[rid]){
       store.recvMaps[rid]={...payload,receivedAt:new Date().toISOString(),isReadOnly:true};
       saveStore(store);
     }
+    // Open it directly
     openMapView(store.recvMaps[rid],true);
   }catch(e){console.error(e)}
 })();
 
+// ═══════════════════════════════
+// HOME
+// ═══════════════════════════════
 function renderHome(){
   const now=new Date();
   document.getElementById('home-today').textContent=
     '📅 '+now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
+  // My maps
   const myEl=document.getElementById('my-maps-list');
   const myIds=Object.keys(store.myMaps).sort((a,b)=>store.myMaps[b].num-store.myMaps[a].num);
-  myEl.innerHTML=myIds.length?myIds.map(id=>{
+  if(!myIds.length){myEl.innerHTML='<p style="font-size:12px;color:#6b9e6b">No maps yet. Tap + to create one.</p>'}
+  else myEl.innerHTML=myIds.map(id=>{
     const m=store.myMaps[id];
     return `<div class="map-card" onclick="openMapView(store.myMaps['${id}'],false)">
       <div class="map-card-left">
@@ -477,27 +536,32 @@ function renderHome(){
       <span class="map-card-badge">${m.annotations?.length||0}</span>
       <button class="map-card-del" onclick="event.stopPropagation();deleteMyMap('${id}')">🗑</button>
     </div>`;
-  }).join(''):'<p style="font-size:12px;color:#6b9e6b">No maps yet. Tap + to create one.</p>';
+  }).join('');
 
+  // Received maps
   const rvEl=document.getElementById('recv-maps-list');
   const rvIds=Object.keys(store.recvMaps).sort((a,b)=>new Date(store.recvMaps[b].receivedAt)-new Date(store.recvMaps[a].receivedAt));
-  rvEl.innerHTML=rvIds.length?rvIds.map(id=>{
+  if(!rvIds.length){rvEl.innerHTML='<p style="font-size:12px;color:#6b9e6b">No received maps yet.</p>'}
+  else rvEl.innerHTML=rvIds.map(id=>{
     const m=store.recvMaps[id];
     return `<div class="map-card" onclick="openMapView(store.recvMaps['${id}'],true)">
       <div class="map-card-left">
         <div class="map-card-num">Map #${m.num} — ${m.userName} <span class="received-tag">received</span></div>
-        <div class="map-card-sub">📅 ${m.date} · Received ${new Date(m.receivedAt).toLocaleDateString('en-GB')}</div>
+        <div class="map-card-sub">📅 ${m.date} · ${m.annotations?.length||0} notes · Received ${new Date(m.receivedAt).toLocaleDateString('en-GB')}</div>
       </div>
       <span class="map-card-badge">${m.annotations?.length||0}</span>
       <button class="map-card-del" onclick="event.stopPropagation();deleteRecvMap('${id}')">🗑</button>
     </div>`;
-  }).join(''):'<p style="font-size:12px;color:#6b9e6b">No received maps yet.</p>';
+  }).join('');
 }
 renderHome();
 
-function deleteMyMap(id){showConfirm('Delete Map #'+store.myMaps[id].num+'?',()=>{delete store.myMaps[id];saveStore(store);renderHome();});}
-function deleteRecvMap(id){showConfirm('Delete received map?',()=>{delete store.recvMaps[id];saveStore(store);renderHome();});}
+function deleteMyMap(id){delete store.myMaps[id];saveStore(store);renderHome();}
+function deleteRecvMap(id){delete store.recvMaps[id];saveStore(store);renderHome();}
 
+// ═══════════════════════════════
+// CREATE NEW MAP
+// ═══════════════════════════════
 document.getElementById('btn-new-map').addEventListener('click',()=>{
   document.getElementById('name-input').value='';
   document.getElementById('name-dialog').classList.add('open');
@@ -505,6 +569,7 @@ document.getElementById('btn-new-map').addEventListener('click',()=>{
 });
 document.getElementById('nb-cancel').addEventListener('click',()=>document.getElementById('name-dialog').classList.remove('open'));
 document.getElementById('nb-ok').addEventListener('click',createMap);
+document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')createMap()});
 
 function createMap(){
   const n=document.getElementById('name-input').value.trim();
@@ -512,85 +577,145 @@ function createMap(){
   const nums=Object.values(store.myMaps).map(m=>m.num||0);
   const nextNum=nums.length?Math.max(...nums)+1:1;
   const id='map_'+Date.now();
-  store.myMaps[id]={id,num:nextNum,userName:n,date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),annotations:[]};
+  const today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  store.myMaps[id]={id,num:nextNum,userName:n,date:today,annotations:[]};
   saveStore(store);
   document.getElementById('name-dialog').classList.remove('open');
   openMapView(store.myMaps[id],false);
 }
 
+// ═══════════════════════════════
+// OPEN MAP VIEW
+// ═══════════════════════════════
 function openMapView(map,readOnly){
-  currentMap={...map}; currentMapId=map.id; isReadOnly=readOnly;
+  currentMap={...map};
+  currentMapId=map.id;
+  isReadOnly=readOnly;
+
   document.getElementById('home-screen').style.display='none';
   document.getElementById('map-view').classList.add('open');
-  document.getElementById('mv-title').textContent=(readOnly?'👁️ ':'🗺️ ')+'Map #'+map.num+' — '+map.userName;
+
+  document.getElementById('mv-title').textContent=
+    (readOnly?'👁️ ':'🗺️ ')+'Map #'+map.num+' — '+map.userName+' · '+map.date;
+
   document.getElementById('ro-banner').style.display=readOnly?'block':'none';
-  document.getElementById('ro-name').textContent=map.userName;
+  document.getElementById('ro-name').textContent=map.userName+' · Map #'+map.num;
+
   document.getElementById('mv-share').style.display=readOnly?'none':'';
   document.getElementById('mv-reset').style.display=readOnly?'none':'';
+  document.getElementById('mv-hint').textContent=readOnly
+    ?'Read-only — tap a pin to view note'
+    :'Tap to add note · Pinch to zoom up to 10x · Double-tap to reset';
+
   render();
 }
 
-document.getElementById('mv-back').addEventListener('click',()=>{if(!isReadOnly) persistCurrent(); document.getElementById('map-view').classList.remove('open'); document.getElementById('home-screen').style.display='flex'; renderHome();});
+document.getElementById('mv-back').addEventListener('click',()=>{
+  if(!isReadOnly) persistCurrent();
+  document.getElementById('map-view').classList.remove('open');
+  document.getElementById('home-screen').style.display='flex';
+  renderHome();
+});
 
 function persistCurrent(){
   if(isReadOnly||!currentMapId)return;
-  if(store.myMaps[currentMapId]){store.myMaps[currentMapId].annotations=currentMap.annotations; saveStore(store);}
+  if(store.myMaps[currentMapId]){
+    store.myMaps[currentMapId].annotations=currentMap.annotations;
+    saveStore(store);
+  }
 }
 
 // ═══════════════════════════════
-// RENDERING & PINS (900 lines logic part 4)
+// RENDER PINS
 // ═══════════════════════════════
 function render(){
   document.querySelectorAll('.pin').forEach(e=>e.remove());
   (currentMap.annotations||[]).forEach(a=>{
     const pin=document.createElement('div');
-    pin.className='pin'; pin.style.left=a.x+'%'; pin.style.top=a.y+'%';
+    pin.className='pin';pin.style.left=a.x+'%';pin.style.top=a.y+'%';pin.dataset.id=a.id;
     pin.innerHTML='<div class="pin-dot"></div>';
+    // Touch: only open note if it was a real tap (not zoom/pan)
     pin.addEventListener('touchend',ev=>{
       if(_tapWasMulti) return;
       const t=ev.changedTouches[0];
       const dx=t.clientX-_tapStartX, dy=t.clientY-_tapStartY;
       if(Math.sqrt(dx*dx+dy*dy)>8) return;
       if(Date.now()-_tapStartT>400) return;
-      ev.stopPropagation(); ev.preventDefault();
+      ev.stopPropagation();ev.preventDefault();
       openViewNote(a.id);
-    });
-    pin.addEventListener('click',ev=>{ev.stopPropagation(); openViewNote(a.id)});
+    },{passive:false});
+    // Mouse fallback
+    pin.addEventListener('click',ev=>{ev.stopPropagation();openViewNote(a.id)});
     document.getElementById('map-wrapper').appendChild(pin);
   });
   renderList();
+  document.getElementById('count-badge-mv') && (document.getElementById('count-badge-mv').textContent=(currentMap.annotations||[]).length);
 }
 
 function renderList(){
   const panel=document.getElementById('mv-list-panel');
   const anns=currentMap.annotations||[];
-  panel.innerHTML=anns.length?anns.map(a=>{
+  if(!anns.length){panel.innerHTML='<p style="padding:11px 14px;color:#6b9e6b;font-size:12px">No notes yet.</p>';return}
+  panel.innerHTML=anns.map(a=>{
     const z=detectZone(a.x,a.y);
-    return `<div class="list-item" onclick="openViewNote(${a.id})"><div class="li-num">${a.num||'?'}</div><span class="li-zone" style="background:${z?z.bg:'#374151'};color:${z?z.color:'#fff'}">${z?z.name:'?'}</span><div class="li-text">${a.text}</div></div>`;
-  }).join(''):'<p style="padding:14px;color:#6b9e6b">No notes yet.</p>';
+    return `<div class="list-item" data-id="${a.id}">
+      <div class="li-num">${esc(a.num||'?')}</div>
+      <span class="li-zone" style="background:${z?z.bg:'#374151'};color:${z?z.color:'#d1d5db'}">${z?z.name:'?'}</span>
+      <div class="li-text">${esc(a.text)}</div>
+    </div>`;
+  }).join('');
+  panel.querySelectorAll('.list-item').forEach(el=>el.addEventListener('click',()=>openViewNote(Number(el.dataset.id))));
 }
 
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
+
 document.getElementById('mv-toggle-list').addEventListener('click',()=>{
-  const p=document.getElementById('mv-list-panel'); const o=p.classList.toggle('open');
+  const p=document.getElementById('mv-list-panel');const o=p.classList.toggle('open');
   document.getElementById('mv-toggle-list').textContent=o?'▲ NOTE LIST':'▼ NOTE LIST';
 });
 
+// ═══════════════════════════════
+// MAP TAP
+// ═══════════════════════════════
+// Tap detection: only fire if touch was short, didn't move much, and was single finger
 let _tapStartX=0,_tapStartY=0,_tapStartT=0,_tapWasMulti=false;
-document.getElementById('map-wrapper').addEventListener('touchstart',ev=>{_tapWasMulti=ev.touches.length>1; if(ev.touches.length===1){_tapStartX=ev.touches[0].clientX; _tapStartY=ev.touches[0].clientY; _tapStartT=Date.now();}},{passive:true});
-document.getElementById('map-wrapper').addEventListener('touchmove',ev=>{if(ev.touches.length>1)_tapWasMulti=true;},{passive:true});
+
+document.getElementById('map-wrapper').addEventListener('touchstart',ev=>{
+  _tapWasMulti = ev.touches.length > 1;
+  if(ev.touches.length===1){
+    _tapStartX=ev.touches[0].clientX;
+    _tapStartY=ev.touches[0].clientY;
+    _tapStartT=Date.now();
+  }
+},{passive:true});
+
+document.getElementById('map-wrapper').addEventListener('touchmove',ev=>{
+  if(ev.touches.length>1) _tapWasMulti=true;
+},{passive:true});
 
 document.getElementById('map-wrapper').addEventListener('touchend',ev=>{
-  if(_tapWasMulti||ev.changedTouches.length!==1)return;
+  if(_tapWasMulti) return;                          // was a pinch — ignore
+  if(ev.changedTouches.length!==1) return;
   const touch=ev.changedTouches[0];
-  if(Math.sqrt(Math.pow(touch.clientX-_tapStartX,2)+Math.pow(touch.clientY-_tapStartY,2))>8||(Date.now()-_tapStartT)>400)return;
-  handleMapTap(touch); ev.preventDefault();
+  const dx=touch.clientX-_tapStartX;
+  const dy=touch.clientY-_tapStartY;
+  const dt=Date.now()-_tapStartT;
+  if(Math.sqrt(dx*dx+dy*dy)>8) return;             // finger moved — was a pan, ignore
+  if(dt>400) return;                                // held too long — ignore
+  const synth={clientX:touch.clientX,clientY:touch.clientY,target:touch.target,currentTarget:document.getElementById('map-wrapper')};
+  handleMapTap(synth);
+  ev.preventDefault();
 },{passive:false});
 
-document.getElementById('map-wrapper').addEventListener('click',ev=>{if('ontouchstart'in window)return; handleMapTap(ev);});
-
+document.getElementById('map-wrapper').addEventListener('click',ev=>{
+  if('ontouchstart' in window)return; // mobile handled by touchend
+  handleMapTap(ev);
+});
 function handleMapTap(ev){
   if(isReadOnly||ev.target.closest('.pin'))return;
-  const wr=document.getElementById('map-wrapper').getBoundingClientRect();
+  // Account for CSS transform (zoom/pan) when calculating tap position
+  const wrapper2=document.getElementById('map-wrapper');
+  const wr=wrapper2.getBoundingClientRect();
   pendingX=((ev.clientX-wr.left)/wr.width*100).toFixed(2);
   pendingY=((ev.clientY-wr.top)/wr.height*100).toFixed(2);
   editingId=null;
@@ -600,98 +725,163 @@ function handleMapTap(ev){
   document.getElementById('edit-del').style.display='none';
   applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(pendingX,pendingY));
   document.getElementById('edit-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
 
 // ═══════════════════════════════
-// NOTE MODALS (900 lines logic part 5)
+// EDIT NOTE
 // ═══════════════════════════════
-function openViewNote(id){
-  viewingId=id; const a=currentMap.annotations.find(a=>a.id===id);
-  document.getElementById('view-modal-title').textContent='Bungalow '+(a.num||'?');
-  document.getElementById('view-text').textContent=a.text;
-  applyZoneTag(document.getElementById('view-zone-tag'),detectZone(a.x,a.y));
-  document.getElementById('view-edit').style.display=isReadOnly?'none':'';
-  document.getElementById('view-done').style.display=isReadOnly?'none':'';
-  document.getElementById('view-modal').classList.add('open');
-}
-
-document.getElementById('edit-save').addEventListener('click',()=>{
-  const txt=document.getElementById('edit-text').value.trim();
-  const num=document.getElementById('edit-num').value.trim();
-  if(!txt&&!num)return;
-  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId); a.text=txt; a.num=num;}
-  else{if(!currentMap.annotations)currentMap.annotations=[]; currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num});}
-  persistCurrent(); render(); document.getElementById('edit-modal').classList.remove('open');
-});
-
-document.getElementById('edit-del').addEventListener('click',()=>{currentMap.annotations=currentMap.annotations.filter(a=>a.id!==editingId); persistCurrent(); render(); document.getElementById('edit-modal').classList.remove('open');});
-document.getElementById('edit-close').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
-document.getElementById('edit-cancel').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
-
-document.getElementById('view-edit').addEventListener('click',()=>{
-  document.getElementById('view-modal').classList.remove('open');
-  editingId=viewingId; const a=currentMap.annotations.find(a=>a.id===editingId);
+function openEditNote(id){
+  editingId=id;
+  const a=currentMap.annotations.find(a=>a.id===id);
   document.getElementById('edit-modal-title').textContent='Edit note';
   document.getElementById('edit-num').value=a.num||'';
   document.getElementById('edit-text').value=a.text||'';
   document.getElementById('edit-del').style.display='';
   applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(a.x,a.y));
   document.getElementById('edit-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('edit-num').focus(),150);
+}
+document.getElementById('edit-save').addEventListener('click',()=>{
+  const txt=document.getElementById('edit-text').value.trim();
+  const num=document.getElementById('edit-num').value.trim();
+  if(!txt&&!num)return;
+  if(!currentMap.annotations)currentMap.annotations=[];
+  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId);if(a){a.text=txt;a.num=num}}
+  else currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num});
+  persistCurrent();render();
+  document.getElementById('edit-modal').classList.remove('open');
 });
+document.getElementById('edit-del').addEventListener('click',()=>{
+  currentMap.annotations=currentMap.annotations.filter(a=>a.id!==editingId);
+  persistCurrent();render();document.getElementById('edit-modal').classList.remove('open');
+});
+document.getElementById('edit-close').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
+document.getElementById('edit-cancel').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
 
-document.getElementById('view-done').addEventListener('click',()=>{currentMap.annotations=currentMap.annotations.filter(a=>a.id!==viewingId); persistCurrent(); render(); document.getElementById('view-modal').classList.remove('open');});
+// ═══════════════════════════════
+// VIEW NOTE
+// ═══════════════════════════════
+function openViewNote(id){
+  viewingId=id;
+  const a=currentMap.annotations.find(a=>a.id===id);
+  document.getElementById('view-modal-title').textContent='Bungalow '+(a.num||'?');
+  document.getElementById('view-text').textContent=a.text;
+  applyZoneTag(document.getElementById('view-zone-tag'),detectZone(a.x,a.y));
+  // In readonly: hide edit+done, show only close
+  if(isReadOnly){
+    document.getElementById('view-edit').style.display='none';
+    document.getElementById('view-done').style.display='none';
+  } else {
+    document.getElementById('view-edit').style.display='';
+    document.getElementById('view-done').style.display='';
+  }
+  document.getElementById('view-modal').classList.add('open');
+}
+document.getElementById('view-done').addEventListener('click',()=>{
+  currentMap.annotations=currentMap.annotations.filter(a=>a.id!==viewingId);
+  persistCurrent();render();document.getElementById('view-modal').classList.remove('open');
+});
+document.getElementById('view-edit').addEventListener('click',()=>{
+  document.getElementById('view-modal').classList.remove('open');openEditNote(viewingId);
+});
 document.getElementById('view-close').addEventListener('click',()=>document.getElementById('view-modal').classList.remove('open'));
 
 // ═══════════════════════════════
-// SHARE & PDF (900 lines logic part 6)
+// SHARE — encode map in URL
 // ═══════════════════════════════
 document.getElementById('mv-share').addEventListener('click',()=>{
-  const payload={id:currentMap.id,num:currentMap.num,userName:currentMap.userName,date:currentMap.date,annotations:currentMap.annotations||[]};
-  const link=window.location.href.split('?')[0]+'?data='+btoa(encodeURIComponent(JSON.stringify(payload)));
+  const link=buildShareLink();
   document.getElementById('share-link-ta').value=link;
+  document.getElementById('share-map-name').textContent='🗺️ Map #'+currentMap.num+' — '+currentMap.userName;
+  document.getElementById('share-map-detail').textContent='📅 '+currentMap.date+' · '+(currentMap.annotations?.length||0)+' notes';
   document.getElementById('share-modal').classList.add('open');
 });
 
+function buildShareLink(){
+  const payload={
+    id:currentMap.id,
+    num:currentMap.num,
+    userName:currentMap.userName,
+    date:currentMap.date,
+    annotations:currentMap.annotations||[]
+  };
+  const encoded=btoa(encodeURIComponent(JSON.stringify(payload)));
+  return window.location.href.split('?')[0]+'?data='+encoded;
+}
+
 document.getElementById('share-wa').addEventListener('click',()=>{
-  const msg='🏕️ Camping Castell Montgrí\nMap #'+currentMap.num+' — '+currentMap.userName+'\n👉 Open map:\n'+document.getElementById('share-link-ta').value;
+  const link=buildShareLink();
+  const msg='🏕️ Camping Castell Montgrí\nMap #'+currentMap.num+' — '+currentMap.userName+'\n📅 '+currentMap.date+'\n\n👉 Open map:\n'+link;
   window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 });
-
 document.getElementById('share-copy').addEventListener('click',()=>{
-  const ta=document.getElementById('share-link-ta'); ta.select();
-  navigator.clipboard.writeText(ta.value);
-  const b=document.getElementById('share-copy'); b.textContent='✓ Copied!';
+  const ta=document.getElementById('share-link-ta');ta.select();
+  try{if(navigator.clipboard)navigator.clipboard.writeText(ta.value);else document.execCommand('copy')}catch{}
+  const b=document.getElementById('share-copy');b.textContent='✓ Copied!';
   setTimeout(()=>b.textContent='Copy link',2000);
 });
-
 document.getElementById('share-close').addEventListener('click',()=>document.getElementById('share-modal').classList.remove('open'));
 
+// ═══════════════════════════════
+// PDF
+// ═══════════════════════════════
 function generatePdf(map){
-  const rows=(map.annotations||[]).map(a=>{
+  const anns=map.annotations||[];
+  let rows=anns.length?anns.map(a=>{
     const z=detectZone(a.x,a.y);
-    return `<tr><td style="padding:10px;border-bottom:1px solid #eee"><strong>Bungalow ${a.num||'?'}</strong><br><small>${z?z.name:'?'} zone</small></td><td style="padding:10px;border-bottom:1px solid #eee;white-space:pre-wrap">${a.text}</td></tr>`;
-  }).join('');
-  const html=`<html><body style="font-family:sans-serif;padding:20px"><h2>🏕️ Castell Montgrí - Map #${map.num}</h2><p>Operator: ${map.userName} | Date: ${map.date}</p><table style="width:100%;border-collapse:collapse;margin-top:20px"><thead><tr style="background:#162616;color:#fff"><th>Bungalow</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table><script>window.onload=()=>window.print()<\/script></body></html>`;
+    return `<tr>
+      <td style="padding:10px 14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap">
+        <strong style="color:#c0392b;font-size:15px">Bungalow ${a.num||'?'}</strong><br>
+        <span style="background:${z?z.bg:'#6b7280'};color:${z?z.color:'#fff'};border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700">${z?z.name:'?'} zone</span>
+      </td>
+      <td style="padding:10px 14px;border-bottom:1px solid #eee;font-size:13px;line-height:1.7;vertical-align:top;white-space:pre-wrap">${a.text}</td>
+    </tr>`;
+  }).join(''):'<tr><td colspan="2" style="padding:20px;color:#999;text-align:center">No notes.</td></tr>';
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Notes ${map.userName}</title>
+  <style>body{font-family:Arial,sans-serif;padding:28px;color:#222}h1{color:#1a5c1a;font-size:19px;margin-bottom:4px}.sub{color:#666;font-size:13px;margin-bottom:22px}table{width:100%;border-collapse:collapse}th{background:#1a5c1a;color:#fff;padding:10px 14px;text-align:left;font-size:13px}tr:nth-child(even)td{background:#f6faf6}.footer{margin-top:20px;font-size:11px;color:#bbb}</style>
+  </head><body>
+  <h1>🏕️ Camping Castell Montgrí</h1>
+  <div class="sub">Operator: <strong>${map.userName}</strong> &nbsp;|&nbsp; Map: <strong>#${map.num}</strong> &nbsp;|&nbsp; ${map.date}</div>
+  <table><thead><tr><th>Bungalow</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>
+  <div class="footer">Generated ${new Date().toLocaleString('en-GB')}</div>
+  <script>window.onload=function(){window.print()}<\/script></body></html>`;
+
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
-  a.download=`notes-${map.userName.toLowerCase()}.html`;
-  a.click();
+  a.href=url;a.download=`notes-${map.userName.toLowerCase()}-map${map.num}.html`;
+  a.click();URL.revokeObjectURL(url);
 }
 
 document.getElementById('mv-pdf').addEventListener('click',()=>generatePdf(currentMap));
 function roDownloadPdf(){generatePdf(currentMap)}
 
+// ═══════════════════════════════
+// RESET
+// ═══════════════════════════════
 document.getElementById('mv-reset').addEventListener('click',()=>{
-  showConfirm('Reset all notes on this map?',()=>{currentMap.annotations=[]; persistCurrent(); render();});
+  showConfirm('Reset all notes on this map?',()=>{
+    currentMap.annotations=[];persistCurrent();render();
+  });
 });
 
+// ═══════════════════════════════
+// CONFIRM HELPER
+// ═══════════════════════════════
 function showConfirm(msg,cb){
   document.getElementById('confirm-msg').textContent=msg;
   confirmCallback=cb;
   document.getElementById('confirm-overlay').classList.add('open');
 }
-document.getElementById('confirm-yes').addEventListener('click',()=>{document.getElementById('confirm-overlay').classList.remove('open'); if(confirmCallback)confirmCallback();});
-document.getElementById('confirm-no').addEventListener('click',()=>document.getElementById('confirm-overlay').classList.remove('open'));
+document.getElementById('confirm-yes').addEventListener('click',()=>{
+  document.getElementById('confirm-overlay').classList.remove('open');
+  if(confirmCallback)confirmCallback();confirmCallback=null;
+});
+document.getElementById('confirm-no').addEventListener('click',()=>{
+  document.getElementById('confirm-overlay').classList.remove('open');confirmCallback=null;
+});
 </script>
 </body>
 </html>
