@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=15.0, user-scalable=yes"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes"/>
 <title>Camping Castell Montgrí</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -256,7 +256,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   <div id="map-container">
     <div id="map-wrapper">
       <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" alt="Camping map"/>
-<canvas id="zoneCanvas" style="display:none"></canvas>
     </div>
   </div>
   <button id="mv-toggle-list">▼ NOTE LIST</button>
@@ -307,17 +306,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
       <h2>Share map</h2>
       <button class="fs-close" id="share-close">✕</button>
     </div>
-    <div class="fs-body" style="gap:14px">
-      <div id="share-map-info" style="background:#162616;border-radius:12px;padding:14px;border:1px solid #2d4a2d">
-        <div style="font-size:16px;font-weight:800;color:#a8d5a2" id="share-map-name">—</div>
-        <div style="font-size:12px;color:#6b9e6b;margin-top:4px" id="share-map-detail">—</div>
-      </div>
+    <div class="fs-body">
       <p style="font-size:13px;color:#6b9e6b;line-height:1.6">
-        Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download a PDF.<br>
-        Map stays saved on their device until they delete it.
+        Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download PDF.<br>
+        Map stays saved until they delete it.
       </p>
-      <!-- hidden textarea just for copy/WA — not shown -->
-      <textarea id="share-link-ta" readonly style="position:absolute;left:-9999px;opacity:0;height:1px"></textarea>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="fs-label">Map link</div>
+        <textarea class="share-ta" id="share-link-ta" readonly></textarea>
+      </div>
     </div>
     <div class="fs-footer">
       <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
@@ -393,7 +390,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   container.addEventListener('touchmove',e=>{
     if(isPinching && e.touches.length===2){
       const newDist=dist(e.touches);
-      const newScale=clamp(startScale*(newDist/startDist),1,15);
+      const newScale=clamp(startScale*(newDist/startDist),1,10);
       // zoom toward pinch midpoint
       const mid=midpoint(e.touches);
       const rect=container.getBoundingClientRect();
@@ -422,7 +419,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   container.addEventListener('wheel',e=>{
     e.preventDefault();
     const factor=e.deltaY<0?1.15:0.87;
-    const newScale=clamp(scale*factor,1,15);
+    const newScale=clamp(scale*factor,1,10);
     const rect=container.getBoundingClientRect();
     const px=e.clientX-rect.left-rect.width/2;
     const py=e.clientY-rect.top-rect.height/2;
@@ -440,91 +437,24 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 // ═══════════════════════════════
 // ZONES
 // ═══════════════════════════════
-// ── PIXEL-BASED ZONE DETECTION ──
 const ZONES=[
-  {name:'Blue',   rgb:[25,145,205],  bg:'#1d4ed8', color:'#fff'},
-  {name:'Yellow', rgb:[252,242,31],  bg:'#facc15', color:'#000'},
-  {name:'Orange', rgb:[235,130,12],  bg:'#ea580c', color:'#fff'},
-  {name:'Grey',   rgb:[179,179,179], bg:'#6b7280', color:'#fff'},
-  {name:'Brown',  rgb:[141,99,83],   bg:'#92400e', color:'#fff'},
-  {name:'Red',    rgb:[220,38,38],   bg:'#dc2626', color:'#fff'},
+  // Order: most specific/small first, large zones last
+  {name:'Red',    color:'#fff',bg:'#dc2626',xMin:65, xMax:100,yMin:65,yMax:100},
+  {name:'Yellow', color:'#000',bg:'#eab308',xMin:0,  xMax:22, yMin:60,yMax:100},
+  {name:'Grey',   color:'#fff',bg:'#6b7280',xMin:50, xMax:74, yMin:16,yMax:58 },
+  {name:'Brown',  color:'#fff',bg:'#92400e',xMin:15, xMax:55, yMin:43,yMax:76 },
+  {name:'Orange', color:'#fff',bg:'#ea580c',xMin:50, xMax:90, yMin:36,yMax:88 },
+  {name:'Blue',   color:'#fff',bg:'#1d4ed8',xMin:0,  xMax:55, yMin:0, yMax:62 },
 ];
-
-const _canvas=document.getElementById('zoneCanvas');
-const _ctx=_canvas.getContext('2d',{willReadFrequently:true});
-const _img=document.getElementById('mapImg');
-_img.addEventListener('load',()=>{
-  _canvas.width=_img.naturalWidth;
-  _canvas.height=_img.naturalHeight;
-  _ctx.drawImage(_img,0,0);
-});
-// If already loaded (cached)
-if(_img.complete && _img.naturalWidth>0){
-  _canvas.width=_img.naturalWidth;
-  _canvas.height=_img.naturalHeight;
-  _ctx.drawImage(_img,0,0);
-}
-
-function detectZoneByPixel(xPct,yPct){
-  if(_canvas.width===0)return null;
-  const x=(parseFloat(xPct)/100)*_canvas.width;
-  const y=(parseFloat(yPct)/100)*_canvas.height;
-  const p=_ctx.getImageData(x,y,1,1).data;
-  const bright=p[0]+p[1]+p[2];
-  if(bright>745||bright<35)return null; // white/black = path/background
-  let closest=null,minD=Infinity;
-  for(const z of ZONES){
-    const d=Math.sqrt((p[0]-z.rgb[0])**2+(p[1]-z.rgb[1])**2+(p[2]-z.rgb[2])**2);
-    if(d<minD){minD=d;closest=z;}
-  }
-  return minD<120?closest:null; // threshold — ignore if too different
-}
-
-function getZoneByName(name){return ZONES.find(z=>z.name===name)||null;}
-function detectZone(x,y){return detectZoneByPixel(x,y);}
-
-// Zone picker CSS — manual override still available
-const styleEl=document.createElement('style');
-styleEl.textContent=`.zp-btn{
-  padding:8px 16px;border:2px solid transparent;border-radius:20px;
-  font-size:13px;font-weight:800;cursor:pointer;transition:all .15s;
-  opacity:0.55;letter-spacing:.03em;min-height:40px;
-}
-.zp-btn.selected{opacity:1;border-color:rgba(255,255,255,0.9);transform:scale(1.1);}
-.zp-btn:active{transform:scale(0.95);}`;
-document.head.appendChild(styleEl);
-
-function buildZonePicker(selectedName){
-  const picker=document.getElementById('zone-picker');
-  picker.innerHTML='';
-  const noneBtn=document.createElement('button');
-  noneBtn.className='zp-btn'+(selectedName===''?' selected':'');
-  noneBtn.dataset.zone='';noneBtn.textContent='None';
-  noneBtn.style.background='#374151';noneBtn.style.color='#d1d5db';
-  noneBtn.addEventListener('click',()=>{
-    picker.querySelectorAll('.zp-btn').forEach(b=>b.classList.remove('selected'));
-    noneBtn.classList.add('selected');
-  });
-  picker.appendChild(noneBtn);
-  ZONES.forEach(z=>{
-    const btn=document.createElement('button');
-    btn.className='zp-btn'+(selectedName===z.name?' selected':'');
-    btn.dataset.zone=z.name;btn.textContent=z.name;
-    btn.style.background=z.bg;btn.style.color=z.color;
-    btn.addEventListener('click',()=>{
-      picker.querySelectorAll('.zp-btn').forEach(b=>b.classList.remove('selected'));
-      btn.classList.add('selected');
-    });
-    picker.appendChild(btn);
-  });
+function detectZone(x,y){
+  const xp=parseFloat(x),yp=parseFloat(y);
+  for(const z of ZONES)if(xp>=z.xMin&&xp<=z.xMax&&yp>=z.yMin&&yp<=z.yMax)return z;
+  return null;
 }
 function applyZoneTag(el,zone){
-  el.textContent=zone?zone.name+' zone':'— no zone';
+  el.textContent=zone?zone.name+' zone':'Unknown zone';
   el.style.background=zone?zone.bg:'#374151';
   el.style.color=zone?zone.color:'#d1d5db';
-}
-function applyZoneTagByName(el,name){
-  applyZoneTag(el,name?getZoneByName(name):null);
 }
 
 // ═══════════════════════════════
@@ -610,18 +540,14 @@ function renderHome(){
 renderHome();
 
 function deleteMyMap(id){
-  const m=store.myMaps[id];
-  if(!m)return;
-  if(confirm('Delete Map #'+m.num+' — '+m.userName+'?')){
+  showConfirm('Delete Map #'+store.myMaps[id].num+'?',()=>{
     delete store.myMaps[id];saveStore(store);renderHome();
-  }
+  });
 }
 function deleteRecvMap(id){
-  const m=store.recvMaps[id];
-  if(!m)return;
-  if(confirm('Delete received map from '+m.userName+'?')){
+  showConfirm('Delete received map?',()=>{
     delete store.recvMaps[id];saveStore(store);renderHome();
-  }
+  });
 }
 
 // ═══════════════════════════════
@@ -670,7 +596,7 @@ function openMapView(map,readOnly){
   document.getElementById('mv-reset').style.display=readOnly?'none':'';
   document.getElementById('mv-hint').textContent=readOnly
     ?'Read-only — tap a pin to view note'
-    :'Tap to add note · Pinch to zoom up to 15x · Double-tap to reset';
+    :'Tap to add note · Pinch to zoom up to 10x · Double-tap to reset';
 
   render();
 }
@@ -699,6 +625,17 @@ function render(){
     const pin=document.createElement('div');
     pin.className='pin';pin.style.left=a.x+'%';pin.style.top=a.y+'%';pin.dataset.id=a.id;
     pin.innerHTML='<div class="pin-dot"></div>';
+    // Touch: only open note if it was a real tap (not zoom/pan)
+    pin.addEventListener('touchend',ev=>{
+      if(_tapWasMulti) return;
+      const t=ev.changedTouches[0];
+      const dx=t.clientX-_tapStartX, dy=t.clientY-_tapStartY;
+      if(Math.sqrt(dx*dx+dy*dy)>8) return;
+      if(Date.now()-_tapStartT>400) return;
+      ev.stopPropagation();ev.preventDefault();
+      openViewNote(a.id);
+    },{passive:false});
+    // Mouse fallback
     pin.addEventListener('click',ev=>{ev.stopPropagation();openViewNote(a.id)});
     document.getElementById('map-wrapper').appendChild(pin);
   });
@@ -711,7 +648,7 @@ function renderList(){
   const anns=currentMap.annotations||[];
   if(!anns.length){panel.innerHTML='<p style="padding:11px 14px;color:#6b9e6b;font-size:12px">No notes yet.</p>';return}
   panel.innerHTML=anns.map(a=>{
-    const z=a.zone?getZoneByName(a.zone):null;
+    const z=detectZone(a.x,a.y);
     return `<div class="list-item" data-id="${a.id}">
       <div class="li-num">${esc(a.num||'?')}</div>
       <span class="li-zone" style="background:${z?z.bg:'#374151'};color:${z?z.color:'#d1d5db'}">${z?z.name:'?'}</span>
@@ -729,9 +666,43 @@ document.getElementById('mv-toggle-list').addEventListener('click',()=>{
 });
 
 // ═══════════════════════════════
-// MAP TAP — simple click works on both mobile and desktop
+// MAP TAP
 // ═══════════════════════════════
+// Tap detection: only fire if touch was short, didn't move much, and was single finger
+let _tapStartX=0,_tapStartY=0,_tapStartT=0,_tapWasMulti=false;
+
+document.getElementById('map-wrapper').addEventListener('touchstart',ev=>{
+  _tapWasMulti = ev.touches.length > 1;
+  if(ev.touches.length===1){
+    _tapStartX=ev.touches[0].clientX;
+    _tapStartY=ev.touches[0].clientY;
+    _tapStartT=Date.now();
+  }
+},{passive:true});
+
+document.getElementById('map-wrapper').addEventListener('touchmove',ev=>{
+  if(ev.touches.length>1) _tapWasMulti=true;
+},{passive:true});
+
+document.getElementById('map-wrapper').addEventListener('touchend',ev=>{
+  if(_tapWasMulti) return;                          // was a pinch — ignore
+  if(ev.changedTouches.length!==1) return;
+  const touch=ev.changedTouches[0];
+  const dx=touch.clientX-_tapStartX;
+  const dy=touch.clientY-_tapStartY;
+  const dt=Date.now()-_tapStartT;
+  if(Math.sqrt(dx*dx+dy*dy)>8) return;             // finger moved — was a pan, ignore
+  if(dt>400) return;                                // held too long — ignore
+  const synth={clientX:touch.clientX,clientY:touch.clientY,target:touch.target,currentTarget:document.getElementById('map-wrapper')};
+  handleMapTap(synth);
+  ev.preventDefault();
+},{passive:false});
+
 document.getElementById('map-wrapper').addEventListener('click',ev=>{
+  if('ontouchstart' in window)return; // mobile handled by touchend
+  handleMapTap(ev);
+});
+function handleMapTap(ev){
   if(isReadOnly||ev.target.closest('.pin'))return;
   // Account for CSS transform (zoom/pan) when calculating tap position
   const wrapper2=document.getElementById('map-wrapper');
@@ -743,8 +714,7 @@ document.getElementById('map-wrapper').addEventListener('click',ev=>{
   document.getElementById('edit-num').value='';
   document.getElementById('edit-text').value='';
   document.getElementById('edit-del').style.display='none';
-  const autoZone=detectZoneByPixel(pendingX,pendingY);
-  buildZonePicker(autoZone?autoZone.name:'');
+  applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(pendingX,pendingY));
   document.getElementById('edit-modal').classList.add('open');
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
@@ -759,8 +729,7 @@ function openEditNote(id){
   document.getElementById('edit-num').value=a.num||'';
   document.getElementById('edit-text').value=a.text||'';
   document.getElementById('edit-del').style.display='';
-  const ez=a.zone?getZoneByName(a.zone):detectZoneByPixel(a.x,a.y);
-  buildZonePicker(ez?ez.name:'');
+  applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(a.x,a.y));
   document.getElementById('edit-modal').classList.add('open');
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
@@ -769,10 +738,8 @@ document.getElementById('edit-save').addEventListener('click',()=>{
   const num=document.getElementById('edit-num').value.trim();
   if(!txt&&!num)return;
   if(!currentMap.annotations)currentMap.annotations=[];
-  const chosenZone=document.querySelector('#zone-picker .zp-btn.selected');
-  const zoneName=chosenZone?chosenZone.dataset.zone:'';
-  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId);if(a){a.text=txt;a.num=num;a.zone=zoneName;}}
-  else currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num,zone:zoneName});
+  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId);if(a){a.text=txt;a.num=num}}
+  else currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num});
   persistCurrent();render();
   document.getElementById('edit-modal').classList.remove('open');
 });
@@ -791,7 +758,7 @@ function openViewNote(id){
   const a=currentMap.annotations.find(a=>a.id===id);
   document.getElementById('view-modal-title').textContent='Bungalow '+(a.num||'?');
   document.getElementById('view-text').textContent=a.text;
-  applyZoneTagByName(document.getElementById('view-zone-tag'),a.zone);
+  applyZoneTag(document.getElementById('view-zone-tag'),detectZone(a.x,a.y));
   // In readonly: hide edit+done, show only close
   if(isReadOnly){
     document.getElementById('view-edit').style.display='none';
@@ -851,7 +818,7 @@ document.getElementById('share-close').addEventListener('click',()=>document.get
 function generatePdf(map){
   const anns=map.annotations||[];
   let rows=anns.length?anns.map(a=>{
-    const z=a.zone?getZoneByName(a.zone):null;
+    const z=detectZone(a.x,a.y);
     return `<tr>
       <td style="padding:10px 14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap">
         <strong style="color:#c0392b;font-size:15px">Bungalow ${a.num||'?'}</strong><br>
