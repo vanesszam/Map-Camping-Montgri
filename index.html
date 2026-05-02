@@ -9,25 +9,13 @@
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;min-height:100vh}
 
 /* ── HOME SCREEN ── */
-#home-screen{
-  position:fixed;inset:0;background:#111d11;z-index:9999;
-  display:flex;flex-direction:column;overflow-y:auto;
-}
-.home-header{
-  background:#1e3320;padding:18px 16px 14px;border-bottom:1px solid #2d4a2d;
-  display:flex;align-items:center;gap:10px;flex-shrink:0;
-}
+#home-screen{position:fixed;inset:0;background:#111d11;z-index:9999;display:flex;flex-direction:column;overflow-y:auto}
+.home-header{background:#1e3320;padding:18px 16px 14px;border-bottom:1px solid #2d4a2d;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .home-header h1{font-size:18px;font-weight:800;color:#a8d5a2;flex:1}
 .home-header .today{font-size:11px;color:#6b9e6b;margin-top:2px}
-
 .home-body{flex:1;padding:14px 14px 100px}
 .section-title{font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:18px 0 8px}
-
-.map-card{
-  background:#1e3320;border-radius:12px;border:1px solid #2d4a2d;
-  padding:13px 14px;margin-bottom:8px;cursor:pointer;
-  display:flex;align-items:center;gap:12px;
-}
+.map-card{background:#1e3320;border-radius:12px;border:1px solid #2d4a2d;padding:13px 14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px}
 .map-card:active{background:#253d25}
 .map-card-left{flex:1}
 .map-card-num{font-size:15px;font-weight:800;color:#a8d5a2}
@@ -35,33 +23,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .map-card-badge{background:#dc2626;color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:2px 8px}
 .map-card-del{background:#3d1a1a;color:#f87171;border:none;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer}
 .map-card-del:active{background:#5a2222}
-
 .received-tag{background:#b45309;color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px;margin-left:6px}
-
-.fab{
-  position:fixed;bottom:24px;right:20px;z-index:10000;
-  background:#22c55e;color:#fff;border:none;border-radius:99px;
-  padding:14px 22px;font-size:15px;font-weight:800;cursor:pointer;
-  box-shadow:0 4px 16px rgba(0,0,0,0.4);
-}
+.fab{position:fixed;bottom:24px;right:20px;z-index:10000;background:#22c55e;color:#fff;border:none;border-radius:99px;padding:14px 22px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.4)}
 .fab:active{background:#16a34a}
 
-/* name input dialog */
-.name-dialog{
-  position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10001;
-  display:none;align-items:center;justify-content:center;
-}
+/* name dialog */
+.name-dialog{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10001;display:none;align-items:center;justify-content:center}
 .name-dialog.open{display:flex}
-.name-box{
-  background:#1e3320;border-radius:16px;padding:22px 18px;width:290px;
-  border:1px solid #2d4a2d;
-}
+.name-box{background:#1e3320;border-radius:16px;padding:22px 18px;width:290px;border:1px solid #2d4a2d}
 .name-box h3{font-size:15px;font-weight:700;color:#a8d5a2;margin-bottom:12px}
-.name-box input{
-  width:100%;font-size:18px;font-weight:700;
-  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
-  padding:11px 13px;color:#e8f5e8;font-family:inherit;margin-bottom:12px;
-}
+.name-box input{width:100%;font-size:18px;font-weight:700;background:#162616;border:1px solid #3d5c3d;border-radius:10px;padding:11px 13px;color:#e8f5e8;font-family:inherit;margin-bottom:12px}
 .name-box input:focus{outline:none;border-color:#22c55e}
 .name-box-btns{display:flex;gap:8px}
 .name-box-btns button{flex:1;padding:11px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
@@ -71,12 +42,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 /* ── MAP VIEW ── */
 #map-view{display:none;flex-direction:column;height:100vh;position:fixed;inset:0;z-index:100}
 #map-view.open{display:flex}
-
-/* header */
-#mv-header{
-  background:#1e3320;padding:8px 10px;flex-shrink:0;
-  display:flex;align-items:center;gap:8px;border-bottom:1px solid #2d4a2d;
-}
+#mv-header{background:#1e3320;padding:8px 10px;flex-shrink:0;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2d4a2d}
 #mv-back{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
 #mv-title{flex:1;font-size:12px;font-weight:700;color:#a8d5a2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mv-btn{font-size:11px;padding:6px 9px;border-radius:7px;cursor:pointer;border:none;font-weight:700;white-space:nowrap}
@@ -84,46 +50,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .mv-share{background:#25D366;color:#fff}
 .mv-pdf{background:#7c3aed;color:#fff}
 .mv-reset{background:#dc2626;color:#fff}
-
-/* readonly banner */
-#ro-banner{
-  display:none;background:#b45309;color:#fff;
-  text-align:center;padding:8px 14px;font-size:12px;font-weight:700;flex-shrink:0;
-}
+#ro-banner{display:none;background:#b45309;color:#fff;text-align:center;padding:8px 14px;font-size:12px;font-weight:700;flex-shrink:0}
 #ro-banner button{background:#fff;color:#b45309;border:none;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-left:8px}
-
 #mv-hint{background:#162616;text-align:center;font-size:11px;color:#6b9e6b;padding:4px;flex-shrink:0}
-
-/* map container — scrollable/zoomable */
 #map-container{flex:1;overflow:auto;position:relative;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
 #map-wrapper{position:relative;width:100%;min-width:100%}
 #mapImg{width:100%;display:block;touch-action:auto;user-select:none}
 
-/* pin */
-.pin{
-  position:absolute;
-  transform:translate(-50%,-50%);
-  cursor:pointer;z-index:20;
-  width:4px;height:4px;
-  display:flex;align-items:center;justify-content:center;
-  background:transparent;
-}
-.pin-dot{
-  width:3px;height:3px;
-  background:#dc2626;border-radius:50%;
-  border:1px solid rgba(255,255,255,.95);
-  box-shadow:0 0 2px rgba(0,0,0,1),0 0 4px rgba(220,38,38,.6);
-  transition:transform .1s;
-  pointer-events:none;
-  flex-shrink:0;
-}
+/* pin — 3px dot, 4px container */
+.pin{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:20;width:4px;height:4px;display:flex;align-items:center;justify-content:center;background:transparent}
+.pin-dot{width:3px;height:3px;background:#dc2626;border-radius:50%;border:1px solid rgba(255,255,255,.95);box-shadow:0 0 2px rgba(0,0,0,1),0 0 4px rgba(220,38,38,.6);transition:transform .1s;pointer-events:none;flex-shrink:0}
 .pin:active .pin-dot{transform:scale(3)}
 
-/* list panel */
-#mv-toggle-list{
-  width:100%;background:#1a2e1a;border:none;border-top:1px solid #2d4a2d;
-  color:#6b9e6b;font-size:11px;padding:6px;cursor:pointer;text-align:center;flex-shrink:0;
-}
+/* list */
+#mv-toggle-list{width:100%;background:#1a2e1a;border:none;border-top:1px solid #2d4a2d;color:#6b9e6b;font-size:11px;padding:6px;cursor:pointer;text-align:center;flex-shrink:0}
 #mv-list-panel{background:#162616;max-height:0;overflow:hidden;transition:max-height .3s ease;flex-shrink:0}
 #mv-list-panel.open{max-height:40vh;overflow-y:auto}
 .list-item{display:flex;align-items:flex-start;gap:8px;padding:9px 14px;border-bottom:1px solid #1e3320;cursor:pointer}
@@ -133,41 +73,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .li-text{font-size:12px;color:#c8e6c8;white-space:pre-wrap;word-break:break-word;flex:1;line-height:1.4}
 
 /* ── FULLSCREEN NOTE MODAL ── */
-.fs-modal{
-  display:none;position:fixed;inset:0;z-index:500;
-  background:#111d11;flex-direction:column;
-}
+.fs-modal{display:none;position:fixed;inset:0;z-index:500;background:#111d11;flex-direction:column}
 .fs-modal.open{display:flex}
-.fs-top{
-  background:#1e3320;padding:12px 14px 10px;flex-shrink:0;
-  display:flex;align-items:center;gap:10px;border-bottom:1px solid #2d4a2d;
-}
+.fs-top{background:#1e3320;padding:12px 14px 10px;flex-shrink:0;display:flex;align-items:center;gap:10px;border-bottom:1px solid #2d4a2d}
 .fs-top h2{font-size:16px;font-weight:700;color:#a8d5a2;flex:1}
 .fs-close{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:20px;padding:5px 14px;font-size:13px;cursor:pointer;font-weight:700}
 .fs-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
 .fs-label{font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
 .zone-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700}
-.fs-input{
-  width:100%;font-size:20px;font-weight:700;
-  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
-  padding:11px 13px;color:#e8f5e8;font-family:inherit;
-}
+.fs-input{width:100%;font-size:20px;font-weight:700;background:#162616;border:1px solid #3d5c3d;border-radius:10px;padding:11px 13px;color:#e8f5e8;font-family:inherit}
 .fs-input:focus{outline:none;border-color:#22c55e}
-.fs-textarea{
-  width:100%;flex:1;min-height:200px;font-size:15px;
-  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
-  padding:12px 13px;color:#e8f5e8;resize:none;font-family:inherit;line-height:1.6;
-}
+.fs-textarea{width:100%;flex:1;min-height:200px;font-size:15px;background:#162616;border:1px solid #3d5c3d;border-radius:10px;padding:12px 13px;color:#e8f5e8;resize:none;font-family:inherit;line-height:1.6}
 .fs-textarea:focus{outline:none;border-color:#22c55e}
-.note-view-text{
-  background:#162616;border:1px solid #2d4a2d;border-radius:10px;
-  padding:16px;font-size:16px;line-height:1.7;color:#e8f5e8;
-  white-space:pre-wrap;word-break:break-word;flex:1;
-}
-.fs-footer{
-  background:#1e3320;padding:12px 14px 28px;border-top:1px solid #2d4a2d;flex-shrink:0;
-  display:flex;gap:8px;
-}
+.note-view-text{background:#162616;border:1px solid #2d4a2d;border-radius:10px;padding:16px;font-size:16px;line-height:1.7;color:#e8f5e8;white-space:pre-wrap;word-break:break-word;flex:1}
+.fs-footer{background:#1e3320;padding:12px 14px 28px;border-top:1px solid #2d4a2d;flex-shrink:0;display:flex;gap:8px}
 .fs-footer button{flex:1;padding:13px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
 .fs-footer button:active{opacity:.75}
 .fsf-del{background:#7f1d1d;color:#fca5a5;flex:0 0 auto!important;padding:13px 16px!important}
@@ -177,31 +96,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .fsf-done{background:#22c55e;color:#fff}
 
 /* ── SHARE MODAL ── */
-#share-modal{
-  display:none;position:fixed;inset:0;z-index:600;
-  background:rgba(0,0,0,0.82);
-  align-items:center;justify-content:center;padding:16px;
-}
+#share-modal{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.82);align-items:center;justify-content:center;padding:16px}
 #share-modal.open{display:flex}
-#share-inner{
-  background:#1e3320;border-radius:16px;border:1px solid #2d4a2d;
-  width:100%;max-width:480px;display:flex;flex-direction:column;
-  max-height:90vh;overflow:hidden;
-}
+#share-inner{background:#1e3320;border-radius:16px;border:1px solid #2d4a2d;width:100%;max-width:480px;display:flex;flex-direction:column;max-height:90vh;overflow:hidden}
 #share-inner .fs-top{border-radius:16px 16px 0 0}
-#share-inner .fs-body{padding:14px}
+#share-inner .fs-body{padding:14px;gap:14px}
 #share-inner .fs-footer{border-radius:0 0 16px 16px;padding:12px 14px 16px}
-.share-ta{
-  width:100%;height:90px;background:#162616;border:1px solid #3d5c3d;
-  border-radius:10px;padding:10px 12px;color:#c8e6c8;font-size:11px;
-  font-family:monospace;resize:none;word-break:break-all;
-}
 
-/* ── CONFIRM DIALOG ── */
-.confirm-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;
-  align-items:center;justify-content:center;
-}
+/* ── CONFIRM ── */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;align-items:center;justify-content:center}
 .confirm-overlay.open{display:flex}
 .confirm-box{background:#1e3320;border-radius:16px;padding:24px 20px;width:285px;text-align:center;border:1px solid #2d4a2d}
 .confirm-box p{font-size:15px;color:#c8e6c8;margin-bottom:18px;line-height:1.5}
@@ -213,7 +116,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 </head>
 <body>
 
-<!-- ══ HOME SCREEN ══ -->
+<!-- HOME -->
 <div id="home-screen">
   <div class="home-header">
     <div>
@@ -237,12 +140,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
     <input id="name-input" type="text" placeholder="e.g. Vanessa" autocomplete="off"/>
     <div class="name-box-btns">
       <button class="nb-cancel" id="nb-cancel">Cancel</button>
-      <button class="nb-ok"     id="nb-ok">Create →</button>
+      <button class="nb-ok" id="nb-ok">Create →</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MAP VIEW ══ -->
+<!-- MAP VIEW -->
 <div id="map-view">
   <div id="mv-header">
     <button id="mv-back">← Back</button>
@@ -256,13 +159,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   <div id="map-container">
     <div id="map-wrapper">
       <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" alt="Camping map"/>
+      <canvas id="zoneCanvas" style="display:none"></canvas>
     </div>
   </div>
   <button id="mv-toggle-list">▼ NOTE LIST</button>
   <div id="mv-list-panel"></div>
 </div>
 
-<!-- ══ EDIT NOTE (fullscreen) ══ -->
+<!-- EDIT NOTE -->
 <div class="fs-modal" id="edit-modal">
   <div class="fs-top">
     <h2 id="edit-modal-title">New note</h2>
@@ -283,7 +187,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   </div>
 </div>
 
-<!-- ══ VIEW NOTE (fullscreen) ══ -->
+<!-- VIEW NOTE -->
 <div class="fs-modal" id="view-modal">
   <div class="fs-top">
     <h2 id="view-modal-title">Bungalow</h2>
@@ -299,7 +203,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   </div>
 </div>
 
-<!-- ══ SHARE MODAL ══ -->
+<!-- SHARE MODAL -->
 <div id="share-modal">
   <div id="share-inner">
     <div class="fs-top">
@@ -307,14 +211,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
       <button class="fs-close" id="share-close">✕</button>
     </div>
     <div class="fs-body">
-      <p style="font-size:13px;color:#6b9e6b;line-height:1.6">
-        Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download PDF.<br>
-        Map stays saved until they delete it.
-      </p>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <div class="fs-label">Map link</div>
-        <textarea class="share-ta" id="share-link-ta" readonly></textarea>
+      <!-- Map summary card -->
+      <div style="background:#162616;border-radius:12px;padding:14px;border:1px solid #2d4a2d">
+        <div style="font-size:16px;font-weight:800;color:#a8d5a2" id="share-map-name">—</div>
+        <div style="font-size:12px;color:#6b9e6b;margin-top:4px" id="share-map-detail">—</div>
       </div>
+      <p style="font-size:13px;color:#6b9e6b;line-height:1.6">
+        Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download a PDF.<br>
+        Map stays saved on their device until they delete it.
+      </p>
+      <!-- link hidden, used only for copy/WA -->
+      <textarea id="share-link-ta" readonly style="position:absolute;left:-9999px;height:1px;opacity:0"></textarea>
     </div>
     <div class="fs-footer">
       <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
@@ -323,7 +230,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   </div>
 </div>
 
-<!-- ══ CONFIRM ══ -->
+<!-- CONFIRM -->
 <div class="confirm-overlay" id="confirm-overlay">
   <div class="confirm-box">
     <p id="confirm-msg">Are you sure?</p>
@@ -336,121 +243,118 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 
 <script>
 // ═══════════════════════════════
-// PINCH ZOOM & PAN on map
+// PINCH ZOOM & PAN
 // ═══════════════════════════════
 (function(){
-  const container = document.getElementById('map-container');
-  const wrapper   = document.getElementById('map-wrapper');
-  let scale=1, lastScale=1;
-  let originX=0, originY=0;       // current translation
-  let startDist=0, startScale=1;
-  let startX=0, startY=0, startOX=0, startOY=0;
-  let isPinching=false, isDragging=false;
-  let lastTap=0;
+  const container=document.getElementById('map-container');
+  const wrapper=document.getElementById('map-wrapper');
+  let scale=1,originX=0,originY=0;
+  let startDist=0,startScale=1;
+  let startX=0,startY=0,startOX=0,startOY=0;
+  let isPinching=false,isDragging=false,lastTap=0;
 
   function clamp(v,mn,mx){return Math.min(Math.max(v,mn),mx)}
-
   function applyTransform(){
-    // clamp pan so map doesn't go too far off screen
-    const cw=container.clientWidth, ch=container.clientHeight;
-    const iw=wrapper.offsetWidth*scale, ih=wrapper.offsetHeight*scale;
-    const maxX=Math.max(0,(iw-cw)/2);
-    const maxY=Math.max(0,(ih-ch)/2);
-    originX=clamp(originX,-maxX,maxX);
-    originY=clamp(originY,-maxY,maxY);
+    const cw=container.clientWidth,ch=container.clientHeight;
+    const iw=wrapper.offsetWidth*scale,ih=wrapper.offsetHeight*scale;
+    originX=clamp(originX,-Math.max(0,(iw-cw)/2),Math.max(0,(iw-cw)/2));
+    originY=clamp(originY,-Math.max(0,(ih-ch)/2),Math.max(0,(ih-ch)/2));
     wrapper.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;
     wrapper.style.transformOrigin='center center';
   }
-
-  function dist(t){
-    const dx=t[0].clientX-t[1].clientX, dy=t[0].clientY-t[1].clientY;
-    return Math.sqrt(dx*dx+dy*dy);
-  }
-  function midpoint(t){
-    return{x:(t[0].clientX+t[1].clientX)/2, y:(t[0].clientY+t[1].clientY)/2};
-  }
+  function dist(t){const dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.sqrt(dx*dx+dy*dy)}
+  function mid(t){return{x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2}}
 
   container.addEventListener('touchstart',e=>{
     if(e.touches.length===2){
-      isPinching=true; isDragging=false;
-      startDist=dist(e.touches);
-      startScale=scale;
+      isPinching=true;isDragging=false;
+      startDist=dist(e.touches);startScale=scale;
       e.preventDefault();
     } else if(e.touches.length===1){
-      isDragging=true; isPinching=false;
-      startX=e.touches[0].clientX; startY=e.touches[0].clientY;
-      startOX=originX; startOY=originY;
-      // double-tap to reset zoom
+      isDragging=true;isPinching=false;
+      startX=e.touches[0].clientX;startY=e.touches[0].clientY;
+      startOX=originX;startOY=originY;
       const now=Date.now();
-      if(now-lastTap<300 && scale>1){scale=1;originX=0;originY=0;applyTransform();}
+      if(now-lastTap<300&&scale>1){scale=1;originX=0;originY=0;applyTransform();}
       lastTap=now;
     }
   },{passive:false});
 
   container.addEventListener('touchmove',e=>{
-    if(isPinching && e.touches.length===2){
-      const newDist=dist(e.touches);
-      const newScale=clamp(startScale*(newDist/startDist),1,10);
-      // zoom toward pinch midpoint
-      const mid=midpoint(e.touches);
+    if(isPinching&&e.touches.length===2){
+      const ns=clamp(startScale*(dist(e.touches)/startDist),1,15);
+      const m=mid(e.touches);
       const rect=container.getBoundingClientRect();
-      const px=mid.x-rect.left-rect.width/2;
-      const py=mid.y-rect.top-rect.height/2;
-      const factor=newScale/scale;
-      originX=(originX-px)*factor+px;
-      originY=(originY-py)*factor+py;
-      scale=newScale;
-      applyTransform();
-      e.preventDefault();
-    } else if(isDragging && e.touches.length===1 && scale>1){
+      const px=m.x-rect.left-rect.width/2,py=m.y-rect.top-rect.height/2;
+      const f=ns/scale;
+      originX=(originX-px)*f+px;originY=(originY-py)*f+py;
+      scale=ns;applyTransform();e.preventDefault();
+    } else if(isDragging&&e.touches.length===1&&scale>1){
       originX=startOX+(e.touches[0].clientX-startX);
       originY=startOY+(e.touches[0].clientY-startY);
-      applyTransform();
-      e.preventDefault();
+      applyTransform();e.preventDefault();
     }
   },{passive:false});
 
   container.addEventListener('touchend',e=>{
-    if(e.touches.length<2) isPinching=false;
-    if(e.touches.length===0) isDragging=false;
+    if(e.touches.length<2)isPinching=false;
+    if(e.touches.length===0)isDragging=false;
   });
 
-  // Desktop: mouse wheel zoom
   container.addEventListener('wheel',e=>{
     e.preventDefault();
-    const factor=e.deltaY<0?1.15:0.87;
-    const newScale=clamp(scale*factor,1,10);
+    const f=e.deltaY<0?1.15:0.87;
+    const ns=clamp(scale*f,1,15);
     const rect=container.getBoundingClientRect();
-    const px=e.clientX-rect.left-rect.width/2;
-    const py=e.clientY-rect.top-rect.height/2;
-    const f=newScale/scale;
-    originX=(originX-px)*f+px;
-    originY=(originY-py)*f+py;
-    scale=newScale;
-    applyTransform();
+    const px=e.clientX-rect.left-rect.width/2,py=e.clientY-rect.top-rect.height/2;
+    const ff=ns/scale;
+    originX=(originX-px)*ff+px;originY=(originY-py)*ff+py;
+    scale=ns;applyTransform();
   },{passive:false});
 
-  // Expose reset function
   window.resetMapZoom=function(){scale=1;originX=0;originY=0;applyTransform();}
 })();
 
 // ═══════════════════════════════
-// ZONES
+// PIXEL-BASED ZONE DETECTION
 // ═══════════════════════════════
-const ZONES=[
-  // Order: most specific/small first, large zones last
-  {name:'Red',    color:'#fff',bg:'#dc2626',xMin:65, xMax:100,yMin:65,yMax:100},
-  {name:'Yellow', color:'#000',bg:'#eab308',xMin:0,  xMax:22, yMin:60,yMax:100},
-  {name:'Grey',   color:'#fff',bg:'#6b7280',xMin:50, xMax:74, yMin:16,yMax:58 },
-  {name:'Brown',  color:'#fff',bg:'#92400e',xMin:15, xMax:55, yMin:43,yMax:76 },
-  {name:'Orange', color:'#fff',bg:'#ea580c',xMin:50, xMax:90, yMin:36,yMax:88 },
-  {name:'Blue',   color:'#fff',bg:'#1d4ed8',xMin:0,  xMax:55, yMin:0, yMax:62 },
+const ZONE_COLORS=[
+  {name:'Blue',   rgb:[25,145,205],  bg:'#1d4ed8',color:'#fff'},
+  {name:'Yellow', rgb:[252,242,31],  bg:'#facc15',color:'#000'},
+  {name:'Orange', rgb:[235,130,12],  bg:'#ea580c',color:'#fff'},
+  {name:'Grey',   rgb:[179,179,179], bg:'#6b7280',color:'#fff'},
+  {name:'Brown',  rgb:[141,99,83],   bg:'#92400e',color:'#fff'},
+  {name:'Red',    rgb:[220,38,38],   bg:'#dc2626',color:'#fff'},
 ];
-function detectZone(x,y){
-  const xp=parseFloat(x),yp=parseFloat(y);
-  for(const z of ZONES)if(xp>=z.xMin&&xp<=z.xMax&&yp>=z.yMin&&yp<=z.yMax)return z;
-  return null;
+const _canvas=document.getElementById('zoneCanvas');
+const _ctx=_canvas.getContext('2d',{willReadFrequently:true});
+const _img=document.getElementById('mapImg');
+
+function _loadCanvas(){
+  if(_img.naturalWidth>0){
+    _canvas.width=_img.naturalWidth;
+    _canvas.height=_img.naturalHeight;
+    _ctx.drawImage(_img,0,0);
+  }
 }
+_img.addEventListener('load',_loadCanvas);
+if(_img.complete)_loadCanvas();
+
+function detectZone(xPct,yPct){
+  if(_canvas.width===0)return null;
+  const x=(parseFloat(xPct)/100)*_canvas.width;
+  const y=(parseFloat(yPct)/100)*_canvas.height;
+  const p=_ctx.getImageData(x,y,1,1).data;
+  const bright=p[0]+p[1]+p[2];
+  if(bright>745||bright<35)return null;
+  let closest=null,minD=Infinity;
+  for(const z of ZONE_COLORS){
+    const d=Math.sqrt((p[0]-z.rgb[0])**2+(p[1]-z.rgb[1])**2+(p[2]-z.rgb[2])**2);
+    if(d<minD){minD=d;closest=z;}
+  }
+  return minD<120?closest:null;
+}
+
 function applyZoneTag(el,zone){
   el.textContent=zone?zone.name+' zone':'Unknown zone';
   el.style.background=zone?zone.bg:'#374151';
@@ -463,7 +367,6 @@ function applyZoneTag(el,zone){
 const SK='montgri_v5';
 function loadStore(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch{return{}}}
 function saveStore(s){try{localStorage.setItem(SK,JSON.stringify(s))}catch{}}
-
 let store=loadStore();
 if(!store.myMaps)store.myMaps={};
 if(!store.recvMaps)store.recvMaps={};
@@ -471,28 +374,22 @@ if(!store.recvMaps)store.recvMaps={};
 // ═══════════════════════════════
 // STATE
 // ═══════════════════════════════
-let currentMapId=null;
-let currentMap=null;   // {id,num,userName,date,annotations,isReadOnly?}
-let isReadOnly=false;
-let pendingX,pendingY,editingId=null,viewingId=null;
-let confirmCallback=null;
+let currentMapId=null,currentMap=null,isReadOnly=false;
+let pendingX,pendingY,editingId=null,viewingId=null,confirmCallback=null;
 
 // ═══════════════════════════════
-// CHECK SHARED LINK ON LOAD
+// SHARED LINK CHECK
 // ═══════════════════════════════
-(function checkLink(){
-  const params=new URLSearchParams(window.location.search);
-  const raw=params.get('data');
+(function(){
+  const raw=new URLSearchParams(window.location.search).get('data');
   if(!raw)return;
   try{
     const payload=JSON.parse(decodeURIComponent(atob(raw)));
-    // Save to recvMaps if not already there
     const rid='recv_'+payload.id;
     if(!store.recvMaps[rid]){
       store.recvMaps[rid]={...payload,receivedAt:new Date().toISOString(),isReadOnly:true};
       saveStore(store);
     }
-    // Open it directly
     openMapView(store.recvMaps[rid],true);
   }catch(e){console.error(e)}
 })();
@@ -501,15 +398,12 @@ let confirmCallback=null;
 // HOME
 // ═══════════════════════════════
 function renderHome(){
-  const now=new Date();
   document.getElementById('home-today').textContent=
-    '📅 '+now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    '📅 '+new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
-  // My maps
   const myEl=document.getElementById('my-maps-list');
   const myIds=Object.keys(store.myMaps).sort((a,b)=>store.myMaps[b].num-store.myMaps[a].num);
-  if(!myIds.length){myEl.innerHTML='<p style="font-size:12px;color:#6b9e6b">No maps yet. Tap + to create one.</p>'}
-  else myEl.innerHTML=myIds.map(id=>{
+  myEl.innerHTML=myIds.length?myIds.map(id=>{
     const m=store.myMaps[id];
     return `<div class="map-card" onclick="openMapView(store.myMaps['${id}'],false)">
       <div class="map-card-left">
@@ -519,13 +413,11 @@ function renderHome(){
       <span class="map-card-badge">${m.annotations?.length||0}</span>
       <button class="map-card-del" onclick="event.stopPropagation();deleteMyMap('${id}')">🗑</button>
     </div>`;
-  }).join('');
+  }).join(''):'<p style="font-size:12px;color:#6b9e6b">No maps yet. Tap + to create one.</p>';
 
-  // Received maps
   const rvEl=document.getElementById('recv-maps-list');
   const rvIds=Object.keys(store.recvMaps).sort((a,b)=>new Date(store.recvMaps[b].receivedAt)-new Date(store.recvMaps[a].receivedAt));
-  if(!rvIds.length){rvEl.innerHTML='<p style="font-size:12px;color:#6b9e6b">No received maps yet.</p>'}
-  else rvEl.innerHTML=rvIds.map(id=>{
+  rvEl.innerHTML=rvIds.length?rvIds.map(id=>{
     const m=store.recvMaps[id];
     return `<div class="map-card" onclick="openMapView(store.recvMaps['${id}'],true)">
       <div class="map-card-left">
@@ -535,23 +427,16 @@ function renderHome(){
       <span class="map-card-badge">${m.annotations?.length||0}</span>
       <button class="map-card-del" onclick="event.stopPropagation();deleteRecvMap('${id}')">🗑</button>
     </div>`;
-  }).join('');
+  }).join(''):'<p style="font-size:12px;color:#6b9e6b">No received maps yet.</p>';
 }
 renderHome();
 
-function deleteMyMap(id){
-  showConfirm('Delete Map #'+store.myMaps[id].num+'?',()=>{
-    delete store.myMaps[id];saveStore(store);renderHome();
-  });
-}
-function deleteRecvMap(id){
-  showConfirm('Delete received map?',()=>{
-    delete store.recvMaps[id];saveStore(store);renderHome();
-  });
-}
+// DELETE — no confirmation, instant
+function deleteMyMap(id){ delete store.myMaps[id]; saveStore(store); renderHome(); }
+function deleteRecvMap(id){ delete store.recvMaps[id]; saveStore(store); renderHome(); }
 
 // ═══════════════════════════════
-// CREATE NEW MAP
+// CREATE MAP
 // ═══════════════════════════════
 document.getElementById('btn-new-map').addEventListener('click',()=>{
   document.getElementById('name-input').value='';
@@ -566,54 +451,44 @@ function createMap(){
   const n=document.getElementById('name-input').value.trim();
   if(!n)return;
   const nums=Object.values(store.myMaps).map(m=>m.num||0);
-  const nextNum=nums.length?Math.max(...nums)+1:1;
   const id='map_'+Date.now();
-  const today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-  store.myMaps[id]={id,num:nextNum,userName:n,date:today,annotations:[]};
+  store.myMaps[id]={id,num:nums.length?Math.max(...nums)+1:1,userName:n,
+    date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),annotations:[]};
   saveStore(store);
   document.getElementById('name-dialog').classList.remove('open');
   openMapView(store.myMaps[id],false);
 }
 
 // ═══════════════════════════════
-// OPEN MAP VIEW
+// MAP VIEW
 // ═══════════════════════════════
 function openMapView(map,readOnly){
-  currentMap={...map};
-  currentMapId=map.id;
-  isReadOnly=readOnly;
-
+  currentMap={...map,annotations:[...(map.annotations||[])]};
+  currentMapId=map.id;isReadOnly=readOnly;
   document.getElementById('home-screen').style.display='none';
   document.getElementById('map-view').classList.add('open');
-
-  document.getElementById('mv-title').textContent=
-    (readOnly?'👁️ ':'🗺️ ')+'Map #'+map.num+' — '+map.userName+' · '+map.date;
-
+  document.getElementById('mv-title').textContent=(readOnly?'👁️ ':'🗺️ ')+'Map #'+map.num+' — '+map.userName+' · '+map.date;
   document.getElementById('ro-banner').style.display=readOnly?'block':'none';
   document.getElementById('ro-name').textContent=map.userName+' · Map #'+map.num;
-
   document.getElementById('mv-share').style.display=readOnly?'none':'';
   document.getElementById('mv-reset').style.display=readOnly?'none':'';
   document.getElementById('mv-hint').textContent=readOnly
     ?'Read-only — tap a pin to view note'
-    :'Tap to add note · Pinch to zoom up to 10x · Double-tap to reset';
-
+    :'Tap to add a note · Pinch to zoom · Double-tap to reset';
   render();
 }
 
 document.getElementById('mv-back').addEventListener('click',()=>{
-  if(!isReadOnly) persistCurrent();
+  if(!isReadOnly)persistCurrent();
   document.getElementById('map-view').classList.remove('open');
   document.getElementById('home-screen').style.display='flex';
   renderHome();
 });
 
 function persistCurrent(){
-  if(isReadOnly||!currentMapId)return;
-  if(store.myMaps[currentMapId]){
-    store.myMaps[currentMapId].annotations=currentMap.annotations;
-    saveStore(store);
-  }
+  if(isReadOnly||!currentMapId||!store.myMaps[currentMapId])return;
+  store.myMaps[currentMapId].annotations=currentMap.annotations;
+  saveStore(store);
 }
 
 // ═══════════════════════════════
@@ -625,22 +500,10 @@ function render(){
     const pin=document.createElement('div');
     pin.className='pin';pin.style.left=a.x+'%';pin.style.top=a.y+'%';pin.dataset.id=a.id;
     pin.innerHTML='<div class="pin-dot"></div>';
-    // Touch: only open note if it was a real tap (not zoom/pan)
-    pin.addEventListener('touchend',ev=>{
-      if(_tapWasMulti) return;
-      const t=ev.changedTouches[0];
-      const dx=t.clientX-_tapStartX, dy=t.clientY-_tapStartY;
-      if(Math.sqrt(dx*dx+dy*dy)>8) return;
-      if(Date.now()-_tapStartT>400) return;
-      ev.stopPropagation();ev.preventDefault();
-      openViewNote(a.id);
-    },{passive:false});
-    // Mouse fallback
     pin.addEventListener('click',ev=>{ev.stopPropagation();openViewNote(a.id)});
     document.getElementById('map-wrapper').appendChild(pin);
   });
   renderList();
-  document.getElementById('count-badge-mv') && (document.getElementById('count-badge-mv').textContent=(currentMap.annotations||[]).length);
 }
 
 function renderList(){
@@ -648,7 +511,7 @@ function renderList(){
   const anns=currentMap.annotations||[];
   if(!anns.length){panel.innerHTML='<p style="padding:11px 14px;color:#6b9e6b;font-size:12px">No notes yet.</p>';return}
   panel.innerHTML=anns.map(a=>{
-    const z=detectZone(a.x,a.y);
+    const z=a.zone?ZONE_COLORS.find(z=>z.name===a.zone):null;
     return `<div class="list-item" data-id="${a.id}">
       <div class="li-num">${esc(a.num||'?')}</div>
       <span class="li-zone" style="background:${z?z.bg:'#374151'};color:${z?z.color:'#d1d5db'}">${z?z.name:'?'}</span>
@@ -666,47 +529,11 @@ document.getElementById('mv-toggle-list').addEventListener('click',()=>{
 });
 
 // ═══════════════════════════════
-// MAP TAP
+// MAP TAP — simple click
 // ═══════════════════════════════
-// Tap detection: only fire if touch was short, didn't move much, and was single finger
-let _tapStartX=0,_tapStartY=0,_tapStartT=0,_tapWasMulti=false;
-
-document.getElementById('map-wrapper').addEventListener('touchstart',ev=>{
-  _tapWasMulti = ev.touches.length > 1;
-  if(ev.touches.length===1){
-    _tapStartX=ev.touches[0].clientX;
-    _tapStartY=ev.touches[0].clientY;
-    _tapStartT=Date.now();
-  }
-},{passive:true});
-
-document.getElementById('map-wrapper').addEventListener('touchmove',ev=>{
-  if(ev.touches.length>1) _tapWasMulti=true;
-},{passive:true});
-
-document.getElementById('map-wrapper').addEventListener('touchend',ev=>{
-  if(_tapWasMulti) return;                          // was a pinch — ignore
-  if(ev.changedTouches.length!==1) return;
-  const touch=ev.changedTouches[0];
-  const dx=touch.clientX-_tapStartX;
-  const dy=touch.clientY-_tapStartY;
-  const dt=Date.now()-_tapStartT;
-  if(Math.sqrt(dx*dx+dy*dy)>8) return;             // finger moved — was a pan, ignore
-  if(dt>400) return;                                // held too long — ignore
-  const synth={clientX:touch.clientX,clientY:touch.clientY,target:touch.target,currentTarget:document.getElementById('map-wrapper')};
-  handleMapTap(synth);
-  ev.preventDefault();
-},{passive:false});
-
 document.getElementById('map-wrapper').addEventListener('click',ev=>{
-  if('ontouchstart' in window)return; // mobile handled by touchend
-  handleMapTap(ev);
-});
-function handleMapTap(ev){
   if(isReadOnly||ev.target.closest('.pin'))return;
-  // Account for CSS transform (zoom/pan) when calculating tap position
-  const wrapper2=document.getElementById('map-wrapper');
-  const wr=wrapper2.getBoundingClientRect();
+  const wr=document.getElementById('map-wrapper').getBoundingClientRect();
   pendingX=((ev.clientX-wr.left)/wr.width*100).toFixed(2);
   pendingY=((ev.clientY-wr.top)/wr.height*100).toFixed(2);
   editingId=null;
@@ -717,7 +544,7 @@ function handleMapTap(ev){
   applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(pendingX,pendingY));
   document.getElementById('edit-modal').classList.add('open');
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
-}
+});
 
 // ═══════════════════════════════
 // EDIT NOTE
@@ -729,23 +556,34 @@ function openEditNote(id){
   document.getElementById('edit-num').value=a.num||'';
   document.getElementById('edit-text').value=a.text||'';
   document.getElementById('edit-del').style.display='';
-  applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(a.x,a.y));
+  const z=a.zone?ZONE_COLORS.find(z=>z.name===a.zone):detectZone(a.x,a.y);
+  applyZoneTag(document.getElementById('edit-zone-tag'),z);
   document.getElementById('edit-modal').classList.add('open');
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
+
 document.getElementById('edit-save').addEventListener('click',()=>{
   const txt=document.getElementById('edit-text').value.trim();
   const num=document.getElementById('edit-num').value.trim();
   if(!txt&&!num)return;
+  // Detect zone and store name
+  const zoneObj=detectZone(pendingX||'0',pendingY||'0');
+  const zoneName=zoneObj?zoneObj.name:'';
   if(!currentMap.annotations)currentMap.annotations=[];
-  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId);if(a){a.text=txt;a.num=num}}
-  else currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num});
+  if(editingId!==null){
+    const a=currentMap.annotations.find(a=>a.id===editingId);
+    if(a){a.text=txt;a.num=num;if(!a.zone&&zoneName)a.zone=zoneName;}
+  } else {
+    currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num,zone:zoneName});
+  }
   persistCurrent();render();
   document.getElementById('edit-modal').classList.remove('open');
 });
+
 document.getElementById('edit-del').addEventListener('click',()=>{
   currentMap.annotations=currentMap.annotations.filter(a=>a.id!==editingId);
-  persistCurrent();render();document.getElementById('edit-modal').classList.remove('open');
+  persistCurrent();render();
+  document.getElementById('edit-modal').classList.remove('open');
 });
 document.getElementById('edit-close').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
 document.getElementById('edit-cancel').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
@@ -758,20 +596,16 @@ function openViewNote(id){
   const a=currentMap.annotations.find(a=>a.id===id);
   document.getElementById('view-modal-title').textContent='Bungalow '+(a.num||'?');
   document.getElementById('view-text').textContent=a.text;
-  applyZoneTag(document.getElementById('view-zone-tag'),detectZone(a.x,a.y));
-  // In readonly: hide edit+done, show only close
-  if(isReadOnly){
-    document.getElementById('view-edit').style.display='none';
-    document.getElementById('view-done').style.display='none';
-  } else {
-    document.getElementById('view-edit').style.display='';
-    document.getElementById('view-done').style.display='';
-  }
+  const z=a.zone?ZONE_COLORS.find(z=>z.name===a.zone):detectZone(a.x,a.y);
+  applyZoneTag(document.getElementById('view-zone-tag'),z);
+  document.getElementById('view-edit').style.display=isReadOnly?'none':'';
+  document.getElementById('view-done').style.display=isReadOnly?'none':'';
   document.getElementById('view-modal').classList.add('open');
 }
 document.getElementById('view-done').addEventListener('click',()=>{
   currentMap.annotations=currentMap.annotations.filter(a=>a.id!==viewingId);
-  persistCurrent();render();document.getElementById('view-modal').classList.remove('open');
+  persistCurrent();render();
+  document.getElementById('view-modal').classList.remove('open');
 });
 document.getElementById('view-edit').addEventListener('click',()=>{
   document.getElementById('view-modal').classList.remove('open');openEditNote(viewingId);
@@ -779,34 +613,29 @@ document.getElementById('view-edit').addEventListener('click',()=>{
 document.getElementById('view-close').addEventListener('click',()=>document.getElementById('view-modal').classList.remove('open'));
 
 // ═══════════════════════════════
-// SHARE — encode map in URL
+// SHARE
 // ═══════════════════════════════
+function buildShareLink(){
+  const payload={id:currentMap.id,num:currentMap.num,userName:currentMap.userName,
+    date:currentMap.date,annotations:currentMap.annotations||[]};
+  return window.location.href.split('?')[0]+'?data='+btoa(encodeURIComponent(JSON.stringify(payload)));
+}
+
 document.getElementById('mv-share').addEventListener('click',()=>{
   const link=buildShareLink();
   document.getElementById('share-link-ta').value=link;
+  document.getElementById('share-map-name').textContent='🗺️ Map #'+currentMap.num+' — '+currentMap.userName;
+  document.getElementById('share-map-detail').textContent='📅 '+currentMap.date+' · '+(currentMap.annotations?.length||0)+' notes';
   document.getElementById('share-modal').classList.add('open');
 });
-
-function buildShareLink(){
-  const payload={
-    id:currentMap.id,
-    num:currentMap.num,
-    userName:currentMap.userName,
-    date:currentMap.date,
-    annotations:currentMap.annotations||[]
-  };
-  const encoded=btoa(encodeURIComponent(JSON.stringify(payload)));
-  return window.location.href.split('?')[0]+'?data='+encoded;
-}
-
 document.getElementById('share-wa').addEventListener('click',()=>{
   const link=buildShareLink();
   const msg='🏕️ Camping Castell Montgrí\nMap #'+currentMap.num+' — '+currentMap.userName+'\n📅 '+currentMap.date+'\n\n👉 Open map:\n'+link;
   window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 });
 document.getElementById('share-copy').addEventListener('click',()=>{
-  const ta=document.getElementById('share-link-ta');ta.select();
-  try{if(navigator.clipboard)navigator.clipboard.writeText(ta.value);else document.execCommand('copy')}catch{}
+  const val=document.getElementById('share-link-ta').value;
+  try{if(navigator.clipboard)navigator.clipboard.writeText(val);else{const t=document.getElementById('share-link-ta');t.style.position='fixed';t.select();document.execCommand('copy');}}catch{}
   const b=document.getElementById('share-copy');b.textContent='✓ Copied!';
   setTimeout(()=>b.textContent='Copy link',2000);
 });
@@ -817,8 +646,8 @@ document.getElementById('share-close').addEventListener('click',()=>document.get
 // ═══════════════════════════════
 function generatePdf(map){
   const anns=map.annotations||[];
-  let rows=anns.length?anns.map(a=>{
-    const z=detectZone(a.x,a.y);
+  const rows=anns.length?anns.map(a=>{
+    const z=a.zone?ZONE_COLORS.find(z=>z.name===a.zone):null;
     return `<tr>
       <td style="padding:10px 14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap">
         <strong style="color:#c0392b;font-size:15px">Bungalow ${a.num||'?'}</strong><br>
@@ -843,7 +672,6 @@ function generatePdf(map){
   a.href=url;a.download=`notes-${map.userName.toLowerCase()}-map${map.num}.html`;
   a.click();URL.revokeObjectURL(url);
 }
-
 document.getElementById('mv-pdf').addEventListener('click',()=>generatePdf(currentMap));
 function roDownloadPdf(){generatePdf(currentMap)}
 
@@ -857,7 +685,7 @@ document.getElementById('mv-reset').addEventListener('click',()=>{
 });
 
 // ═══════════════════════════════
-// CONFIRM HELPER
+// CONFIRM
 // ═══════════════════════════════
 function showConfirm(msg,cb){
   document.getElementById('confirm-msg').textContent=msg;
