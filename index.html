@@ -23,8 +23,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 #map-container{flex:1;overflow:auto;position:relative;background:#000}
 #map-wrapper{position:relative;width:100%}
 #mapImg{width:100%;display:block}
-.pin{position:absolute;transform:translate(-50%,-50%);z-index:20;width:10px;height:10px}
-.pin-dot{width:8px;height:8px;background:#ff0000;border-radius:50%;border:1px solid #fff}
+
+/* PIN ADJUSTED TO 3PX */
+.pin{position:absolute;transform:translate(-50%,-50%);z-index:20;width:6px;height:6px;display:flex;align-items:center;justify-content:center}
+.pin-dot{width:3px;height:3px;background:#ff0000;border-radius:50%;box-shadow: 0 0 0 1px #fff}
+
 .fs-modal{display:none;position:fixed;inset:0;z-index:500;background:#111d11;flex-direction:column}
 .fs-modal.open{display:flex}
 .fs-top{background:#1e3320;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
@@ -80,7 +83,6 @@ const mapImg = document.getElementById('mapImg');
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-// CALIBRATED CONFIGURATION
 const ZONES_CONFIG = [
   { name: 'Grey',   rgb: [179, 179, 179], bg: '#6b7280', color: '#fff' }, 
   { name: 'Yellow', rgb: [252, 242, 31],  bg: '#facc15', color: '#000' }, 
@@ -101,23 +103,14 @@ function getZoneByPixel(xPct, yPct) {
     const x = (xPct / 100) * canvas.width;
     const y = (yPct / 100) * canvas.height;
     const p = ctx.getImageData(x, y, 1, 1).data;
-    
     const bright = p[0] + p[1] + p[2];
     if (bright > 745 || bright < 35) return null;
 
     let closest = null;
     let minDistance = Infinity;
-
     for (let z of ZONES_CONFIG) {
-        const d = Math.sqrt(
-            Math.pow(p[0] - z.rgb[0], 2) + 
-            Math.pow(p[1] - z.rgb[1], 2) + 
-            Math.pow(p[2] - z.rgb[2], 2)
-        );
-        if (d < minDistance) {
-            minDistance = d;
-            closest = z;
-        }
+        const d = Math.sqrt(Math.pow(p[0]-z.rgb[0],2)+Math.pow(p[1]-z.rgb[1],2)+Math.pow(p[2]-z.rgb[2],2));
+        if (d < minDistance) { minDistance = d; closest = z; }
     }
     return closest; 
 }
@@ -164,19 +157,15 @@ document.getElementById('map-wrapper').addEventListener('click', (e) => {
     const rect = mapImg.getBoundingClientRect();
     pX = ((e.clientX - rect.left) / rect.width * 100).toFixed(2);
     pY = ((e.clientY - rect.top) / rect.height * 100).toFixed(2);
-    
     const zone = getZoneByPixel(pX, pY);
     const tag = document.getElementById('edit-zone-tag');
-    
     if(zone){
         tag.textContent = zone.name + " Zone";
-        tag.style.background = zone.bg;
-        tag.style.color = zone.color;
+        tag.style.background = zone.bg; tag.style.color = zone.color;
         document.getElementById('edit-text').value = zone.name + " Bungalow ";
     } else {
         tag.textContent = "Unknown Zone";
-        tag.style.background = "#374151";
-        tag.style.color = "#fff";
+        tag.style.background = "#374151"; tag.style.color = "#fff";
         document.getElementById('edit-text').value = "";
     }
     document.getElementById('edit-num').value = "";
