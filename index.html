@@ -256,7 +256,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   <div id="map-container">
     <div id="map-wrapper">
       <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" alt="Camping map"/>
-      <canvas id="zoneCanvas" style="display:none"></canvas>
     </div>
   </div>
   <button id="mv-toggle-list">▼ NOTE LIST</button>
@@ -312,11 +311,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
         Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download PDF.<br>
         Map stays saved until they delete it.
       </p>
-      <div id="share-map-info" style="background:#162616;border-radius:12px;padding:14px;border:1px solid #2d4a2d">
-        <div style="font-size:16px;font-weight:800;color:#a8d5a2" id="share-map-name">—</div>
-        <div style="font-size:12px;color:#6b9e6b;margin-top:4px" id="share-map-detail">—</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="fs-label">Map link</div>
+        <textarea class="share-ta" id="share-link-ta" readonly></textarea>
       </div>
-      <textarea id="share-link-ta" readonly style="position:absolute;left:-9999px;height:1px;opacity:0"></textarea>
     </div>
     <div class="fs-footer">
       <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
@@ -437,7 +435,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 })();
 
 // ═══════════════════════════════
-// ZONES — pixel-based detection
+// ZONES
 // ═══════════════════════════════
 const mapImg = document.getElementById('mapImg');
 const canvas = document.createElement('canvas');
@@ -474,6 +472,7 @@ function getZoneByPixel(xPct, yPct) {
     }
     return closest; 
 }
+
 // ═══════════════════════════════
 // STORAGE
 // ═══════════════════════════════
@@ -556,8 +555,16 @@ function renderHome(){
 }
 renderHome();
 
-function deleteMyMap(id){delete store.myMaps[id];saveStore(store);renderHome();}
-function deleteRecvMap(id){delete store.recvMaps[id];saveStore(store);renderHome();}
+function deleteMyMap(id){
+  showConfirm('Delete Map #'+store.myMaps[id].num+'?',()=>{
+    delete store.myMaps[id];saveStore(store);renderHome();
+  });
+}
+function deleteRecvMap(id){
+  showConfirm('Delete received map?',()=>{
+    delete store.recvMaps[id];saveStore(store);renderHome();
+  });
+}
 
 // ═══════════════════════════════
 // CREATE NEW MAP
@@ -793,8 +800,6 @@ document.getElementById('view-close').addEventListener('click',()=>document.getE
 document.getElementById('mv-share').addEventListener('click',()=>{
   const link=buildShareLink();
   document.getElementById('share-link-ta').value=link;
-  document.getElementById('share-map-name').textContent='🗺️ Map #'+currentMap.num+' — '+currentMap.userName;
-  document.getElementById('share-map-detail').textContent='📅 '+currentMap.date+' · '+(currentMap.annotations?.length||0)+' notes';
   document.getElementById('share-modal').classList.add('open');
 });
 
