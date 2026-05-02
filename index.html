@@ -438,12 +438,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 // ZONES
 // ═══════════════════════════════
 const ZONES=[
-  {name:'Red',    color:'#fff',bg:'#dc2626',xMin:62, xMax:100,yMin:60,yMax:100},
-  {name:'Grey',   color:'#fff',bg:'#6b7280',xMin:28, xMax:52, yMin:28,yMax:76 },
-  {name:'Yellow', color:'#000',bg:'#eab308',xMin:0,  xMax:28, yMin:66,yMax:100},
-  {name:'Brown',  color:'#fff',bg:'#92400e',xMin:8,  xMax:55, yMin:46,yMax:80 },
-  {name:'Orange', color:'#fff',bg:'#ea580c',xMin:50, xMax:100,yMin:28,yMax:90 },
-  {name:'Blue',   color:'#fff',bg:'#1d4ed8',xMin:12, xMax:100,yMin:0, yMax:50 },
+  // Order: most specific/small first, large zones last
+  {name:'Red',    color:'#fff',bg:'#dc2626',xMin:65, xMax:100,yMin:65,yMax:100},
+  {name:'Yellow', color:'#000',bg:'#eab308',xMin:0,  xMax:22, yMin:60,yMax:100},
+  {name:'Grey',   color:'#fff',bg:'#6b7280',xMin:50, xMax:74, yMin:16,yMax:58 },
+  {name:'Brown',  color:'#fff',bg:'#92400e',xMin:15, xMax:55, yMin:43,yMax:76 },
+  {name:'Orange', color:'#fff',bg:'#ea580c',xMin:50, xMax:90, yMin:36,yMax:88 },
+  {name:'Blue',   color:'#fff',bg:'#1d4ed8',xMin:0,  xMax:55, yMin:0, yMax:62 },
 ];
 function detectZone(x,y){
   const xp=parseFloat(x),yp=parseFloat(y);
