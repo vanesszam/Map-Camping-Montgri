@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes"/>
-<title>Camping Castell Montgrí Lifestyle</title>
+<title>Camping Castell Montgrí</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;min-height:100vh}
@@ -335,30 +335,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 </div>
 
 <script>
- 
- // canvas caché pour lire les pixels
-const hiddenCanvas = document.createElement("canvas");
-const hiddenCtx = hiddenCanvas.getContext("2d");
-
-const mapImg = document.getElementById("mapImg");
-
-// Handle image loading - works for both fresh and cached images
-function initImageCanvas() {
-  if (mapImg && mapImg.naturalWidth > 0) {
-    hiddenCanvas.width = mapImg.naturalWidth;
-    hiddenCanvas.height = mapImg.naturalHeight;
-    hiddenCtx.drawImage(mapImg, 0, 0);
-  }
-}
-
-// Set up listener for when image loads
-if (mapImg) {
-  mapImg.addEventListener('load', initImageCanvas);
-  // If already cached/loaded
-  if (mapImg.complete) {
-    initImageCanvas();
-  }
-}
 // ═══════════════════════════════
 // PINCH ZOOM & PAN on map
 // ═══════════════════════════════
@@ -500,33 +476,16 @@ function buildZonePicker(selectedName){
   });
 }
 
-
- const ZONES = [
-  { name:'Yellow', rgb:[234,179,8],  color:'#000', bg:'#eab308' },
-  { name:'Grey',   rgb:[107,114,128],color:'#fff', bg:'#6b7280' },
-  { name:'Brown',  rgb:[146,64,14],  color:'#fff', bg:'#92400e' },
-  { name:'Orange', rgb:[234,88,12],  color:'#fff', bg:'#ea580c' },
-  { name:'Blue',   rgb:[29,78,216],  color:'#fff', bg:'#1d4ed8' }
+const ZONES=[
+  // Order: most specific/small first, large zones last
+  {name:'Red',    color:'#fff',bg:'#dc2626',xMin:65, xMax:100,yMin:65,yMax:100},
+  {name:'Yellow', color:'#000',bg:'#eab308',xMin:0,  xMax:22, yMin:60,yMax:100},
+  {name:'Grey',   color:'#fff',bg:'#6b7280',xMin:50, xMax:74, yMin:16,yMax:58 },
+  {name:'Brown',  color:'#fff',bg:'#92400e',xMin:15, xMax:55, yMin:43,yMax:76 },
+  {name:'Orange', color:'#fff',bg:'#ea580c',xMin:50, xMax:90, yMin:36,yMax:88 },
+  {name:'Blue',   color:'#fff',bg:'#1d4ed8',xMin:0,  xMax:55, yMin:0, yMax:62 },
 ];
-const TOLERANCE = 40;
-
-function matchColor(c1, c2) {
-  return Math.abs(c1[0]-c2[0]) < TOLERANCE &&
-         Math.abs(c1[1]-c2[1]) < TOLERANCE &&
-         Math.abs(c1[2]-c2[2]) < TOLERANCE;
-}
-
-function detectZone(x, y, ctx) {
-  const pixel = ctx.getImageData(x, y, 1, 1).data;
-  const clicked = [pixel[0], pixel[1], pixel[2]];
-
-  for (let z of ZONES) {
-    if (matchColor(clicked, z.rgb)) {
-      return z;
-    }
-  }
-  return null;
-}
+function detectZone(x,y){ return null; } // replaced by manual selection
 function getZoneByName(name){ return ZONES.find(z=>z.name===name)||null; }
 function applyZoneTag(el,zone){
   el.textContent=zone?zone.name+' zone':'— no zone';
@@ -784,32 +743,19 @@ document.getElementById('map-wrapper').addEventListener('click',ev=>{
 });
 function handleMapTap(ev){
   if(isReadOnly||ev.target.closest('.pin'))return;
-
-  const wrapper = document.getElementById('map-wrapper');
-  const wr = wrapper.getBoundingClientRect();
-
-  const percentX = (ev.clientX-wr.left)/wr.width;
-  const percentY = (ev.clientY-wr.top)/wr.height;
-
-  // Detect zone for auto-selection
-  const x = Math.floor(percentX * hiddenCanvas.width);
-  const y = Math.floor(percentY * hiddenCanvas.height);
-
-  const zone = detectZone(x, y, hiddenCtx);
-  buildZonePicker(zone ? zone.name : '');
-
-  // Store position for new note
-  pendingX = (percentX * 100).toFixed(2);
-  pendingY = (percentY * 100).toFixed(2);
-
-  // Open edit modal
-  editingId = null;
-  document.getElementById('edit-modal-title').textContent = 'New note';
-  document.getElementById('edit-num').value = '';
-  document.getElementById('edit-text').value = '';
-  document.getElementById('edit-del').style.display = 'none';
+  // Account for CSS transform (zoom/pan) when calculating tap position
+  const wrapper2=document.getElementById('map-wrapper');
+  const wr=wrapper2.getBoundingClientRect();
+  pendingX=((ev.clientX-wr.left)/wr.width*100).toFixed(2);
+  pendingY=((ev.clientY-wr.top)/wr.height*100).toFixed(2);
+  editingId=null;
+  document.getElementById('edit-modal-title').textContent='New note';
+  document.getElementById('edit-num').value='';
+  document.getElementById('edit-text').value='';
+  document.getElementById('edit-del').style.display='none';
+  buildZonePicker('');
   document.getElementById('edit-modal').classList.add('open');
-  setTimeout(() => document.getElementById('edit-num').focus(), 150);
+  setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
 
 // ═══════════════════════════════
