@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes"/>
 <title>Camping Castell Montgrí</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -95,27 +95,30 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 #mv-hint{background:#162616;text-align:center;font-size:11px;color:#6b9e6b;padding:4px;flex-shrink:0}
 
 /* map container — scrollable/zoomable */
-#map-container{flex:1;overflow:auto;position:relative;-webkit-overflow-scrolling:touch}
+#map-container{flex:1;overflow:auto;position:relative;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
 #map-wrapper{position:relative;width:100%;min-width:100%}
-#mapImg{width:100%;display:block;touch-action:pinch-zoom}
+#mapImg{width:100%;display:block;touch-action:auto;user-select:none}
 
 /* pin */
 .pin{
   position:absolute;
   transform:translate(-50%,-50%);
   cursor:pointer;z-index:20;
-  width:20px;height:20px;
+  /* large tap area, invisible background */
+  width:28px;height:28px;
   display:flex;align-items:center;justify-content:center;
+  background:transparent;
 }
 .pin-dot{
-  width:7px;height:7px;
+  width:4px;height:4px;
   background:#dc2626;border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.95);
-  box-shadow:0 1px 4px rgba(0,0,0,.8);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 0 3px rgba(0,0,0,1);
   transition:transform .1s;
   pointer-events:none;
+  flex-shrink:0;
 }
-.pin:active .pin-dot{transform:scale(1.7)}
+.pin:active .pin-dot{transform:scale(2.5)}
 
 /* list panel */
 #mv-toggle-list{
@@ -177,12 +180,21 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 /* ── SHARE MODAL ── */
 #share-modal{
   display:none;position:fixed;inset:0;z-index:600;
-  background:#111d11;flex-direction:column;
+  background:rgba(0,0,0,0.82);
+  align-items:center;justify-content:center;padding:16px;
 }
 #share-modal.open{display:flex}
+#share-inner{
+  background:#1e3320;border-radius:16px;border:1px solid #2d4a2d;
+  width:100%;max-width:480px;display:flex;flex-direction:column;
+  max-height:90vh;overflow:hidden;
+}
+#share-inner .fs-top{border-radius:16px 16px 0 0}
+#share-inner .fs-body{padding:14px}
+#share-inner .fs-footer{border-radius:0 0 16px 16px;padding:12px 14px 16px}
 .share-ta{
-  width:100%;flex:1;background:#162616;border:1px solid #3d5c3d;
-  border-radius:10px;padding:12px;color:#c8e6c8;font-size:11px;
+  width:100%;height:90px;background:#162616;border:1px solid #3d5c3d;
+  border-radius:10px;padding:10px 12px;color:#c8e6c8;font-size:11px;
   font-family:monospace;resize:none;word-break:break-all;
 }
 
@@ -290,24 +302,25 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 
 <!-- ══ SHARE MODAL ══ -->
 <div id="share-modal">
-  <div class="fs-top">
-    <h2>Share map</h2>
-    <button class="fs-close" id="share-close">✕</button>
-  </div>
-  <div class="fs-body">
-    <p style="font-size:13px;color:#6b9e6b;line-height:1.6">
-      Send this link on WhatsApp.<br>
-      The recipient opens the map in <strong style="color:#a8d5a2">read-only mode</strong> and can download a PDF.<br>
-      The map stays saved on their device until they delete it.
-    </p>
-    <div style="display:flex;flex-direction:column;gap:6px;flex:1">
-      <div class="fs-label">Map link</div>
-      <textarea class="share-ta" id="share-link-ta" readonly></textarea>
+  <div id="share-inner">
+    <div class="fs-top">
+      <h2>Share map</h2>
+      <button class="fs-close" id="share-close">✕</button>
     </div>
-  </div>
-  <div class="fs-footer">
-    <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
-    <button class="fsf-edit" id="share-copy">Copy link</button>
+    <div class="fs-body">
+      <p style="font-size:13px;color:#6b9e6b;line-height:1.6">
+        Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download PDF.<br>
+        Map stays saved until they delete it.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="fs-label">Map link</div>
+        <textarea class="share-ta" id="share-link-ta" readonly></textarea>
+      </div>
+    </div>
+    <div class="fs-footer">
+      <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
+      <button class="fsf-edit" id="share-copy">Copy link</button>
+    </div>
   </div>
 </div>
 
@@ -323,6 +336,105 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 </div>
 
 <script>
+// ═══════════════════════════════
+// PINCH ZOOM & PAN on map
+// ═══════════════════════════════
+(function(){
+  const container = document.getElementById('map-container');
+  const wrapper   = document.getElementById('map-wrapper');
+  let scale=1, lastScale=1;
+  let originX=0, originY=0;       // current translation
+  let startDist=0, startScale=1;
+  let startX=0, startY=0, startOX=0, startOY=0;
+  let isPinching=false, isDragging=false;
+  let lastTap=0;
+
+  function clamp(v,mn,mx){return Math.min(Math.max(v,mn),mx)}
+
+  function applyTransform(){
+    // clamp pan so map doesn't go too far off screen
+    const cw=container.clientWidth, ch=container.clientHeight;
+    const iw=wrapper.offsetWidth*scale, ih=wrapper.offsetHeight*scale;
+    const maxX=Math.max(0,(iw-cw)/2);
+    const maxY=Math.max(0,(ih-ch)/2);
+    originX=clamp(originX,-maxX,maxX);
+    originY=clamp(originY,-maxY,maxY);
+    wrapper.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;
+    wrapper.style.transformOrigin='center center';
+  }
+
+  function dist(t){
+    const dx=t[0].clientX-t[1].clientX, dy=t[0].clientY-t[1].clientY;
+    return Math.sqrt(dx*dx+dy*dy);
+  }
+  function midpoint(t){
+    return{x:(t[0].clientX+t[1].clientX)/2, y:(t[0].clientY+t[1].clientY)/2};
+  }
+
+  container.addEventListener('touchstart',e=>{
+    if(e.touches.length===2){
+      isPinching=true; isDragging=false;
+      startDist=dist(e.touches);
+      startScale=scale;
+      e.preventDefault();
+    } else if(e.touches.length===1){
+      isDragging=true; isPinching=false;
+      startX=e.touches[0].clientX; startY=e.touches[0].clientY;
+      startOX=originX; startOY=originY;
+      // double-tap to reset zoom
+      const now=Date.now();
+      if(now-lastTap<300 && scale>1){scale=1;originX=0;originY=0;applyTransform();}
+      lastTap=now;
+    }
+  },{passive:false});
+
+  container.addEventListener('touchmove',e=>{
+    if(isPinching && e.touches.length===2){
+      const newDist=dist(e.touches);
+      const newScale=clamp(startScale*(newDist/startDist),1,10);
+      // zoom toward pinch midpoint
+      const mid=midpoint(e.touches);
+      const rect=container.getBoundingClientRect();
+      const px=mid.x-rect.left-rect.width/2;
+      const py=mid.y-rect.top-rect.height/2;
+      const factor=newScale/scale;
+      originX=(originX-px)*factor+px;
+      originY=(originY-py)*factor+py;
+      scale=newScale;
+      applyTransform();
+      e.preventDefault();
+    } else if(isDragging && e.touches.length===1 && scale>1){
+      originX=startOX+(e.touches[0].clientX-startX);
+      originY=startOY+(e.touches[0].clientY-startY);
+      applyTransform();
+      e.preventDefault();
+    }
+  },{passive:false});
+
+  container.addEventListener('touchend',e=>{
+    if(e.touches.length<2) isPinching=false;
+    if(e.touches.length===0) isDragging=false;
+  });
+
+  // Desktop: mouse wheel zoom
+  container.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const factor=e.deltaY<0?1.15:0.87;
+    const newScale=clamp(scale*factor,1,10);
+    const rect=container.getBoundingClientRect();
+    const px=e.clientX-rect.left-rect.width/2;
+    const py=e.clientY-rect.top-rect.height/2;
+    const f=newScale/scale;
+    originX=(originX-px)*f+px;
+    originY=(originY-py)*f+py;
+    scale=newScale;
+    applyTransform();
+  },{passive:false});
+
+  // Expose reset function
+  window.resetMapZoom=function(){scale=1;originX=0;originY=0;applyTransform();}
+})();
+
 // ═══════════════════════════════
 // ZONES
 // ═══════════════════════════════
@@ -484,7 +596,7 @@ function openMapView(map,readOnly){
   document.getElementById('mv-reset').style.display=readOnly?'none':'';
   document.getElementById('mv-hint').textContent=readOnly
     ?'Read-only — tap a pin to view note'
-    :'Tap the map to add a note · Pinch to zoom';
+    :'Tap to add note · Pinch to zoom up to 10x · Double-tap to reset';
 
   render();
 }
@@ -547,9 +659,11 @@ document.getElementById('mv-toggle-list').addEventListener('click',()=>{
 // ═══════════════════════════════
 document.getElementById('map-wrapper').addEventListener('click',ev=>{
   if(isReadOnly||ev.target.closest('.pin'))return;
-  const r=ev.currentTarget.getBoundingClientRect();
-  pendingX=((ev.clientX-r.left)/r.width*100).toFixed(2);
-  pendingY=((ev.clientY-r.top)/r.height*100).toFixed(2);
+  // Account for CSS transform (zoom/pan) when calculating tap position
+  const wrapper2=document.getElementById('map-wrapper');
+  const wr=wrapper2.getBoundingClientRect();
+  pendingX=((ev.clientX-wr.left)/wr.width*100).toFixed(2);
+  pendingY=((ev.clientY-wr.top)/wr.height*100).toFixed(2);
   editingId=null;
   document.getElementById('edit-modal-title').textContent='New note';
   document.getElementById('edit-num').value='';
@@ -600,7 +714,14 @@ function openViewNote(id){
   document.getElementById('view-modal-title').textContent='Bungalow '+(a.num||'?');
   document.getElementById('view-text').textContent=a.text;
   applyZoneTag(document.getElementById('view-zone-tag'),detectZone(a.x,a.y));
-  document.getElementById('view-footer').style.display=isReadOnly?'none':'';
+  // In readonly: hide edit+done, show only close
+  if(isReadOnly){
+    document.getElementById('view-edit').style.display='none';
+    document.getElementById('view-done').style.display='none';
+  } else {
+    document.getElementById('view-edit').style.display='';
+    document.getElementById('view-done').style.display='';
+  }
   document.getElementById('view-modal').classList.add('open');
 }
 document.getElementById('view-done').addEventListener('click',()=>{
