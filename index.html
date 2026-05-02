@@ -104,21 +104,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   position:absolute;
   transform:translate(-50%,-50%);
   cursor:pointer;z-index:20;
-  /* large tap area, invisible background */
-  width:28px;height:28px;
+  width:10px;height:10px;
   display:flex;align-items:center;justify-content:center;
   background:transparent;
 }
 .pin-dot{
-  width:4px;height:4px;
+  width:3px;height:3px;
   background:#dc2626;border-radius:50%;
-  border:1px solid rgba(255,255,255,.9);
-  box-shadow:0 0 3px rgba(0,0,0,1);
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:0 0 2px rgba(0,0,0,1),0 0 4px rgba(220,38,38,.6);
   transition:transform .1s;
   pointer-events:none;
   flex-shrink:0;
 }
-.pin:active .pin-dot{transform:scale(2.5)}
+.pin:active .pin-dot{transform:scale(3)}
 
 /* list panel */
 #mv-toggle-list{
@@ -625,6 +624,12 @@ function render(){
     const pin=document.createElement('div');
     pin.className='pin';pin.style.left=a.x+'%';pin.style.top=a.y+'%';pin.dataset.id=a.id;
     pin.innerHTML='<div class="pin-dot"></div>';
+    // Touch: use touchend for better precision on zoomed map
+    pin.addEventListener('touchend',ev=>{
+      ev.stopPropagation();ev.preventDefault();
+      openViewNote(a.id);
+    },{passive:false});
+    // Mouse fallback
     pin.addEventListener('click',ev=>{ev.stopPropagation();openViewNote(a.id)});
     document.getElementById('map-wrapper').appendChild(pin);
   });
@@ -657,7 +662,20 @@ document.getElementById('mv-toggle-list').addEventListener('click',()=>{
 // ═══════════════════════════════
 // MAP TAP
 // ═══════════════════════════════
+// Use touchend for precise tap position on zoomed map (no 300ms delay)
+document.getElementById('map-wrapper').addEventListener('touchend',ev=>{
+  if(ev.changedTouches.length!==1)return; // ignore multi-touch
+  const touch=ev.changedTouches[0];
+  // Create synthetic event-like object
+  const synth={clientX:touch.clientX,clientY:touch.clientY,target:touch.target,currentTarget:document.getElementById('map-wrapper')};
+  handleMapTap(synth);
+  ev.preventDefault();
+},{passive:false});
 document.getElementById('map-wrapper').addEventListener('click',ev=>{
+  if('ontouchstart' in window)return; // mobile already handled by touchend
+  handleMapTap(ev);
+});
+function handleMapTap(ev){
   if(isReadOnly||ev.target.closest('.pin'))return;
   // Account for CSS transform (zoom/pan) when calculating tap position
   const wrapper2=document.getElementById('map-wrapper');
@@ -672,7 +690,7 @@ document.getElementById('map-wrapper').addEventListener('click',ev=>{
   applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(pendingX,pendingY));
   document.getElementById('edit-modal').classList.add('open');
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
-});
+}
 
 // ═══════════════════════════════
 // EDIT NOTE
