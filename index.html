@@ -3,346 +3,121 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes"/>
-<title>Camping Castell Montgrí</title>
+<title>Camping Castell Montgrí - Calibrage</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;min-height:100vh}
 
 /* ── HOME SCREEN ── */
-#home-screen{
-  position:fixed;inset:0;background:#111d11;z-index:9999;
-  display:flex;flex-direction:column;overflow-y:auto;
-}
-.home-header{
-  background:#1e3320;padding:18px 16px 14px;border-bottom:1px solid #2d4a2d;
-  display:flex;align-items:center;gap:10px;flex-shrink:0;
-}
+#home-screen{position:fixed;inset:0;background:#111d11;z-index:9999;display:flex;flex-direction:column;overflow-y:auto}
+.home-header{background:#1e3320;padding:18px 16px 14px;border-bottom:1px solid #2d4a2d;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .home-header h1{font-size:18px;font-weight:800;color:#a8d5a2;flex:1}
 .home-header .today{font-size:11px;color:#6b9e6b;margin-top:2px}
-
 .home-body{flex:1;padding:14px 14px 100px}
 .section-title{font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:18px 0 8px}
-
-.map-card{
-  background:#1e3320;border-radius:12px;border:1px solid #2d4a2d;
-  padding:13px 14px;margin-bottom:8px;cursor:pointer;
-  display:flex;align-items:center;gap:12px;
-}
-.map-card:active{background:#253d25}
-.map-card-left{flex:1}
+.map-card{background:#1e3320;border-radius:12px;border:1px solid #2d4a2d;padding:13px 14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px}
 .map-card-num{font-size:15px;font-weight:800;color:#a8d5a2}
 .map-card-sub{font-size:12px;color:#6b9e6b;margin-top:2px}
 .map-card-badge{background:#dc2626;color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:2px 8px}
 .map-card-del{background:#3d1a1a;color:#f87171;border:none;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer}
-.map-card-del:active{background:#5a2222}
-
-.received-tag{background:#b45309;color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px;margin-left:6px}
-
-.fab{
-  position:fixed;bottom:24px;right:20px;z-index:10000;
-  background:#22c55e;color:#fff;border:none;border-radius:99px;
-  padding:14px 22px;font-size:15px;font-weight:800;cursor:pointer;
-  box-shadow:0 4px 16px rgba(0,0,0,0.4);
-}
-.fab:active{background:#16a34a}
-
-/* name input dialog */
-.name-dialog{
-  position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10001;
-  display:none;align-items:center;justify-content:center;
-}
-.name-dialog.open{display:flex}
-.name-box{
-  background:#1e3320;border-radius:16px;padding:22px 18px;width:290px;
-  border:1px solid #2d4a2d;
-}
-.name-box h3{font-size:15px;font-weight:700;color:#a8d5a2;margin-bottom:12px}
-.name-box input{
-  width:100%;font-size:18px;font-weight:700;
-  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
-  padding:11px 13px;color:#e8f5e8;font-family:inherit;margin-bottom:12px;
-}
-.name-box input:focus{outline:none;border-color:#22c55e}
-.name-box-btns{display:flex;gap:8px}
-.name-box-btns button{flex:1;padding:11px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
-.nb-ok{background:#22c55e;color:#fff}
-.nb-cancel{background:#3d5c3d;color:#c8e6c8}
+.fab{position:fixed;bottom:24px;right:20px;z-index:10000;background:#22c55e;color:#fff;border:none;border-radius:99px;padding:14px 22px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.4)}
 
 /* ── MAP VIEW ── */
 #map-view{display:none;flex-direction:column;height:100vh;position:fixed;inset:0;z-index:100}
 #map-view.open{display:flex}
-
-/* header */
-#mv-header{
-  background:#1e3320;padding:8px 10px;flex-shrink:0;
-  display:flex;align-items:center;gap:8px;border-bottom:1px solid #2d4a2d;
-}
+#mv-header{background:#1e3320;padding:8px 10px;flex-shrink:0;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2d4a2d}
 #mv-back{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
-#mv-title{flex:1;font-size:12px;font-weight:700;color:#a8d5a2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mv-btn{font-size:11px;padding:6px 9px;border-radius:7px;cursor:pointer;border:none;font-weight:700;white-space:nowrap}
-.mv-btn:active{opacity:.75}
-.mv-share{background:#25D366;color:#fff}
+#mv-title{flex:1;font-size:12px;font-weight:700;color:#a8d5a2;overflow:hidden;text-overflow:ellipsis}
+.mv-btn{font-size:11px;padding:6px 9px;border-radius:7px;cursor:pointer;border:none;font-weight:700}
 .mv-pdf{background:#7c3aed;color:#fff}
-.mv-reset{background:#dc2626;color:#fff}
+#mv-hint{background:#162616;text-align:center;font-size:11px;color:#6b9e6b;padding:4px}
+#map-container{flex:1;overflow:auto;position:relative;touch-action:pan-x pan-y}
+#map-wrapper{position:relative;width:100%}
+#mapImg{width:100%;display:block;user-select:none}
+.pin{position:absolute;transform:translate(-50%,-50%);z-index:20;width:10px;height:10px;display:flex;align-items:center;justify-content:center}
+.pin-dot{width:6px;height:6px;background:#dc2626;border-radius:50%;border:1px solid #fff}
 
-/* readonly banner */
-#ro-banner{
-  display:none;background:#b45309;color:#fff;
-  text-align:center;padding:8px 14px;font-size:12px;font-weight:700;flex-shrink:0;
-}
-#ro-banner button{background:#fff;color:#b45309;border:none;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-left:8px}
-
-#mv-hint{background:#162616;text-align:center;font-size:11px;color:#6b9e6b;padding:4px;flex-shrink:0}
-
-/* map container — scrollable/zoomable */
-#map-container{flex:1;overflow:auto;position:relative;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
-#map-wrapper{position:relative;width:100%;min-width:100%}
-#mapImg{width:100%;display:block;touch-action:auto;user-select:none}
-
-/* pin */
-.pin{
-  position:absolute;
-  transform:translate(-50%,-50%);
-  cursor:pointer;z-index:20;
-  width:4px;height:4px;
-  display:flex;align-items:center;justify-content:center;
-  background:transparent;
-}
-.pin-dot{
-  width:3px;height:3px;
-  background:#dc2626;border-radius:50%;
-  border:1px solid rgba(255,255,255,.95);
-  box-shadow:0 0 2px rgba(0,0,0,1),0 0 4px rgba(220,38,38,.6);
-  transition:transform .1s;
-  pointer-events:none;
-  flex-shrink:0;
-}
-.pin:active .pin-dot{transform:scale(3)}
-
-/* list panel */
-#mv-toggle-list{
-  width:100%;background:#1a2e1a;border:none;border-top:1px solid #2d4a2d;
-  color:#6b9e6b;font-size:11px;padding:6px;cursor:pointer;text-align:center;flex-shrink:0;
-}
-#mv-list-panel{background:#162616;max-height:0;overflow:hidden;transition:max-height .3s ease;flex-shrink:0}
-#mv-list-panel.open{max-height:40vh;overflow-y:auto}
-.list-item{display:flex;align-items:flex-start;gap:8px;padding:9px 14px;border-bottom:1px solid #1e3320;cursor:pointer}
-.list-item:active{background:#1e3320}
-.li-num{background:#dc2626;color:#fff;font-size:11px;font-weight:800;border-radius:5px;min-width:30px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0 5px}
-.li-zone{font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;flex-shrink:0;align-self:center}
-.li-text{font-size:12px;color:#c8e6c8;white-space:pre-wrap;word-break:break-word;flex:1;line-height:1.4}
-
-/* ── FULLSCREEN NOTE MODAL ── */
-.fs-modal{
-  display:none;position:fixed;inset:0;z-index:500;
-  background:#111d11;flex-direction:column;
-}
+/* ── MODALS ── */
+.fs-modal{display:none;position:fixed;inset:0;z-index:500;background:#111d11;flex-direction:column}
 .fs-modal.open{display:flex}
-.fs-top{
-  background:#1e3320;padding:12px 14px 10px;flex-shrink:0;
-  display:flex;align-items:center;gap:10px;border-bottom:1px solid #2d4a2d;
-}
-.fs-top h2{font-size:16px;font-weight:700;color:#a8d5a2;flex:1}
-.fs-close{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:20px;padding:5px 14px;font-size:13px;cursor:pointer;font-weight:700}
-.fs-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
-.fs-label{font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.fs-top{background:#1e3320;padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #2d4a2d}
+.fs-close{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700}
+.fs-body{flex:1;padding:16px;display:flex;flex-direction:column;gap:12px}
+.fs-label{font-size:11px;color:#6b9e6b;font-weight:700;text-transform:uppercase}
 .zone-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700}
-.fs-input{
-  width:100%;font-size:20px;font-weight:700;
-  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
-  padding:11px 13px;color:#e8f5e8;font-family:inherit;
-}
-.fs-input:focus{outline:none;border-color:#22c55e}
-.fs-textarea{
-  width:100%;flex:1;min-height:200px;font-size:15px;
-  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
-  padding:12px 13px;color:#e8f5e8;resize:none;font-family:inherit;line-height:1.6;
-}
-.fs-textarea:focus{outline:none;border-color:#22c55e}
-.note-view-text{
-  background:#162616;border:1px solid #2d4a2d;border-radius:10px;
-  padding:16px;font-size:16px;line-height:1.7;color:#e8f5e8;
-  white-space:pre-wrap;word-break:break-word;flex:1;
-}
-.fs-footer{
-  background:#1e3320;padding:12px 14px 28px;border-top:1px solid #2d4a2d;flex-shrink:0;
-  display:flex;gap:8px;
-}
+.fs-input{width:100%;font-size:20px;background:#162616;border:1px solid #3d5c3d;border-radius:10px;padding:11px;color:#e8f5e8}
+.fs-textarea{width:100%;flex:1;background:#162616;border:1px solid #3d5c3d;border-radius:10px;padding:12px;color:#e8f5e8;resize:none}
+.fs-footer{background:#1e3320;padding:12px 14px 28px;display:flex;gap:8px}
 .fs-footer button{flex:1;padding:13px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
-.fs-footer button:active{opacity:.75}
-.fsf-del{background:#7f1d1d;color:#fca5a5;flex:0 0 auto!important;padding:13px 16px!important}
-.fsf-cancel{background:#3d5c3d;color:#c8e6c8}
 .fsf-save{background:#1d4ed8;color:#fff}
-.fsf-edit{background:#3d5c3d;color:#c8e6c8}
-.fsf-done{background:#22c55e;color:#fff}
+.fsf-cancel{background:#3d5c3d;color:#c8e6c8}
 
-/* ── SHARE MODAL ── */
-#share-modal{
-  display:none;position:fixed;inset:0;z-index:600;
-  background:rgba(0,0,0,0.82);
-  align-items:center;justify-content:center;padding:16px;
-}
-#share-modal.open{display:flex}
-#share-inner{
-  background:#1e3320;border-radius:16px;border:1px solid #2d4a2d;
-  width:100%;max-width:480px;display:flex;flex-direction:column;
-  max-height:90vh;overflow:hidden;
-}
-#share-inner .fs-top{border-radius:16px 16px 0 0}
-#share-inner .fs-body{padding:14px}
-#share-inner .fs-footer{border-radius:0 0 16px 16px;padding:12px 14px 16px}
-.share-ta{
-  width:100%;height:90px;background:#162616;border:1px solid #3d5c3d;
-  border-radius:10px;padding:10px 12px;color:#c8e6c8;font-size:11px;
-  font-family:monospace;resize:none;word-break:break-all;
-}
-
-/* ── CONFIRM DIALOG ── */
-.confirm-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;
-  align-items:center;justify-content:center;
-}
-.confirm-overlay.open{display:flex}
-.confirm-box{background:#1e3320;border-radius:16px;padding:24px 20px;width:285px;text-align:center;border:1px solid #2d4a2d}
-.confirm-box p{font-size:15px;color:#c8e6c8;margin-bottom:18px;line-height:1.5}
-.confirm-btns{display:flex;gap:8px;justify-content:center}
-.confirm-btns button{flex:none;padding:11px 22px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
-.cb-yes{background:#dc2626;color:#fff}
-.cb-no{background:#3d5c3d;color:#c8e6c8}
+/* Dialogs */
+.name-dialog, .confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:10001;display:none;align-items:center;justify-content:center}
+.name-dialog.open, .confirm-overlay.open{display:flex}
+.name-box{background:#1e3320;border-radius:16px;padding:22px;width:290px;border:1px solid #2d4a2d}
 </style>
 </head>
 <body>
 
-<!-- ══ HOME SCREEN ══ -->
 <div id="home-screen">
   <div class="home-header">
-    <div>
-      <h1>🏕️ Castell Montgrí</h1>
-      <div class="today" id="home-today"></div>
-    </div>
+    <div><h1>🏕️ Montgrí Map</h1><div class="today" id="home-today"></div></div>
   </div>
   <div class="home-body">
     <div class="section-title">My Maps</div>
     <div id="my-maps-list"></div>
-    <div class="section-title">Received Maps</div>
-    <div id="recv-maps-list"><p style="font-size:12px;color:#6b9e6b">No received maps yet.</p></div>
   </div>
   <button class="fab" id="btn-new-map">+ New map</button>
 </div>
 
-<!-- name dialog -->
 <div class="name-dialog" id="name-dialog">
   <div class="name-box">
-    <h3>Your name</h3>
-    <input id="name-input" type="text" placeholder="e.g. Vanessa" autocomplete="off"/>
-    <div class="name-box-btns">
-      <button class="nb-cancel" id="nb-cancel">Cancel</button>
-      <button class="nb-ok"     id="nb-ok">Create →</button>
+    <h3 style="margin-bottom:10px">Your Name</h3>
+    <input id="name-input" class="fs-input" type="text" placeholder="Vanessa"/>
+    <div style="display:flex;gap:8px;margin-top:15px">
+      <button onclick="document.getElementById('name-dialog').classList.remove('open')" style="flex:1;padding:10px;background:#3d5c3d;border:none;border-radius:8px;color:#fff">Cancel</button>
+      <button id="nb-ok" style="flex:1;padding:10px;background:#22c55e;border:none;border-radius:8px;color:#fff">Create</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MAP VIEW ══ -->
 <div id="map-view">
   <div id="mv-header">
     <button id="mv-back">← Back</button>
     <div id="mv-title">—</div>
-    <button class="mv-btn mv-share" id="mv-share">📲 Share</button>
-    <button class="mv-btn mv-pdf"   id="mv-pdf">📄 PDF</button>
-    <button class="mv-btn mv-reset" id="mv-reset">Reset</button>
+    <button class="mv-btn mv-pdf" id="mv-pdf">📄 PDF</button>
   </div>
-  <div id="ro-banner">👁️ Read-only — shared by <span id="ro-name"></span> <button onclick="roDownloadPdf()">📄 PDF</button></div>
-  <div id="mv-hint">Tap on the map to add a note</div>
+  <div id="mv-hint">Tap anywhere to add a bungalow</div>
   <div id="map-container">
     <div id="map-wrapper">
-      <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" alt="Camping map"/>
+      <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" crossorigin="anonymous" alt="Map"/>
     </div>
   </div>
-  <button id="mv-toggle-list">▼ NOTE LIST</button>
-  <div id="mv-list-panel"></div>
 </div>
 
-<!-- ══ EDIT NOTE (fullscreen) ══ -->
 <div class="fs-modal" id="edit-modal">
-  <div class="fs-top">
-    <h2 id="edit-modal-title">New note</h2>
-    <button class="fs-close" id="edit-close">✕</button>
-  </div>
+  <div class="fs-top"><h2>Add Bungalow</h2><button class="fs-close" onclick="document.getElementById('edit-modal').classList.remove('open')">✕</button></div>
   <div class="fs-body">
-    <div><div class="fs-label">Zone</div><span class="zone-tag" id="edit-zone-tag">—</span></div>
-    <div><div class="fs-label">Bungalow number</div><input class="fs-input" id="edit-num" type="number" inputmode="numeric" placeholder="e.g. 26"/></div>
-    <div style="flex:1;display:flex;flex-direction:column;gap:6px">
-      <div class="fs-label">Notes</div>
-      <textarea class="fs-textarea" id="edit-text" placeholder="BBQ No Fire&#10;Grill Grate&#10;Arrives Saturday&#10;..."></textarea>
-    </div>
+    <div><div class="fs-label">Detected Zone</div><span class="zone-tag" id="edit-zone-tag">Unknown</span></div>
+    <div><div class="fs-label">Bungalow Number</div><input class="fs-input" id="edit-num" type="number" inputmode="numeric" placeholder="26"/></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:6px"><div class="fs-label">Notes</div><textarea class="fs-textarea" id="edit-text"></textarea></div>
   </div>
   <div class="fs-footer">
-    <button class="fsf-del" id="edit-del" style="display:none">Delete</button>
-    <button class="fsf-cancel" id="edit-cancel">Cancel</button>
+    <button class="fsf-cancel" onclick="document.getElementById('edit-modal').classList.remove('open')">Cancel</button>
     <button class="fsf-save" id="edit-save">Save</button>
-  </div>
-</div>
-
-<!-- ══ VIEW NOTE (fullscreen) ══ -->
-<div class="fs-modal" id="view-modal">
-  <div class="fs-top">
-    <h2 id="view-modal-title">Bungalow</h2>
-    <button class="fs-close" id="view-close">✕ Close</button>
-  </div>
-  <div class="fs-body">
-    <span class="zone-tag" id="view-zone-tag">—</span>
-    <div class="note-view-text" id="view-text"></div>
-  </div>
-  <div class="fs-footer" id="view-footer">
-    <button class="fsf-edit" id="view-edit">✏️ Edit</button>
-    <button class="fsf-done" id="view-done">✓ Done — remove</button>
-  </div>
-</div>
-
-<!-- ══ SHARE MODAL ══ -->
-<div id="share-modal">
-  <div id="share-inner">
-    <div class="fs-top">
-      <h2>Share map</h2>
-      <button class="fs-close" id="share-close">✕</button>
-    </div>
-    <div class="fs-body">
-      <p style="font-size:13px;color:#6b9e6b;line-height:1.6">
-        Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download PDF.<br>
-        Map stays saved until they delete it.
-      </p>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <div class="fs-label">Map link</div>
-        <textarea class="share-ta" id="share-link-ta" readonly></textarea>
-      </div>
-    </div>
-    <div class="fs-footer">
-      <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
-      <button class="fsf-edit" id="share-copy">Copy link</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ CONFIRM ══ -->
-<div class="confirm-overlay" id="confirm-overlay">
-  <div class="confirm-box">
-    <p id="confirm-msg">Are you sure?</p>
-    <div class="confirm-btns">
-      <button class="cb-yes" id="confirm-yes">Yes</button>
-      <button class="cb-no"  id="confirm-no">Cancel</button>
-    </div>
   </div>
 </div>
 
 <script>
 // ═══════════════════════════════
-// NEW: PIXEL DETECTION (CANVAS)
+// 1. DÉTECTION COULEUR (À CALIBRER ENSEMBLE)
 // ═══════════════════════════════
 const mapImg = document.getElementById('mapImg');
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-// Configuration des couleurs RGB des zones
+// Ces couleurs sont des estimations. On les ajustera après ton test.
 const ZONES_CONFIG = [
   { name: 'Yellow', rgb: [234, 179, 8],  bg: '#eab308', color: '#000' },
   { name: 'Grey',   rgb: [107, 114, 128], bg: '#6b7280', color: '#fff' },
@@ -356,344 +131,130 @@ mapImg.onload = () => {
   canvas.width = mapImg.naturalWidth;
   canvas.height = mapImg.naturalHeight;
   ctx.drawImage(mapImg, 0, 0);
+  console.log("Canvas prêt. Taille :", canvas.width, "x", canvas.height);
 };
 
-function getZoneByPixel(xPercent, yPercent) {
+function getZoneByPixel(xPct, yPct) {
   if (canvas.width === 0) return null;
-  const x = (xPercent / 100) * canvas.width;
-  const y = (yPercent / 100) * canvas.height;
-  const pixel = ctx.getImageData(x, y, 1, 1).data;
-  const r = pixel[0], g = pixel[1], b = pixel[2];
+  const x = (xPct / 100) * canvas.width;
+  const y = (yPct / 100) * canvas.height;
+  const p = ctx.getImageData(x, y, 1, 1).data;
+  
+  // LOG POUR LE TRAVAIL ENSEMBLE :
+  console.log(`Clic à ${xPct}% , ${yPct}% | RVB détecté : [${p[0]}, ${p[1]}, ${p[2]}]`);
+
+  let closest = null;
+  let minDom = 100; // Tolérance de distance de couleur (plus c'est haut, plus c'est souple)
 
   for (let z of ZONES_CONFIG) {
-    const dist = Math.sqrt(Math.pow(r-z.rgb[0],2)+Math.pow(g-z.rgb[1],2)+Math.pow(b-z.rgb[2],2));
-    if (dist < 45) return z;
+    const d = Math.sqrt(Math.pow(p[0]-z.rgb[0],2) + Math.pow(p[1]-z.rgb[1],2) + Math.pow(p[2]-z.rgb[2],2));
+    if (d < minDom) {
+      minDom = d;
+      closest = z;
+    }
   }
-  return null;
-}
-
-function applyZoneTag(el, zone) {
-  el.textContent = zone ? zone.name + ' zone' : 'Unknown zone';
-  el.style.background = zone ? zone.bg : '#374151';
-  el.style.color = zone ? zone.color : '#d1d5db';
+  return minDom < 80 ? closest : null; // Si la couleur est trop loin (ex: fond noir), on renvoie null
 }
 
 // ═══════════════════════════════
-// PINCH ZOOM & PAN on map
-// ═══════════════════════════════
-(function(){
-  const container = document.getElementById('map-container');
-  const wrapper   = document.getElementById('map-wrapper');
-  let scale=1, lastScale=1;
-  let originX=0, originY=0;       // current translation
-  let startDist=0, startScale=1;
-  let startX=0, startY=0, startOX=0, startOY=0;
-  let isPinching=false, isDragging=false;
-  let lastTap=0;
-
-  function clamp(v,mn,mx){return Math.min(Math.max(v,mn),mx)}
-
-  function applyTransform(){
-    const cw=container.clientWidth, ch=container.clientHeight;
-    const iw=wrapper.offsetWidth*scale, ih=wrapper.offsetHeight*scale;
-    const maxX=Math.max(0,(iw-cw)/2);
-    const maxY=Math.max(0,(ih-ch)/2);
-    originX=clamp(originX,-maxX,maxX);
-    originY=clamp(originY,-maxY,maxY);
-    wrapper.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;
-    wrapper.style.transformOrigin='center center';
-  }
-
-  function dist(t){
-    const dx=t[0].clientX-t[1].clientX, dy=t[0].clientY-t[1].clientY;
-    return Math.sqrt(dx*dx+dy*dy);
-  }
-  function midpoint(t){
-    return{x:(t[0].clientX+t[1].clientX)/2, y:(t[0].clientY+t[1].clientY)/2};
-  }
-
-  container.addEventListener('touchstart',e=>{
-    if(e.touches.length===2){
-      isPinching=true; isDragging=false;
-      startDist=dist(e.touches);
-      startScale=scale;
-      e.preventDefault();
-    } else if(e.touches.length===1){
-      isDragging=true; isPinching=false;
-      startX=e.touches[0].clientX; startY=e.touches[0].clientY;
-      startOX=originX; startOY=originY;
-      const now=Date.now();
-      if(now-lastTap<300 && scale>1){scale=1;originX=0;originY=0;applyTransform();}
-      lastTap=now;
-    }
-  },{passive:false});
-
-  container.addEventListener('touchmove',e=>{
-    if(isPinching && e.touches.length===2){
-      const newDist=dist(e.touches);
-      const newScale=clamp(startScale*(newDist/startDist),1,10);
-      const mid=midpoint(e.touches);
-      const rect=container.getBoundingClientRect();
-      const px=mid.x-rect.left-rect.width/2;
-      const py=mid.y-rect.top-rect.height/2;
-      const factor=newScale/scale;
-      originX=(originX-px)*factor+px;
-      originY=(originY-py)*factor+py;
-      scale=newScale;
-      applyTransform();
-      e.preventDefault();
-    } else if(isDragging && e.touches.length===1 && scale>1){
-      originX=startOX+(e.touches[0].clientX-startX);
-      originY=startOY+(e.touches[0].clientY-startY);
-      applyTransform();
-      e.preventDefault();
-    }
-  },{passive:false});
-
-  container.addEventListener('touchend',e=>{
-    if(e.touches.length<2) isPinching=false;
-    if(e.touches.length===0) isDragging=false;
-  });
-
-  container.addEventListener('wheel',e=>{
-    e.preventDefault();
-    const factor=e.deltaY<0?1.15:0.87;
-    const newScale=clamp(scale*factor,1,10);
-    const rect=container.getBoundingClientRect();
-    const px=e.clientX-rect.left-rect.width/2;
-    const py=e.clientY-rect.top-rect.height/2;
-    const f=newScale/scale;
-    originX=(originX-px)*f+px;
-    originY=(originY-py)*f+py;
-    scale=newScale;
-    applyTransform();
-  },{passive:false});
-
-  window.resetMapZoom=function(){scale=1;originX=0;originY=0;applyTransform();}
-})();
-
-// ═══════════════════════════════
-// STORAGE & STATE
+// 2. LOGIQUE DU STOCKAGE
 // ═══════════════════════════════
 const SK='montgri_v5';
-function loadStore(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch{return{}}}
-function saveStore(s){try{localStorage.setItem(SK,JSON.stringify(s))}catch{}}
+let store = JSON.parse(localStorage.getItem(SK) || '{"myMaps":{}}');
+let currentMap = null;
+let pendingX, pendingY;
 
-let store=loadStore();
-if(!store.myMaps)store.myMaps={};
-if(!store.recvMaps)store.recvMaps={};
-
-let currentMapId=null;
-let currentMap=null;
-let isReadOnly=false;
-let pendingX,pendingY,editingId=null,viewingId=null;
-let confirmCallback=null;
+function save(){ localStorage.setItem(SK, JSON.stringify(store)); }
 
 // ═══════════════════════════════
-// HOME RENDER
+// 3. UI & INTERACTIONS
 // ═══════════════════════════════
 function renderHome(){
-  const now=new Date();
-  document.getElementById('home-today').textContent=
-    '📅 '+now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-
-  const myEl=document.getElementById('my-maps-list');
-  const myIds=Object.keys(store.myMaps).sort((a,b)=>store.myMaps[b].num-store.myMaps[a].num);
-  myEl.innerHTML = !myIds.length ? '<p style="font-size:12px;color:#6b9e6b">No maps yet. Tap + to create one.</p>' : 
-    myIds.map(id=>{
-      const m=store.myMaps[id];
-      return `<div class="map-card" onclick="openMapView(store.myMaps['${id}'],false)">
-        <div class="map-card-left">
-          <div class="map-card-num">Map #${m.num} — ${m.userName}</div>
-          <div class="map-card-sub">📅 ${m.date} · ${m.annotations?.length||0} notes</div>
-        </div>
-        <span class="map-card-badge">${m.annotations?.length||0}</span>
-        <button class="map-card-del" onclick="event.stopPropagation();deleteMyMap('${id}')">🗑</button>
-      </div>`;
-    }).join('');
-
-  const rvEl=document.getElementById('recv-maps-list');
-  const rvIds=Object.keys(store.recvMaps).sort((a,b)=>new Date(store.recvMaps[b].receivedAt)-new Date(store.recvMaps[a].receivedAt));
-  rvEl.innerHTML = !rvIds.length ? '<p style="font-size:12px;color:#6b9e6b">No received maps yet.</p>' :
-    rvIds.map(id=>{
-      const m=store.recvMaps[id];
-      return `<div class="map-card" onclick="openMapView(store.recvMaps['${id}'],true)">
-        <div class="map-card-left">
-          <div class="map-card-num">Map #${m.num} — ${m.userName} <span class="received-tag">received</span></div>
-          <div class="map-card-sub">📅 ${m.date} · ${m.annotations?.length||0} notes</div>
-        </div>
-        <span class="map-card-badge">${m.annotations?.length||0}</span>
-        <button class="map-card-del" onclick="event.stopPropagation();deleteRecvMap('${id}')">🗑</button>
-      </div>`;
-    }).join('');
+  const list = document.getElementById('my-maps-list');
+  const ids = Object.keys(store.myMaps);
+  list.innerHTML = ids.length ? ids.map(id => `
+    <div class="map-card" onclick="openMap('${id}')">
+      <div style="flex:1">
+        <div class="map-card-num">Map #${store.myMaps[id].num} - ${store.myMaps[id].userName}</div>
+        <div class="map-card-sub">${store.myMaps[id].annotations.length} notes</div>
+      </div>
+      <button class="map-card-del" onclick="event.stopPropagation(); deleteMap('${id}')">🗑</button>
+    </div>`).join('') : '<p>No maps yet.</p>';
 }
-renderHome();
 
-function deleteMyMap(id){ showConfirm('Delete Map #'+store.myMaps[id].num+'?',()=>{ delete store.myMaps[id];saveStore(store);renderHome(); }); }
-function deleteRecvMap(id){ showConfirm('Delete received map?',()=>{ delete store.recvMaps[id];saveStore(store);renderHome(); }); }
-
-// ═══════════════════════════════
-// MAP VIEW LOGIC
-// ═══════════════════════════════
-function openMapView(map,readOnly){
-  currentMap={...map};
-  currentMapId=map.id;
-  isReadOnly=readOnly;
+function openMap(id){
+  currentMap = store.myMaps[id];
   document.getElementById('home-screen').style.display='none';
   document.getElementById('map-view').classList.add('open');
-  document.getElementById('mv-title').textContent=(readOnly?'👁️ ':'🗺️ ')+'Map #'+map.num+' — '+map.userName;
-  document.getElementById('ro-banner').style.display=readOnly?'block':'none';
-  document.getElementById('ro-name').textContent=map.userName;
-  document.getElementById('mv-share').style.display=readOnly?'none':'';
-  document.getElementById('mv-reset').style.display=readOnly?'none':'';
-  render();
+  document.getElementById('mv-title').textContent = "Map - " + currentMap.userName;
+  renderPins();
 }
 
-document.getElementById('mv-back').addEventListener('click',()=>{
-  if(!isReadOnly) persistCurrent();
+function renderPins(){
+  document.querySelectorAll('.pin').forEach(p=>p.remove());
+  currentMap.annotations.forEach(a => {
+    const pin = document.createElement('div');
+    pin.className = 'pin'; pin.style.left = a.x + '%'; pin.style.top = a.y + '%';
+    pin.innerHTML = '<div class="pin-dot"></div>';
+    document.getElementById('map-wrapper').appendChild(pin);
+  });
+}
+
+// Tap sur la carte
+document.getElementById('map-wrapper').addEventListener('click', (e) => {
+  const rect = mapImg.getBoundingClientRect();
+  pendingX = ((e.clientX - rect.left) / rect.width * 100).toFixed(2);
+  pendingY = ((e.clientY - rect.top) / rect.height * 100).toFixed(2);
+  
+  const zone = getZoneByPixel(pendingX, pendingY);
+  const tag = document.getElementById('edit-zone-tag');
+  
+  if(zone){
+    tag.textContent = zone.name + " Zone";
+    tag.style.background = zone.bg;
+    tag.style.color = zone.color;
+    document.getElementById('edit-text').value = zone.name + " Bungalow ";
+  } else {
+    tag.textContent = "Unknown Zone";
+    tag.style.background = "#374151";
+    document.getElementById('edit-text').value = "";
+  }
+  
+  document.getElementById('edit-num').value = "";
+  document.getElementById('edit-modal').classList.add('open');
+});
+
+document.getElementById('edit-save').addEventListener('click', () => {
+  const num = document.getElementById('edit-num').value;
+  const txt = document.getElementById('edit-text').value;
+  currentMap.annotations.push({x: pendingX, y: pendingY, num, text: txt});
+  save(); renderPins();
+  document.getElementById('edit-modal').classList.remove('open');
+});
+
+document.getElementById('btn-new-map').addEventListener('click', () => {
+  document.getElementById('name-dialog').classList.add('open');
+});
+
+document.getElementById('nb-ok').addEventListener('click', () => {
+  const name = document.getElementById('name-input').value;
+  if(!name) return;
+  const id = 'm' + Date.now();
+  store.myMaps[id] = {id, userName: name, num: Object.keys(store.myMaps).length+1, annotations: []};
+  save(); renderHome();
+  document.getElementById('name-dialog').classList.remove('open');
+  openMap(id);
+});
+
+document.getElementById('mv-back').addEventListener('click', () => {
   document.getElementById('map-view').classList.remove('open');
   document.getElementById('home-screen').style.display='flex';
   renderHome();
 });
 
-function persistCurrent(){
-  if(isReadOnly||!currentMapId)return;
-  if(store.myMaps[currentMapId]){ store.myMaps[currentMapId].annotations=currentMap.annotations; saveStore(store); }
-}
+function deleteMap(id){ if(confirm("Delete?")){ delete store.myMaps[id]; save(); renderHome(); } }
 
-function render(){
-  document.querySelectorAll('.pin').forEach(e=>e.remove());
-  (currentMap.annotations||[]).forEach(a=>{
-    const pin=document.createElement('div');
-    pin.className='pin'; pin.style.left=a.x+'%'; pin.style.top=a.y+'%'; pin.dataset.id=a.id;
-    pin.innerHTML='<div class="pin-dot"></div>';
-    pin.addEventListener('click',ev=>{ev.stopPropagation();openViewNote(a.id)});
-    document.getElementById('map-wrapper').appendChild(pin);
-  });
-  renderList();
-}
-
-function renderList(){
-  const panel=document.getElementById('mv-list-panel');
-  const anns=currentMap.annotations||[];
-  if(!anns.length){panel.innerHTML='<p style="padding:11px 14px;color:#6b9e6b;font-size:12px">No notes yet.</p>';return}
-  panel.innerHTML=anns.map(a=>{
-    const z=getZoneByPixel(a.x, a.y);
-    return `<div class="list-item" onclick="openViewNote(${a.id})">
-      <div class="li-num">${a.num||'?'}</div>
-      <span class="li-zone" style="background:${z?z.bg:'#374151'};color:${z?z.color:'#fff'}">${z?z.name:'?'}</span>
-      <div class="li-text">${a.text}</div>
-    </div>`;
-  }).join('');
-}
-
-// ═══════════════════════════════
-// NEW: UPDATED handleMapTap
-// ═══════════════════════════════
-function handleMapTap(ev){
-  if(isReadOnly||ev.target.closest('.pin'))return;
-  const wrapper2=document.getElementById('map-wrapper');
-  const wr=wrapper2.getBoundingClientRect();
-  
-  pendingX=((ev.clientX-wr.left)/wr.width*100).toFixed(2);
-  pendingY=((ev.clientY-wr.top)/wr.height*100).toFixed(2);
-  
-  const zone = getZoneByPixel(pendingX, pendingY);
-  
-  editingId=null;
-  document.getElementById('edit-modal-title').textContent='New note';
-  document.getElementById('edit-num').value='';
-  
-  // Remplissage auto
-  document.getElementById('edit-text').value = zone ? zone.name + ' Bungalow ' : '';
-  
-  document.getElementById('edit-del').style.display='none';
-  applyZoneTag(document.getElementById('edit-zone-tag'), zone);
-  
-  document.getElementById('edit-modal').classList.add('open');
-  setTimeout(()=>document.getElementById('edit-num').focus(),150);
-}
-
-// Touchend detection for precise tap
-let _tapStartX=0,_tapStartY=0,_tapStartT=0,_tapWasMulti=false;
-document.getElementById('map-wrapper').addEventListener('touchstart',ev=>{
-  _tapWasMulti = ev.touches.length > 1;
-  if(ev.touches.length===1){ _tapStartX=ev.touches[0].clientX; _tapStartY=ev.touches[0].clientY; _tapStartT=Date.now(); }
-},{passive:true});
-
-document.getElementById('map-wrapper').addEventListener('touchend',ev=>{
-  if(_tapWasMulti || ev.changedTouches.length!==1) return;
-  const touch=ev.changedTouches[0];
-  const dx=touch.clientX-_tapStartX, dy=touch.clientY-_tapStartY, dt=Date.now()-_tapStartT;
-  if(Math.sqrt(dx*dx+dy*dy)>8 || dt>400) return;
-  handleMapTap({clientX:touch.clientX, clientY:touch.clientY, target:touch.target});
-  ev.preventDefault();
-},{passive:false});
-
-// Edit & Save
-document.getElementById('edit-save').addEventListener('click',()=>{
-  const txt=document.getElementById('edit-text').value.trim();
-  const num=document.getElementById('edit-num').value.trim();
-  if(!txt&&!num)return;
-  if(!currentMap.annotations)currentMap.annotations=[];
-  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId);if(a){a.text=txt;a.num=num}}
-  else currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num});
-  persistCurrent();render();
-  document.getElementById('edit-modal').classList.remove('open');
-});
-
-// View logic
-function openViewNote(id){
-  viewingId=id;
-  const a=currentMap.annotations.find(a=>a.id===id);
-  document.getElementById('view-modal-title').textContent='Bungalow '+(a.num||'?');
-  document.getElementById('view-text').textContent=a.text;
-  applyZoneTag(document.getElementById('view-zone-tag'), getZoneByPixel(a.x, a.y));
-  document.getElementById('view-edit').style.display=isReadOnly?'none':'';
-  document.getElementById('view-done').style.display=isReadOnly?'none':'';
-  document.getElementById('view-modal').classList.add('open');
-}
-
-// Share, PDF, Name, etc (Repris de ton code original)
-document.getElementById('btn-new-map').addEventListener('click',()=>{
-  document.getElementById('name-input').value='';
-  document.getElementById('name-dialog').classList.add('open');
-});
-document.getElementById('nb-ok').addEventListener('click',()=>{
-  const n=document.getElementById('name-input').value.trim();
-  if(!n)return;
-  const id='map_'+Date.now();
-  const today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-  store.myMaps[id]={id,num:Object.keys(store.myMaps).length+1,userName:n,date:today,annotations:[]};
-  saveStore(store);
-  document.getElementById('name-dialog').classList.remove('open');
-  openMapView(store.myMaps[id],false);
-});
-
-// Fermetures modales
-document.querySelectorAll('.fs-close, .fsf-cancel').forEach(btn => {
-  btn.addEventListener('click', () => document.querySelectorAll('.fs-modal').forEach(m => m.classList.remove('open')));
-});
-
-// PDF & Share
-document.getElementById('mv-pdf').addEventListener('click',()=>generatePdf(currentMap));
-function generatePdf(map){
-  const anns=map.annotations||[];
-  let rows=anns.map(a=>{
-    const z=getZoneByPixel(a.x,a.y);
-    return `<tr><td><b>Bungalow ${a.num}</b><br>${z?z.name:''}</td><td>${a.text}</td></tr>`;
-  }).join('');
-  const html=`<html><body onload="window.print()"><h2>Camping Map - ${map.userName}</h2><table border="1" width="100%">${rows}</table></body></html>`;
-  const blob=new Blob([html],{type:'text/html'});
-  const url=URL.createObjectURL(blob);
-  window.open(url);
-}
-
-// Reset & Confirm
-function showConfirm(msg,cb){ document.getElementById('confirm-msg').textContent=msg; confirmCallback=cb; document.getElementById('confirm-overlay').classList.add('open'); }
-document.getElementById('confirm-yes').addEventListener('click',()=>{ document.getElementById('confirm-overlay').classList.remove('open'); if(confirmCallback)confirmCallback(); });
-document.getElementById('confirm-no').addEventListener('click',()=>document.getElementById('confirm-overlay').classList.remove('open'));
-
+window.onload = renderHome;
 </script>
 </body>
 </html>
