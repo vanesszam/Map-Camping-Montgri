@@ -1,399 +1,709 @@
 <!DOCTYPE html>
-<html lang="En-GB">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Map Camping Castell Montgrí</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+<title>Camping Castell Montgrí</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a2e1a; color: #fff; min-height: 100vh; }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;min-height:100vh}
 
-/* ── WELCOME ── */
-#welcome-screen {
-  position: fixed; inset: 0; background: #1a2e1a; z-index: 999;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px;
+/* ── HOME SCREEN ── */
+#home-screen{
+  position:fixed;inset:0;background:#111d11;z-index:9999;
+  display:flex;flex-direction:column;overflow-y:auto;
 }
-#welcome-screen h1 { font-size: 22px; font-weight: 800; color: #a8d5a2; margin-bottom: 6px; text-align: center; }
-#welcome-screen p  { font-size: 13px; color: #6b9e6b; margin-bottom: 28px; text-align: center; }
-.welcome-card {
-  background: #1e3320; border-radius: 18px; padding: 24px 20px;
-  width: 100%; max-width: 340px; border: 1px solid #2d4a2d;
+.home-header{
+  background:#1e3320;padding:18px 16px 14px;border-bottom:1px solid #2d4a2d;
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
 }
-.welcome-card label { font-size: 11px; color: #6b9e6b; display: block; margin-bottom: 6px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
-.welcome-card input {
-  width: 100%; font-size: 20px; font-weight: 700;
-  background: #162616; border: 1px solid #3d5c3d; border-radius: 10px;
-  padding: 12px 14px; color: #e8f5e8; font-family: inherit; margin-bottom: 8px;
-}
-.welcome-card input:focus { outline: none; border-color: #22c55e; }
-.date-row { font-size: 13px; color: #6b9e6b; margin-bottom: 20px; text-align: center; }
-.btn-start {
-  width: 100%; padding: 14px; background: #22c55e; color: #fff;
-  border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer;
-}
-.btn-start:active { background: #16a34a; }
+.home-header h1{font-size:18px;font-weight:800;color:#a8d5a2;flex:1}
+.home-header .today{font-size:11px;color:#6b9e6b;margin-top:2px}
 
-/* ── HEADER ── */
-header {
-  background: #1a2e1a; padding: 8px 10px;
-  display: flex; align-items: center; justify-content: space-between; gap: 6px;
-  border-bottom: 1px solid #2d4a2d; position: sticky; top: 0; z-index: 50;
-}
-#header-name { font-size: 12px; font-weight: 700; color: #a8d5a2; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.badge { background: #dc2626; color: white; font-size: 10px; font-weight: 700; border-radius: 99px; padding: 2px 7px; }
-.header-btns { display: flex; gap: 5px; flex-shrink: 0; align-items: center; }
-.btn { font-size: 11px; padding: 6px 10px; border-radius: 8px; cursor: pointer; border: none; font-weight: 700; white-space: nowrap; }
-.btn:active { opacity: 0.75; }
-.btn-green { background: #22c55e; color: #fff; }
-.btn-red   { background: #dc2626; color: #fff; }
-.btn-gray  { background: #3d5c3d; color: #c8e6c8; }
-.btn-blue  { background: #1d4ed8; color: #fff; }
-.btn-wa    { background: #25D366; color: #fff; }
-.btn-pdf   { background: #7c3aed; color: #fff; }
+.home-body{flex:1;padding:14px 14px 100px}
+.section-title{font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:18px 0 8px}
 
-#hint { text-align: center; font-size: 11px; color: #6b9e6b; padding: 5px 12px; background: #162616; }
+.map-card{
+  background:#1e3320;border-radius:12px;border:1px solid #2d4a2d;
+  padding:13px 14px;margin-bottom:8px;cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+}
+.map-card:active{background:#253d25}
+.map-card-left{flex:1}
+.map-card-num{font-size:15px;font-weight:800;color:#a8d5a2}
+.map-card-sub{font-size:12px;color:#6b9e6b;margin-top:2px}
+.map-card-badge{background:#dc2626;color:#fff;font-size:10px;font-weight:800;border-radius:99px;padding:2px 8px}
+.map-card-del{background:#3d1a1a;color:#f87171;border:none;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer}
+.map-card-del:active{background:#5a2222}
 
-/* ── MAP ── */
-#map-wrapper { position: relative; width: 100%; overflow: hidden; }
-#mapImg { width: 100%; display: block; }
+.received-tag{background:#b45309;color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px;margin-left:6px}
 
-.pin {
-  position: absolute; transform: translate(-50%, -50%);
-  cursor: pointer; z-index: 20;
-  padding: 8px; margin: -8px; /* bigger tap area */
+.fab{
+  position:fixed;bottom:24px;right:20px;z-index:10000;
+  background:#22c55e;color:#fff;border:none;border-radius:99px;
+  padding:14px 22px;font-size:15px;font-weight:800;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,0.4);
 }
-.pin-circle {
-  width: 10px; height: 10px; background: #dc2626; border-radius: 50%;
-  border: 1.5px solid white; box-shadow: 0 1px 5px rgba(0,0,0,0.6);
-}
-.pin:active .pin-circle { transform: scale(1.5); }
+.fab:active{background:#16a34a}
 
-/* ── LIST ── */
-#toggle-list {
-  width: 100%; background: #1a2e1a; border: none; border-top: 1px solid #2d4a2d;
-  color: #6b9e6b; font-size: 12px; padding: 7px; cursor: pointer; text-align: center; letter-spacing: 0.05em;
+/* name input dialog */
+.name-dialog{
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10001;
+  display:none;align-items:center;justify-content:center;
 }
-#list-panel { background: #162616; border-top: 1px solid #2d4a2d; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-#list-panel.open { max-height: 400px; overflow-y: auto; }
-.list-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #1e3320; cursor: pointer; }
-.list-item:active { background: #1e3320; }
-.list-num { background: #dc2626; color: white; font-size: 11px; font-weight: 800; border-radius: 99px; min-width: 28px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0 5px; }
-.list-text { font-size: 13px; color: #c8e6c8; white-space: pre-wrap; word-break: break-word; flex: 1; line-height: 1.4; }
+.name-dialog.open{display:flex}
+.name-box{
+  background:#1e3320;border-radius:16px;padding:22px 18px;width:290px;
+  border:1px solid #2d4a2d;
+}
+.name-box h3{font-size:15px;font-weight:700;color:#a8d5a2;margin-bottom:12px}
+.name-box input{
+  width:100%;font-size:18px;font-weight:700;
+  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
+  padding:11px 13px;color:#e8f5e8;font-family:inherit;margin-bottom:12px;
+}
+.name-box input:focus{outline:none;border-color:#22c55e}
+.name-box-btns{display:flex;gap:8px}
+.name-box-btns button{flex:1;padding:11px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
+.nb-ok{background:#22c55e;color:#fff}
+.nb-cancel{background:#3d5c3d;color:#c8e6c8}
 
-/* ── OVERLAYS ── */
-.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.72); z-index: 200; align-items: flex-end; justify-content: center; }
-.overlay.open { display: flex; }
-.overlay.center { align-items: center; justify-content: center; }
-.sheet {
-  background: #1e3320; border-radius: 20px 20px 0 0; width: 100%; max-width: 520px;
-  padding: 18px 16px 32px; border-top: 1px solid #2d4a2d; animation: slideUp 0.2s ease; max-height: 90vh; overflow-y: auto;
+/* ── MAP VIEW ── */
+#map-view{display:none;flex-direction:column;height:100vh;position:fixed;inset:0;z-index:100}
+#map-view.open{display:flex}
+
+/* header */
+#mv-header{
+  background:#1e3320;padding:8px 10px;flex-shrink:0;
+  display:flex;align-items:center;gap:8px;border-bottom:1px solid #2d4a2d;
 }
-@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.sheet-handle { width: 36px; height: 4px; background: #3d5c3d; border-radius: 2px; margin: 0 auto 14px; }
-.sheet h2 { font-size: 16px; font-weight: 700; color: #a8d5a2; margin-bottom: 10px; }
-.sheet label { font-size: 12px; color: #6b9e6b; display: block; margin-bottom: 4px; font-weight: 600; }
-.sheet input[type=number], .sheet input[type=text] {
-  width: 100%; font-size: 16px; background: #162616; border: 1px solid #3d5c3d;
-  border-radius: 10px; padding: 10px 12px; color: #e8f5e8; font-family: inherit; margin-bottom: 10px;
+#mv-back{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
+#mv-title{flex:1;font-size:12px;font-weight:700;color:#a8d5a2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mv-btn{font-size:11px;padding:6px 9px;border-radius:7px;cursor:pointer;border:none;font-weight:700;white-space:nowrap}
+.mv-btn:active{opacity:.75}
+.mv-share{background:#25D366;color:#fff}
+.mv-pdf{background:#7c3aed;color:#fff}
+.mv-reset{background:#dc2626;color:#fff}
+
+/* readonly banner */
+#ro-banner{
+  display:none;background:#b45309;color:#fff;
+  text-align:center;padding:8px 14px;font-size:12px;font-weight:700;flex-shrink:0;
 }
-.sheet input:focus, .sheet textarea:focus { outline: none; border-color: #22c55e; }
-.sheet textarea {
-  width: 100%; min-height: 90px; font-size: 14px; background: #162616;
-  border: 1px solid #3d5c3d; border-radius: 10px; padding: 10px 12px;
-  color: #e8f5e8; resize: vertical; font-family: inherit; line-height: 1.5;
+#ro-banner button{background:#fff;color:#b45309;border:none;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-left:8px}
+
+#mv-hint{background:#162616;text-align:center;font-size:11px;color:#6b9e6b;padding:4px;flex-shrink:0}
+
+/* map container — scrollable/zoomable */
+#map-container{flex:1;overflow:auto;position:relative;-webkit-overflow-scrolling:touch}
+#map-wrapper{position:relative;width:100%;min-width:100%}
+#mapImg{width:100%;display:block;touch-action:pinch-zoom}
+
+/* pin */
+.pin{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  cursor:pointer;z-index:20;
+  width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
 }
-.note-text {
-  background: #162616; border: 1px solid #3d5c3d; border-radius: 10px; padding: 14px;
-  font-size: 15px; line-height: 1.6; color: #e8f5e8; white-space: pre-wrap;
-  word-break: break-word; min-height: 60px; margin-bottom: 14px;
+.pin-dot{
+  width:7px;height:7px;
+  background:#dc2626;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.95);
+  box-shadow:0 1px 4px rgba(0,0,0,.8);
+  transition:transform .1s;
+  pointer-events:none;
 }
-.btn-row { display: flex; gap: 8px; margin-top: 10px; }
-.btn-row .btn { flex: 1; text-align: center; padding: 11px; font-size: 12px; }
-.share-textarea {
-  width: 100%; height: 130px; background: #162616; border: 1px solid #3d5c3d;
-  border-radius: 10px; padding: 10px; color: #c8e6c8; font-size: 12px;
-  font-family: monospace; resize: none; margin-bottom: 10px;
+.pin:active .pin-dot{transform:scale(1.7)}
+
+/* list panel */
+#mv-toggle-list{
+  width:100%;background:#1a2e1a;border:none;border-top:1px solid #2d4a2d;
+  color:#6b9e6b;font-size:11px;padding:6px;cursor:pointer;text-align:center;flex-shrink:0;
 }
-.confirm-box { background: #1e3320; border-radius: 16px; padding: 24px 20px; width: 280px; text-align: center; border: 1px solid #2d4a2d; }
-.confirm-box p { font-size: 15px; color: #c8e6c8; margin-bottom: 18px; line-height: 1.5; }
-.confirm-box .btn-row { justify-content: center; }
-.confirm-box .btn { flex: none; padding: 10px 22px; }
+#mv-list-panel{background:#162616;max-height:0;overflow:hidden;transition:max-height .3s ease;flex-shrink:0}
+#mv-list-panel.open{max-height:40vh;overflow-y:auto}
+.list-item{display:flex;align-items:flex-start;gap:8px;padding:9px 14px;border-bottom:1px solid #1e3320;cursor:pointer}
+.list-item:active{background:#1e3320}
+.li-num{background:#dc2626;color:#fff;font-size:11px;font-weight:800;border-radius:5px;min-width:30px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0 5px}
+.li-zone{font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;flex-shrink:0;align-self:center}
+.li-text{font-size:12px;color:#c8e6c8;white-space:pre-wrap;word-break:break-word;flex:1;line-height:1.4}
+
+/* ── FULLSCREEN NOTE MODAL ── */
+.fs-modal{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:#111d11;flex-direction:column;
+}
+.fs-modal.open{display:flex}
+.fs-top{
+  background:#1e3320;padding:12px 14px 10px;flex-shrink:0;
+  display:flex;align-items:center;gap:10px;border-bottom:1px solid #2d4a2d;
+}
+.fs-top h2{font-size:16px;font-weight:700;color:#a8d5a2;flex:1}
+.fs-close{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:20px;padding:5px 14px;font-size:13px;cursor:pointer;font-weight:700}
+.fs-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.fs-label{font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.zone-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.fs-input{
+  width:100%;font-size:20px;font-weight:700;
+  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
+  padding:11px 13px;color:#e8f5e8;font-family:inherit;
+}
+.fs-input:focus{outline:none;border-color:#22c55e}
+.fs-textarea{
+  width:100%;flex:1;min-height:200px;font-size:15px;
+  background:#162616;border:1px solid #3d5c3d;border-radius:10px;
+  padding:12px 13px;color:#e8f5e8;resize:none;font-family:inherit;line-height:1.6;
+}
+.fs-textarea:focus{outline:none;border-color:#22c55e}
+.note-view-text{
+  background:#162616;border:1px solid #2d4a2d;border-radius:10px;
+  padding:16px;font-size:16px;line-height:1.7;color:#e8f5e8;
+  white-space:pre-wrap;word-break:break-word;flex:1;
+}
+.fs-footer{
+  background:#1e3320;padding:12px 14px 28px;border-top:1px solid #2d4a2d;flex-shrink:0;
+  display:flex;gap:8px;
+}
+.fs-footer button{flex:1;padding:13px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
+.fs-footer button:active{opacity:.75}
+.fsf-del{background:#7f1d1d;color:#fca5a5;flex:0 0 auto!important;padding:13px 16px!important}
+.fsf-cancel{background:#3d5c3d;color:#c8e6c8}
+.fsf-save{background:#1d4ed8;color:#fff}
+.fsf-edit{background:#3d5c3d;color:#c8e6c8}
+.fsf-done{background:#22c55e;color:#fff}
+
+/* ── SHARE MODAL ── */
+#share-modal{
+  display:none;position:fixed;inset:0;z-index:600;
+  background:#111d11;flex-direction:column;
+}
+#share-modal.open{display:flex}
+.share-ta{
+  width:100%;flex:1;background:#162616;border:1px solid #3d5c3d;
+  border-radius:10px;padding:12px;color:#c8e6c8;font-size:11px;
+  font-family:monospace;resize:none;word-break:break-all;
+}
+
+/* ── CONFIRM DIALOG ── */
+.confirm-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;
+  align-items:center;justify-content:center;
+}
+.confirm-overlay.open{display:flex}
+.confirm-box{background:#1e3320;border-radius:16px;padding:24px 20px;width:285px;text-align:center;border:1px solid #2d4a2d}
+.confirm-box p{font-size:15px;color:#c8e6c8;margin-bottom:18px;line-height:1.5}
+.confirm-btns{display:flex;gap:8px;justify-content:center}
+.confirm-btns button{flex:none;padding:11px 22px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
+.cb-yes{background:#dc2626;color:#fff}
+.cb-no{background:#3d5c3d;color:#c8e6c8}
 </style>
 </head>
 <body>
 
-<!-- WELCOME -->
-<div id="welcome-screen">
-  <h1>🏕️ Castell Montgrí</h1>
-  <p>Map bungalow annotations</p>
-  <div class="welcome-card">
-    <label>Il tuo nome</label>
-    <input id="input-name" type="text" placeholder="Es: Vanessa" autocomplete="off" />
-    <div class="date-row" id="welcome-date"></div>
-    <button class="btn-start" id="btn-start">The day begins →</button>
+<!-- ══ HOME SCREEN ══ -->
+<div id="home-screen">
+  <div class="home-header">
+    <div>
+      <h1>🏕️ Castell Montgrí</h1>
+      <div class="today" id="home-today"></div>
+    </div>
   </div>
+  <div class="home-body">
+    <div class="section-title">My Maps</div>
+    <div id="my-maps-list"></div>
+    <div class="section-title">Received Maps</div>
+    <div id="recv-maps-list"><p style="font-size:12px;color:#6b9e6b">No received maps yet.</p></div>
+  </div>
+  <button class="fab" id="btn-new-map">+ New map</button>
 </div>
 
-<!-- APP -->
-<header>
-  <div id="header-name">🏕️ —</div>
-  <div class="header-btns">
-    <span class="badge" id="count-badge">0</span>
-    <button class="btn btn-wa"  id="btn-wa">📲 WhatsApp</button>
-    <button class="btn btn-pdf" id="btn-pdf">📄 PDF</button>
-    <button class="btn btn-red" id="btn-reset">Reset</button>
-  </div>
-</header>
-<div id="hint">Tap on the map to add a note</div>
-<div id="map-wrapper">
-  <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" alt="Mappa campeggio" />
-</div>
-<button id="toggle-list">▼ Note List</button>
-<div id="list-panel"></div>
-
-<!-- MODAL: edit -->
-<div class="overlay" id="overlay-edit">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <h2 id="edit-title"> Note</h2>
-    <label>Number bungalow</label>
-    <input id="edit-num" type="number" inputmode="numeric" placeholder="Es: 26" />
-    <label>Note</label>
-    <textarea id="edit-text" placeholder="Es: BBQ No Fire&#10;Grill Grate&#10;Arriva sabato&#10;..."></textarea>
-    <div class="btn-row">
-      <button class="btn btn-red"  id="btn-del" style="display:none">Remove</button>
-      <button class="btn btn-gray" id="btn-cancel">Cancel</button>
-      <button class="btn btn-blue" id="btn-save">Save</button>
+<!-- name dialog -->
+<div class="name-dialog" id="name-dialog">
+  <div class="name-box">
+    <h3>Your name</h3>
+    <input id="name-input" type="text" placeholder="e.g. Vanessa" autocomplete="off"/>
+    <div class="name-box-btns">
+      <button class="nb-cancel" id="nb-cancel">Cancel</button>
+      <button class="nb-ok"     id="nb-ok">Create →</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: view -->
-<div class="overlay" id="overlay-view">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <h2 id="view-title">Bungalow</h2>
-    <div class="note-text" id="view-text"></div>
-    <div class="btn-row">
-      <button class="btn btn-gray"  id="btn-view-edit">✏️ edit</button>
-      <button class="btn btn-green" id="btn-done">✓ Done — remove</button>
+<!-- ══ MAP VIEW ══ -->
+<div id="map-view">
+  <div id="mv-header">
+    <button id="mv-back">← Back</button>
+    <div id="mv-title">—</div>
+    <button class="mv-btn mv-share" id="mv-share">📲 Share</button>
+    <button class="mv-btn mv-pdf"   id="mv-pdf">📄 PDF</button>
+    <button class="mv-btn mv-reset" id="mv-reset">Reset</button>
+  </div>
+  <div id="ro-banner">👁️ Read-only — shared by <span id="ro-name"></span> <button onclick="roDownloadPdf()">📄 PDF</button></div>
+  <div id="mv-hint">Tap on the map to add a note</div>
+  <div id="map-container">
+    <div id="map-wrapper">
+      <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" alt="Camping map"/>
     </div>
-    <div class="btn-row">
-      <button class="btn btn-gray" id="btn-view-close">close</button>
+  </div>
+  <button id="mv-toggle-list">▼ NOTE LIST</button>
+  <div id="mv-list-panel"></div>
+</div>
+
+<!-- ══ EDIT NOTE (fullscreen) ══ -->
+<div class="fs-modal" id="edit-modal">
+  <div class="fs-top">
+    <h2 id="edit-modal-title">New note</h2>
+    <button class="fs-close" id="edit-close">✕</button>
+  </div>
+  <div class="fs-body">
+    <div><div class="fs-label">Zone</div><span class="zone-tag" id="edit-zone-tag">—</span></div>
+    <div><div class="fs-label">Bungalow number</div><input class="fs-input" id="edit-num" type="number" inputmode="numeric" placeholder="e.g. 26"/></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+      <div class="fs-label">Notes</div>
+      <textarea class="fs-textarea" id="edit-text" placeholder="BBQ No Fire&#10;Grill Grate&#10;Arrives Saturday&#10;..."></textarea>
     </div>
+  </div>
+  <div class="fs-footer">
+    <button class="fsf-del" id="edit-del" style="display:none">Delete</button>
+    <button class="fsf-cancel" id="edit-cancel">Cancel</button>
+    <button class="fsf-save" id="edit-save">Save</button>
   </div>
 </div>
 
-<!-- MODAL: share -->
-<div class="overlay" id="overlay-share">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <h2> Share notes</h2>
-    <textarea class="share-textarea" id="share-text" readonly></textarea>
-    <div class="btn-row">
-      <button class="btn btn-wa"   id="btn-wa-send">📲 Open WhatsApp</button>
-      <button class="btn btn-gray" id="btn-copy">copy</button>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-gray" id="btn-share-close">close</button>
-    </div>
+<!-- ══ VIEW NOTE (fullscreen) ══ -->
+<div class="fs-modal" id="view-modal">
+  <div class="fs-top">
+    <h2 id="view-modal-title">Bungalow</h2>
+    <button class="fs-close" id="view-close">✕ Close</button>
+  </div>
+  <div class="fs-body">
+    <span class="zone-tag" id="view-zone-tag">—</span>
+    <div class="note-view-text" id="view-text"></div>
+  </div>
+  <div class="fs-footer" id="view-footer">
+    <button class="fsf-edit" id="view-edit">✏️ Edit</button>
+    <button class="fsf-done" id="view-done">✓ Done — remove</button>
   </div>
 </div>
 
-<!-- MODAL: confirm reset -->
-<div class="overlay center" id="overlay-confirm">
+<!-- ══ SHARE MODAL ══ -->
+<div id="share-modal">
+  <div class="fs-top">
+    <h2>Share map</h2>
+    <button class="fs-close" id="share-close">✕</button>
+  </div>
+  <div class="fs-body">
+    <p style="font-size:13px;color:#6b9e6b;line-height:1.6">
+      Send this link on WhatsApp.<br>
+      The recipient opens the map in <strong style="color:#a8d5a2">read-only mode</strong> and can download a PDF.<br>
+      The map stays saved on their device until they delete it.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:6px;flex:1">
+      <div class="fs-label">Map link</div>
+      <textarea class="share-ta" id="share-link-ta" readonly></textarea>
+    </div>
+  </div>
+  <div class="fs-footer">
+    <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
+    <button class="fsf-edit" id="share-copy">Copy link</button>
+  </div>
+</div>
+
+<!-- ══ CONFIRM ══ -->
+<div class="confirm-overlay" id="confirm-overlay">
   <div class="confirm-box">
-    <p>Delete all notes and start over?</p>
-    <div class="btn-row">
-      <button class="btn btn-red"  id="btn-reset-yes">Yes, reset</button>
-      <button class="btn btn-gray" id="btn-reset-no"> Canceled</button>
+    <p id="confirm-msg">Are you sure?</p>
+    <div class="confirm-btns">
+      <button class="cb-yes" id="confirm-yes">Yes</button>
+      <button class="cb-no"  id="confirm-no">Cancel</button>
     </div>
   </div>
 </div>
 
 <script>
-const STORAGE_KEY = 'montgri_v3';
-let annotations = [], userName = '', todayStr = '';
-let pendingX, pendingY, editingId = null, viewingId = null;
-
-// ── WELCOME ──
-(function() {
-  const now = new Date();
-  todayStr = now.toLocaleDateString('En-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-  document.getElementById('welcome-date').textContent = '📅 ' + todayStr;
-  try {
-    const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    if (s.date === now.toDateString() && s.name) {
-      userName = s.name; annotations = s.annotations || [];
-      launchApp(); return;
-    }
-  } catch(e) {}
-  setTimeout(() => document.getElementById('input-name').focus(), 300);
-})();
-
-document.getElementById('btn-start').addEventListener('click', startSession);
-document.getElementById('input-name').addEventListener('keydown', e => { if (e.key === 'Enter') startSession(); });
-
-function startSession() {
-  const n = document.getElementById('input-name').value.trim();
-  if (!n) { document.getElementById('input-name').focus(); return; }
-  userName = n; annotations = []; saveAll(); launchApp();
+// ═══════════════════════════════
+// ZONES
+// ═══════════════════════════════
+const ZONES=[
+  {name:'Blue',  color:'#fff',bg:'#1d4ed8',xMin:0, xMax:45,yMin:10,yMax:75},
+  {name:'Yellow',color:'#000',bg:'#eab308',xMin:0, xMax:35,yMin:75,yMax:100},
+  {name:'Orange',color:'#fff',bg:'#ea580c',xMin:45,xMax:78,yMin:30,yMax:100},
+  {name:'Grey',  color:'#fff',bg:'#6b7280',xMin:35,xMax:65,yMin:60,yMax:100},
+  {name:'Brown', color:'#fff',bg:'#92400e',xMin:10,xMax:40,yMin:55,yMax:80},
+  {name:'Red',   color:'#fff',bg:'#dc2626',xMin:60,xMax:100,yMin:65,yMax:100},
+];
+function detectZone(x,y){
+  const xp=parseFloat(x),yp=parseFloat(y);
+  for(const z of ZONES)if(xp>=z.xMin&&xp<=z.xMax&&yp>=z.yMin&&yp<=z.yMax)return z;
+  return null;
+}
+function applyZoneTag(el,zone){
+  el.textContent=zone?zone.name+' zone':'Unknown zone';
+  el.style.background=zone?zone.bg:'#374151';
+  el.style.color=zone?zone.color:'#d1d5db';
 }
 
-function launchApp() {
-  document.getElementById('welcome-screen').style.display = 'none';
-  document.getElementById('header-name').textContent =
-    '🏕️ ' + userName + ' · ' + new Date().toLocaleDateString('En-GB', { month:'short', day:'numeric'});
+// ═══════════════════════════════
+// STORAGE
+// ═══════════════════════════════
+const SK='montgri_v5';
+function loadStore(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch{return{}}}
+function saveStore(s){try{localStorage.setItem(SK,JSON.stringify(s))}catch{}}
+
+let store=loadStore();
+if(!store.myMaps)store.myMaps={};
+if(!store.recvMaps)store.recvMaps={};
+
+// ═══════════════════════════════
+// STATE
+// ═══════════════════════════════
+let currentMapId=null;
+let currentMap=null;   // {id,num,userName,date,annotations,isReadOnly?}
+let isReadOnly=false;
+let pendingX,pendingY,editingId=null,viewingId=null;
+let confirmCallback=null;
+
+// ═══════════════════════════════
+// CHECK SHARED LINK ON LOAD
+// ═══════════════════════════════
+(function checkLink(){
+  const params=new URLSearchParams(window.location.search);
+  const raw=params.get('data');
+  if(!raw)return;
+  try{
+    const payload=JSON.parse(decodeURIComponent(atob(raw)));
+    // Save to recvMaps if not already there
+    const rid='recv_'+payload.id;
+    if(!store.recvMaps[rid]){
+      store.recvMaps[rid]={...payload,receivedAt:new Date().toISOString(),isReadOnly:true};
+      saveStore(store);
+    }
+    // Open it directly
+    openMapView(store.recvMaps[rid],true);
+  }catch(e){console.error(e)}
+})();
+
+// ═══════════════════════════════
+// HOME
+// ═══════════════════════════════
+function renderHome(){
+  const now=new Date();
+  document.getElementById('home-today').textContent=
+    '📅 '+now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  // My maps
+  const myEl=document.getElementById('my-maps-list');
+  const myIds=Object.keys(store.myMaps).sort((a,b)=>store.myMaps[b].num-store.myMaps[a].num);
+  if(!myIds.length){myEl.innerHTML='<p style="font-size:12px;color:#6b9e6b">No maps yet. Tap + to create one.</p>'}
+  else myEl.innerHTML=myIds.map(id=>{
+    const m=store.myMaps[id];
+    return `<div class="map-card" onclick="openMapView(store.myMaps['${id}'],false)">
+      <div class="map-card-left">
+        <div class="map-card-num">Map #${m.num} — ${m.userName}</div>
+        <div class="map-card-sub">📅 ${m.date} · ${m.annotations?.length||0} notes</div>
+      </div>
+      <span class="map-card-badge">${m.annotations?.length||0}</span>
+      <button class="map-card-del" onclick="event.stopPropagation();deleteMyMap('${id}')">🗑</button>
+    </div>`;
+  }).join('');
+
+  // Received maps
+  const rvEl=document.getElementById('recv-maps-list');
+  const rvIds=Object.keys(store.recvMaps).sort((a,b)=>new Date(store.recvMaps[b].receivedAt)-new Date(store.recvMaps[a].receivedAt));
+  if(!rvIds.length){rvEl.innerHTML='<p style="font-size:12px;color:#6b9e6b">No received maps yet.</p>'}
+  else rvEl.innerHTML=rvIds.map(id=>{
+    const m=store.recvMaps[id];
+    return `<div class="map-card" onclick="openMapView(store.recvMaps['${id}'],true)">
+      <div class="map-card-left">
+        <div class="map-card-num">Map #${m.num} — ${m.userName} <span class="received-tag">received</span></div>
+        <div class="map-card-sub">📅 ${m.date} · ${m.annotations?.length||0} notes · Received ${new Date(m.receivedAt).toLocaleDateString('en-GB')}</div>
+      </div>
+      <span class="map-card-badge">${m.annotations?.length||0}</span>
+      <button class="map-card-del" onclick="event.stopPropagation();deleteRecvMap('${id}')">🗑</button>
+    </div>`;
+  }).join('');
+}
+renderHome();
+
+function deleteMyMap(id){
+  showConfirm('Delete Map #'+store.myMaps[id].num+'?',()=>{
+    delete store.myMaps[id];saveStore(store);renderHome();
+  });
+}
+function deleteRecvMap(id){
+  showConfirm('Delete received map?',()=>{
+    delete store.recvMaps[id];saveStore(store);renderHome();
+  });
+}
+
+// ═══════════════════════════════
+// CREATE NEW MAP
+// ═══════════════════════════════
+document.getElementById('btn-new-map').addEventListener('click',()=>{
+  document.getElementById('name-input').value='';
+  document.getElementById('name-dialog').classList.add('open');
+  setTimeout(()=>document.getElementById('name-input').focus(),200);
+});
+document.getElementById('nb-cancel').addEventListener('click',()=>document.getElementById('name-dialog').classList.remove('open'));
+document.getElementById('nb-ok').addEventListener('click',createMap);
+document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')createMap()});
+
+function createMap(){
+  const n=document.getElementById('name-input').value.trim();
+  if(!n)return;
+  const nums=Object.values(store.myMaps).map(m=>m.num||0);
+  const nextNum=nums.length?Math.max(...nums)+1:1;
+  const id='map_'+Date.now();
+  const today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  store.myMaps[id]={id,num:nextNum,userName:n,date:today,annotations:[]};
+  saveStore(store);
+  document.getElementById('name-dialog').classList.remove('open');
+  openMapView(store.myMaps[id],false);
+}
+
+// ═══════════════════════════════
+// OPEN MAP VIEW
+// ═══════════════════════════════
+function openMapView(map,readOnly){
+  currentMap={...map};
+  currentMapId=map.id;
+  isReadOnly=readOnly;
+
+  document.getElementById('home-screen').style.display='none';
+  document.getElementById('map-view').classList.add('open');
+
+  document.getElementById('mv-title').textContent=
+    (readOnly?'👁️ ':'🗺️ ')+'Map #'+map.num+' — '+map.userName+' · '+map.date;
+
+  document.getElementById('ro-banner').style.display=readOnly?'block':'none';
+  document.getElementById('ro-name').textContent=map.userName+' · Map #'+map.num;
+
+  document.getElementById('mv-share').style.display=readOnly?'none':'';
+  document.getElementById('mv-reset').style.display=readOnly?'none':'';
+  document.getElementById('mv-hint').textContent=readOnly
+    ?'Read-only — tap a pin to view note'
+    :'Tap the map to add a note · Pinch to zoom';
+
   render();
 }
 
-function saveAll() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ date: new Date().toDateString(), name: userName, annotations })); } catch(e) {}
+document.getElementById('mv-back').addEventListener('click',()=>{
+  if(!isReadOnly) persistCurrent();
+  document.getElementById('map-view').classList.remove('open');
+  document.getElementById('home-screen').style.display='flex';
+  renderHome();
+});
+
+function persistCurrent(){
+  if(isReadOnly||!currentMapId)return;
+  if(store.myMaps[currentMapId]){
+    store.myMaps[currentMapId].annotations=currentMap.annotations;
+    saveStore(store);
+  }
 }
 
-function updateCount() { document.getElementById('count-badge').textContent = annotations.length; }
-
-function render() {
-  document.querySelectorAll('.pin').forEach(e => e.remove());
-  const wrapper = document.getElementById('map-wrapper');
-  annotations.forEach(a => {
-    const pin = document.createElement('div');
-    pin.className = 'pin'; pin.style.left = a.x + '%'; pin.style.top = a.y + '%'; pin.dataset.id = a.id;
-    pin.innerHTML = '<div class="pin-circle"></div>';
-    pin.addEventListener('click', ev => { ev.stopPropagation(); openView(a.id); });
-    wrapper.appendChild(pin);
+// ═══════════════════════════════
+// RENDER PINS
+// ═══════════════════════════════
+function render(){
+  document.querySelectorAll('.pin').forEach(e=>e.remove());
+  (currentMap.annotations||[]).forEach(a=>{
+    const pin=document.createElement('div');
+    pin.className='pin';pin.style.left=a.x+'%';pin.style.top=a.y+'%';pin.dataset.id=a.id;
+    pin.innerHTML='<div class="pin-dot"></div>';
+    pin.addEventListener('click',ev=>{ev.stopPropagation();openViewNote(a.id)});
+    document.getElementById('map-wrapper').appendChild(pin);
   });
-  renderList(); updateCount();
+  renderList();
+  document.getElementById('count-badge-mv') && (document.getElementById('count-badge-mv').textContent=(currentMap.annotations||[]).length);
 }
 
-function renderList() {
-  const panel = document.getElementById('list-panel');
-  if (!annotations.length) { panel.innerHTML = '<p style="padding:12px 14px;color:#6b9e6b;font-size:13px">Nessuna nota ancora.</p>'; return; }
-  panel.innerHTML = annotations.map(a =>
-    `<div class="list-item" data-id="${a.id}">
-      <div class="list-num">${esc(a.num||'?')}</div>
-      <div class="list-text">${esc(a.text)}</div>
-    </div>`
-  ).join('');
-  panel.querySelectorAll('.list-item').forEach(el => el.addEventListener('click', () => openView(Number(el.dataset.id))));
+function renderList(){
+  const panel=document.getElementById('mv-list-panel');
+  const anns=currentMap.annotations||[];
+  if(!anns.length){panel.innerHTML='<p style="padding:11px 14px;color:#6b9e6b;font-size:12px">No notes yet.</p>';return}
+  panel.innerHTML=anns.map(a=>{
+    const z=detectZone(a.x,a.y);
+    return `<div class="list-item" data-id="${a.id}">
+      <div class="li-num">${esc(a.num||'?')}</div>
+      <span class="li-zone" style="background:${z?z.bg:'#374151'};color:${z?z.color:'#d1d5db'}">${z?z.name:'?'}</span>
+      <div class="li-text">${esc(a.text)}</div>
+    </div>`;
+  }).join('');
+  panel.querySelectorAll('.list-item').forEach(el=>el.addEventListener('click',()=>openViewNote(Number(el.dataset.id))));
 }
 
-function esc(t) { return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
 
-function openView(id) {
-  viewingId = id; const a = annotations.find(a => a.id === id);
-  document.getElementById('view-title').textContent = 'Bungalow ' + (a.num || '?');
-  document.getElementById('view-text').textContent = a.text;
-  document.getElementById('overlay-view').classList.add('open');
+document.getElementById('mv-toggle-list').addEventListener('click',()=>{
+  const p=document.getElementById('mv-list-panel');const o=p.classList.toggle('open');
+  document.getElementById('mv-toggle-list').textContent=o?'▲ NOTE LIST':'▼ NOTE LIST';
+});
+
+// ═══════════════════════════════
+// MAP TAP
+// ═══════════════════════════════
+document.getElementById('map-wrapper').addEventListener('click',ev=>{
+  if(isReadOnly||ev.target.closest('.pin'))return;
+  const r=ev.currentTarget.getBoundingClientRect();
+  pendingX=((ev.clientX-r.left)/r.width*100).toFixed(2);
+  pendingY=((ev.clientY-r.top)/r.height*100).toFixed(2);
+  editingId=null;
+  document.getElementById('edit-modal-title').textContent='New note';
+  document.getElementById('edit-num').value='';
+  document.getElementById('edit-text').value='';
+  document.getElementById('edit-del').style.display='none';
+  applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(pendingX,pendingY));
+  document.getElementById('edit-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('edit-num').focus(),150);
+});
+
+// ═══════════════════════════════
+// EDIT NOTE
+// ═══════════════════════════════
+function openEditNote(id){
+  editingId=id;
+  const a=currentMap.annotations.find(a=>a.id===id);
+  document.getElementById('edit-modal-title').textContent='Edit note';
+  document.getElementById('edit-num').value=a.num||'';
+  document.getElementById('edit-text').value=a.text||'';
+  document.getElementById('edit-del').style.display='';
+  applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(a.x,a.y));
+  document.getElementById('edit-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
-document.getElementById('btn-done').addEventListener('click', () => {
-  annotations = annotations.filter(a => a.id !== viewingId); saveAll(); render();
-  document.getElementById('overlay-view').classList.remove('open');
+document.getElementById('edit-save').addEventListener('click',()=>{
+  const txt=document.getElementById('edit-text').value.trim();
+  const num=document.getElementById('edit-num').value.trim();
+  if(!txt&&!num)return;
+  if(!currentMap.annotations)currentMap.annotations=[];
+  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId);if(a){a.text=txt;a.num=num}}
+  else currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num});
+  persistCurrent();render();
+  document.getElementById('edit-modal').classList.remove('open');
 });
-document.getElementById('btn-view-edit').addEventListener('click', () => {
-  document.getElementById('overlay-view').classList.remove('open'); openEdit(viewingId);
+document.getElementById('edit-del').addEventListener('click',()=>{
+  currentMap.annotations=currentMap.annotations.filter(a=>a.id!==editingId);
+  persistCurrent();render();document.getElementById('edit-modal').classList.remove('open');
 });
-document.getElementById('btn-view-close').addEventListener('click', () => { document.getElementById('overlay-view').classList.remove('open'); });
+document.getElementById('edit-close').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
+document.getElementById('edit-cancel').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
 
-function openEdit(id) {
-  editingId = id; const a = annotations.find(a => a.id === id);
-  document.getElementById('edit-title').textContent = 'Modifica nota';
-  document.getElementById('edit-num').value  = a.num  || '';
-  document.getElementById('edit-text').value = a.text || '';
-  document.getElementById('btn-del').style.display = '';
-  document.getElementById('overlay-edit').classList.add('open');
-  setTimeout(() => document.getElementById('edit-num').focus(), 150);
+// ═══════════════════════════════
+// VIEW NOTE
+// ═══════════════════════════════
+function openViewNote(id){
+  viewingId=id;
+  const a=currentMap.annotations.find(a=>a.id===id);
+  document.getElementById('view-modal-title').textContent='Bungalow '+(a.num||'?');
+  document.getElementById('view-text').textContent=a.text;
+  applyZoneTag(document.getElementById('view-zone-tag'),detectZone(a.x,a.y));
+  document.getElementById('view-footer').style.display=isReadOnly?'none':'';
+  document.getElementById('view-modal').classList.add('open');
+}
+document.getElementById('view-done').addEventListener('click',()=>{
+  currentMap.annotations=currentMap.annotations.filter(a=>a.id!==viewingId);
+  persistCurrent();render();document.getElementById('view-modal').classList.remove('open');
+});
+document.getElementById('view-edit').addEventListener('click',()=>{
+  document.getElementById('view-modal').classList.remove('open');openEditNote(viewingId);
+});
+document.getElementById('view-close').addEventListener('click',()=>document.getElementById('view-modal').classList.remove('open'));
+
+// ═══════════════════════════════
+// SHARE — encode map in URL
+// ═══════════════════════════════
+document.getElementById('mv-share').addEventListener('click',()=>{
+  const link=buildShareLink();
+  document.getElementById('share-link-ta').value=link;
+  document.getElementById('share-modal').classList.add('open');
+});
+
+function buildShareLink(){
+  const payload={
+    id:currentMap.id,
+    num:currentMap.num,
+    userName:currentMap.userName,
+    date:currentMap.date,
+    annotations:currentMap.annotations||[]
+  };
+  const encoded=btoa(encodeURIComponent(JSON.stringify(payload)));
+  return window.location.href.split('?')[0]+'?data='+encoded;
 }
 
-document.getElementById('map-wrapper').addEventListener('click', ev => {
-  if (ev.target.closest('.pin')) return;
-  const r = ev.currentTarget.getBoundingClientRect();
-  pendingX = ((ev.clientX - r.left) / r.width  * 100).toFixed(2);
-  pendingY = ((ev.clientY - r.top)  / r.height * 100).toFixed(2);
-  editingId = null;
-  document.getElementById('edit-title').textContent = 'New Note';
-  document.getElementById('edit-num').value = ''; document.getElementById('edit-text').value = '';
-  document.getElementById('btn-del').style.display = 'none';
-  document.getElementById('overlay-edit').classList.add('open');
-  setTimeout(() => document.getElementById('edit-num').focus(), 150);
+document.getElementById('share-wa').addEventListener('click',()=>{
+  const link=buildShareLink();
+  const msg='🏕️ Camping Castell Montgrí\nMap #'+currentMap.num+' — '+currentMap.userName+'\n📅 '+currentMap.date+'\n\n👉 Open map:\n'+link;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 });
+document.getElementById('share-copy').addEventListener('click',()=>{
+  const ta=document.getElementById('share-link-ta');ta.select();
+  try{if(navigator.clipboard)navigator.clipboard.writeText(ta.value);else document.execCommand('copy')}catch{}
+  const b=document.getElementById('share-copy');b.textContent='✓ Copied!';
+  setTimeout(()=>b.textContent='Copy link',2000);
+});
+document.getElementById('share-close').addEventListener('click',()=>document.getElementById('share-modal').classList.remove('open'));
 
-document.getElementById('btn-save').addEventListener('click', () => {
-  const txt = document.getElementById('edit-text').value.trim();
-  const num = document.getElementById('edit-num').value.trim();
-  if (!txt && !num) return;
-  if (editingId !== null) { const a = annotations.find(a => a.id === editingId); if (a) { a.text = txt; a.num = num; } }
-  else annotations.push({ id: Date.now(), x: pendingX, y: pendingY, text: txt, num });
-  saveAll(); render(); document.getElementById('overlay-edit').classList.remove('open');
-});
-document.getElementById('btn-del').addEventListener('click', () => {
-  annotations = annotations.filter(a => a.id !== editingId); saveAll(); render();
-  document.getElementById('overlay-edit').classList.remove('open');
-});
-document.getElementById('btn-cancel').addEventListener('click', () => { document.getElementById('overlay-edit').classList.remove('open'); });
-
-function buildMsg() {
-  let t = `🏕️Camping Notes — ${userName}\n📅 ${todayStr}\n${'─'.repeat(30)}\n`;
-  if (!annotations.length) t += '\nNo notes today.';
-  else annotations.forEach(a => { t += `\n🔴 Bungalow ${a.num||'?'}:\n${a.text}\n`; });
-  return t;
-}
-
-// WhatsApp
-document.getElementById('btn-wa').addEventListener('click', () => {
-  document.getElementById('share-text').value = buildMsg();
-  document.getElementById('overlay-share').classList.add('open');
-});
-document.getElementById('btn-wa-send').addEventListener('click', () => {
-  window.open('https://wa.me/?text=' + encodeURIComponent(document.getElementById('share-text').value), '_blank');
-});
-document.getElementById('btn-copy').addEventListener('click', () => {
-  const ta = document.getElementById('share-text'); ta.select();
-  try { if (navigator.clipboard) navigator.clipboard.writeText(ta.value); else document.execCommand('copy'); } catch(e) {}
-  const b = document.getElementById('btn-copy'); b.textContent = '✓ Copiato';
-  setTimeout(() => b.textContent = 'Copia', 2000);
-});
-document.getElementById('btn-share-close').addEventListener('click', () => { document.getElementById('overlay-share').classList.remove('open'); });
-
+// ═══════════════════════════════
 // PDF
-document.getElementById('btn-pdf').addEventListener('click', () => {
-  const today = new Date().toLocaleDateString('En-GB', { month:'long', day:'numeric', year:'numeric'});
-  let rows = annotations.length ? annotations.map(a =>
-    `<tr><td style="font-weight:700;color:#c0392b;padding:10px 14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap">Bungalow ${a.num||'?'}</td>
-     <td style="padding:10px 14px;border-bottom:1px solid #eee;font-size:13px;line-height:1.7;vertical-align:top;white-space:pre-wrap">${a.text}</td></tr>`
-  ).join('') : '<tr><td colspan="2" style="padding:20px;color:#999;text-align:center">Nessuna nota oggi.</td></tr>';
+// ═══════════════════════════════
+function generatePdf(map){
+  const anns=map.annotations||[];
+  let rows=anns.length?anns.map(a=>{
+    const z=detectZone(a.x,a.y);
+    return `<tr>
+      <td style="padding:10px 14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap">
+        <strong style="color:#c0392b;font-size:15px">Bungalow ${a.num||'?'}</strong><br>
+        <span style="background:${z?z.bg:'#6b7280'};color:${z?z.color:'#fff'};border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700">${z?z.name:'?'} zone</span>
+      </td>
+      <td style="padding:10px 14px;border-bottom:1px solid #eee;font-size:13px;line-height:1.7;vertical-align:top;white-space:pre-wrap">${a.text}</td>
+    </tr>`;
+  }).join(''):'<tr><td colspan="2" style="padding:20px;color:#999;text-align:center">No notes.</td></tr>';
 
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Note ${userName}</title>
-  <style>body{font-family:Arial,sans-serif;padding:28px;color:#222}h1{color:#1a5c1a;font-size:19px;margin-bottom:4px}.sub{color:#666;font-size:13px;margin-bottom:22px}table{width:100%;border-collapse:collapse}th{background:#1a5c1a;color:#fff;padding:10px 14px;text-align:left;font-size:13px}tr:nth-child(even) td{background:#f6faf6}.footer{margin-top:20px;font-size:11px;color:#bbb}</style>
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Notes ${map.userName}</title>
+  <style>body{font-family:Arial,sans-serif;padding:28px;color:#222}h1{color:#1a5c1a;font-size:19px;margin-bottom:4px}.sub{color:#666;font-size:13px;margin-bottom:22px}table{width:100%;border-collapse:collapse}th{background:#1a5c1a;color:#fff;padding:10px 14px;text-align:left;font-size:13px}tr:nth-child(even)td{background:#f6faf6}.footer{margin-top:20px;font-size:11px;color:#bbb}</style>
   </head><body>
-  <h1>🏕️ Lifestyle Holiday</h1>
-  <div class="sub">Operator: <strong>${userName}</strong> &nbsp;|&nbsp; Date: ${today}</div>
-  <table><thead><tr><th>Bungalow</th><th>Note</th></tr></thead><tbody>${rows}</tbody></table>
-  <div class="footer">Generated the ${new Date().toLocaleString('En-GB')}</div>
+  <h1>🏕️ Camping Castell Montgrí</h1>
+  <div class="sub">Operator: <strong>${map.userName}</strong> &nbsp;|&nbsp; Map: <strong>#${map.num}</strong> &nbsp;|&nbsp; ${map.date}</div>
+  <table><thead><tr><th>Bungalow</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>
+  <div class="footer">Generated ${new Date().toLocaleString('en-GB')}</div>
   <script>window.onload=function(){window.print()}<\/script></body></html>`;
 
-  const blob = new Blob([html], {type:'text/html'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url;
-  a.download = `note-${userName.toLowerCase()}-${new Date().toISOString().slice(0,10)}.html`;
-  a.click(); URL.revokeObjectURL(url);
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`notes-${map.userName.toLowerCase()}-map${map.num}.html`;
+  a.click();URL.revokeObjectURL(url);
+}
+
+document.getElementById('mv-pdf').addEventListener('click',()=>generatePdf(currentMap));
+function roDownloadPdf(){generatePdf(currentMap)}
+
+// ═══════════════════════════════
+// RESET
+// ═══════════════════════════════
+document.getElementById('mv-reset').addEventListener('click',()=>{
+  showConfirm('Reset all notes on this map?',()=>{
+    currentMap.annotations=[];persistCurrent();render();
+  });
 });
 
-// Reset
-document.getElementById('btn-reset').addEventListener('click', () => { document.getElementById('overlay-confirm').classList.add('open'); });
-document.getElementById('btn-reset-yes').addEventListener('click', () => { localStorage.removeItem(STORAGE_KEY); location.reload(); });
-document.getElementById('btn-reset-no').addEventListener('click', () => { document.getElementById('overlay-confirm').classList.remove('open'); });
-
-// List toggle
-document.getElementById('toggle-list').addEventListener('click', () => {
-  const p = document.getElementById('list-panel'); const o = p.classList.toggle('open');
-  document.getElementById('toggle-list').textContent = o ? '▲ NOTE LIST' : '▼ NOTE LIST';
+// ═══════════════════════════════
+// CONFIRM HELPER
+// ═══════════════════════════════
+function showConfirm(msg,cb){
+  document.getElementById('confirm-msg').textContent=msg;
+  confirmCallback=cb;
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+document.getElementById('confirm-yes').addEventListener('click',()=>{
+  document.getElementById('confirm-overlay').classList.remove('open');
+  if(confirmCallback)confirmCallback();confirmCallback=null;
 });
-
-// Backdrop close
-['overlay-edit','overlay-view','overlay-share'].forEach(id => {
-  document.getElementById(id).addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
+document.getElementById('confirm-no').addEventListener('click',()=>{
+  document.getElementById('confirm-overlay').classList.remove('open');confirmCallback=null;
 });
 </script>
 </body>
