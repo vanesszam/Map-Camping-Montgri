@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes"/>
-<title>Camping Montgrí - Map Fix</title>
+<title>Camping Montgrí - Map Manager</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;min-height:100vh}
@@ -13,12 +13,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .home-body{flex:1;padding:14px 14px 100px}
 .map-card{background:#1e3320;border-radius:12px;border:1px solid #2d4a2d;padding:13px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
 .map-card-num{font-size:15px;font-weight:800;color:#a8d5a2}
-.map-card-del{background:#3d1a1a;color:#f87171;border:none;border-radius:8px;padding:6px 10px;font-weight:700}
-.fab{position:fixed;bottom:24px;right:20px;z-index:10000;background:#22c55e;color:#fff;border:none;border-radius:99px;padding:14px 22px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(0,0,0,0.4)}
+.map-card-del{background:#3d1a1a;color:#f87171;border:none;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer}
+.fab{position:fixed;bottom:24px;right:20px;z-index:10000;background:#22c55e;color:#fff;border:none;border-radius:99px;padding:14px 22px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(0,0,0,0.4);cursor:pointer}
 #map-view{display:none;flex-direction:column;height:100vh;position:fixed;inset:0;z-index:100}
 #map-view.open{display:flex}
 #mv-header{background:#1e3320;padding:8px 10px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2d4a2d}
-#mv-back{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:8px;padding:6px 12px;font-weight:700}
+#mv-back{background:#3d5c3d;border:none;color:#c8e6c8;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer}
 #mv-title{flex:1;font-size:12px;font-weight:700;color:#a8d5a2}
 #map-container{flex:1;overflow:auto;position:relative;background:#000}
 #map-wrapper{position:relative;width:100%}
@@ -28,6 +28,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .fs-modal{display:none;position:fixed;inset:0;z-index:500;background:#111d11;flex-direction:column}
 .fs-modal.open{display:flex}
 .fs-top{background:#1e3320;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.fs-close-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer}
 .fs-body{flex:1;padding:16px;display:flex;flex-direction:column;gap:15px}
 .fs-input{width:100%;font-size:18px;background:#162616;border:1px solid #3d5c3d;border-radius:10px;padding:12px;color:#fff}
 .zone-tag{display:inline-block;padding:5px 15px;border-radius:20px;font-size:13px;font-weight:800}
@@ -57,38 +58,35 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 </div>
 
 <div class="fs-modal" id="edit-modal">
-    <div class="fs-top"><h3>Bungalow Details</h3><button onclick="document.getElementById('edit-modal').classList.remove('open')">✕</button></div>
+    <div class="fs-top"><h3>Bungalow Details</h3><button class="fs-close-btn" onclick="document.getElementById('edit-modal').classList.remove('open')">✕</button></div>
     <div class="fs-body">
         <div><p style="font-size:11px;color:#6b9e6b;margin-bottom:5px">ZONE</p><span class="zone-tag" id="edit-zone-tag">Unknown</span></div>
-        <input class="fs-input" id="edit-num" type="number" placeholder="Number (ex: 26)"/>
+        <input class="fs-input" id="edit-num" type="number" inputmode="numeric" placeholder="Number (e.g., 26)"/>
         <textarea class="fs-input" id="edit-text" style="height:100px" placeholder="Notes..."></textarea>
-        <button id="edit-save" style="background:#22c55e;color:#fff;padding:15px;border:none;border-radius:10px;font-weight:800">SAVE BUNGALOW</button>
+        <button id="edit-save" style="background:#22c55e;color:#fff;padding:15px;border:none;border-radius:10px;font-weight:800;cursor:pointer">SAVE BUNGALOW</button>
     </div>
 </div>
 
 <div class="name-dialog" id="name-dialog">
     <div class="name-box">
         <h4 style="margin-bottom:10px">Map Name</h4>
-        <input id="name-input" class="fs-input" type="text" placeholder="Vanessa"/>
-        <button id="nb-ok" style="width:100%;margin-top:15px;padding:12px;background:#22c55e;border:none;color:#fff;border-radius:8px;font-weight:700">Create</button>
+        <input id="name-input" class="fs-input" type="text" placeholder="e.g., Vanessa"/>
+        <button id="nb-ok" style="width:100%;margin-top:15px;padding:12px;background:#22c55e;border:none;color:#fff;border-radius:8px;font-weight:700;cursor:pointer">Create</button>
     </div>
 </div>
 
 <script>
-// ═══════════════════════════════
-// 1. DÉTECTION COULEUR (CALIBRÉE)
-// ═══════════════════════════════
 const mapImg = document.getElementById('mapImg');
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-// Configuration basée sur tes relevés RVB
+// CALIBRATED CONFIGURATION
 const ZONES_CONFIG = [
+  { name: 'Grey',   rgb: [179, 179, 179], bg: '#6b7280', color: '#fff' }, 
   { name: 'Yellow', rgb: [252, 242, 31],  bg: '#facc15', color: '#000' }, 
   { name: 'Orange', rgb: [235, 130, 12],  bg: '#ea580c', color: '#fff' },
   { name: 'Blue',   rgb: [25, 145, 205],  bg: '#1d4ed8', color: '#fff' },
   { name: 'Brown',  rgb: [141, 99, 83],   bg: '#92400e', color: '#fff' }, 
-  { name: 'Grey',   rgb: [50, 52, 50],    bg: '#6b7280', color: '#fff' },
   { name: 'Red',    rgb: [220, 38, 38],   bg: '#dc2626', color: '#fff' }
 ];
 
@@ -104,29 +102,26 @@ function getZoneByPixel(xPct, yPct) {
     const y = (yPct / 100) * canvas.height;
     const p = ctx.getImageData(x, y, 1, 1).data;
     
-    console.log(`RVB Détecté : [${p[0]}, ${p[1]}, ${p[2]}]`);
+    const bright = p[0] + p[1] + p[2];
+    if (bright > 745 || bright < 35) return null;
 
     let closest = null;
-    let minDom = 100; // Sensibilité équilibrée
+    let minDistance = Infinity;
 
     for (let z of ZONES_CONFIG) {
-        const d = Math.sqrt(Math.pow(p[0]-z.rgb[0],2)+Math.pow(p[1]-z.rgb[1],2)+Math.pow(p[2]-z.rgb[2],2));
-        if (d < minDom) {
-            minDom = d;
+        const d = Math.sqrt(
+            Math.pow(p[0] - z.rgb[0], 2) + 
+            Math.pow(p[1] - z.rgb[1], 2) + 
+            Math.pow(p[2] - z.rgb[2], 2)
+        );
+        if (d < minDistance) {
+            minDistance = d;
             closest = z;
         }
     }
-    
-    // Ignorer le blanc pur (routes) et le noir profond
-    const bright = p[0] + p[1] + p[2];
-    if (bright > 730 || bright < 30) return null;
-
-    return closest;
+    return closest; 
 }
 
-// ═══════════════════════════════
-// 2. LOGIQUE APP
-// ═══════════════════════════════
 const SK='montgri_v5';
 let store = JSON.parse(localStorage.getItem(SK) || '{"myMaps":{}}');
 let currentMap = null;
@@ -181,21 +176,27 @@ document.getElementById('map-wrapper').addEventListener('click', (e) => {
     } else {
         tag.textContent = "Unknown Zone";
         tag.style.background = "#374151";
+        tag.style.color = "#fff";
         document.getElementById('edit-text').value = "";
     }
     document.getElementById('edit-num').value = "";
     document.getElementById('edit-modal').classList.add('open');
+    setTimeout(() => document.getElementById('edit-num').focus(), 300);
 });
 
 document.getElementById('edit-save').addEventListener('click', () => {
     const num = document.getElementById('edit-num').value;
     const txt = document.getElementById('edit-text').value;
+    if(!num && !txt) return;
     currentMap.annotations.push({x: pX, y: pY, num, text: txt});
     save(); renderPins();
     document.getElementById('edit-modal').classList.remove('open');
 });
 
-document.getElementById('btn-new-map').addEventListener('click', () => document.getElementById('name-dialog').classList.add('open'));
+document.getElementById('btn-new-map').addEventListener('click', () => {
+    document.getElementById('name-input').value = "";
+    document.getElementById('name-dialog').classList.add('open');
+});
 
 document.getElementById('nb-ok').addEventListener('click', () => {
     const name = document.getElementById('name-input').value.trim();
