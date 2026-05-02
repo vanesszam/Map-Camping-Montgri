@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes"/>
-<title>Camping Castell Montgrí/Lifestyle Holiday</title>
+<title>Camping Castell Montgrí</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;min-height:100vh}
@@ -438,12 +438,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 // ZONES
 // ═══════════════════════════════
 const ZONES=[
-  {name:'Blue',  color:'#fff',bg:'#1d4ed8',xMin:0, xMax:45,yMin:10,yMax:75},
-  {name:'Yellow',color:'#000',bg:'#eab308',xMin:0, xMax:35,yMin:75,yMax:100},
-  {name:'Orange',color:'#fff',bg:'#ea580c',xMin:45,xMax:78,yMin:30,yMax:100},
-  {name:'Grey',  color:'#fff',bg:'#6b7280',xMin:35,xMax:65,yMin:60,yMax:100},
-  {name:'Brown', color:'#fff',bg:'#92400e',xMin:10,xMax:40,yMin:55,yMax:80},
-  {name:'Red',   color:'#fff',bg:'#dc2626',xMin:60,xMax:100,yMin:65,yMax:100},
+  {name:'Red',    color:'#fff',bg:'#dc2626',xMin:62, xMax:100,yMin:60,yMax:100},
+  {name:'Grey',   color:'#fff',bg:'#6b7280',xMin:28, xMax:52, yMin:28,yMax:76 },
+  {name:'Yellow', color:'#000',bg:'#eab308',xMin:0,  xMax:28, yMin:66,yMax:100},
+  {name:'Brown',  color:'#fff',bg:'#92400e',xMin:8,  xMax:55, yMin:46,yMax:80 },
+  {name:'Orange', color:'#fff',bg:'#ea580c',xMin:50, xMax:100,yMin:28,yMax:90 },
+  {name:'Blue',   color:'#fff',bg:'#1d4ed8',xMin:12, xMax:100,yMin:0, yMax:50 },
 ];
 function detectZone(x,y){
   const xp=parseFloat(x),yp=parseFloat(y);
