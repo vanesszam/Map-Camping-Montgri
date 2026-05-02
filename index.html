@@ -437,70 +437,62 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 })();
 
 // ═══════════════════════════════
+// ═══════════════════════════════
 // ZONES — pixel-based detection
 // ═══════════════════════════════
 
-const mapImg = document.getElementById('mapImg');
-const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('2d', { willReadFrequently: true });
+const _zc = document.getElementById('zoneCanvas');
+const _zctx = _zc.getContext('2d', { willReadFrequently: true });
+const _zimg = document.getElementById('mapImg');
 
 const ZONES_CONFIG = [
-  { name: 'Grey',   rgb: [179, 179, 179], bg: '#6b7280', color: '#fff' }, 
-  { name: 'Yellow', rgb: [252, 242, 31],  bg: '#facc15', color: '#000' }, 
-  { name: 'Orange', rgb: [235, 130, 12],  bg: '#ea580c', color: '#fff' },
   { name: 'Blue',   rgb: [25, 145, 205],  bg: '#1d4ed8', color: '#fff' },
-  { name: 'Brown',  rgb: [141, 99, 83],   bg: '#92400e', color: '#fff' }, 
+  { name: 'Yellow', rgb: [252, 242, 31],  bg: '#facc15', color: '#000' },
+  { name: 'Orange', rgb: [235, 130, 12],  bg: '#ea580c', color: '#fff' },
+  { name: 'Grey',   rgb: [170, 170, 170], bg: '#6b7280', color: '#fff' },
+  { name: 'Brown',  rgb: [141, 99, 83],   bg: '#92400e', color: '#fff' },
   { name: 'Red',    rgb: [220, 38, 38],   bg: '#dc2626', color: '#fff' }
 ];
 
-mapImg.onload = () => {
-    canvas.width = mapImg.naturalWidth;
-    canvas.height = mapImg.naturalHeight;
-    ctx.drawImage(mapImg, 0, 0);
-};
-const _zc=document.getElementById('zoneCanvas');
-const _zctx=_zc.getContext('2d',{willReadFrequently:true});
-const _zimg=document.getElementById('mapImg');
-function _loadZoneCanvas(){
-  if(_zimg.naturalWidth>0){_zc.width=_zimg.naturalWidth;_zc.height=_zimg.naturalHeight;_zctx.drawImage(_zimg,0,0);}
+function _loadZoneCanvas() {
+  if (_zimg.naturalWidth > 0) {
+    _zc.width = _zimg.naturalWidth;
+    _zc.height = _zimg.naturalHeight;
+    _zctx.drawImage(_zimg, 0, 0);
+    console.log("Canvas de détection prêt");
+  }
 }
-_zimg.addEventListener('load',_loadZoneCanvas);
-if(_zimg.complete)_loadZoneCanvas();
 
-function getZoneByPixel(xPct, yPct) {
-    if (canvas.width === 0) return null;
-    const x = (xPct / 100) * canvas.width;
-    const y = (yPct / 100) * canvas.height;
-    const p = ctx.getImageData(x, y, 1, 1).data;
-    const bright = p[0] + p[1] + p[2];
-    if (bright > 745 || bright < 35) return null;
+// On s'assure que l'image est chargée pour copier ses pixels
+_zimg.onload = _loadZoneCanvas;
+if (_zimg.complete) _loadZoneCanvas();
 
-    let closest = null;
-    let minDistance = Infinity;
-    for (let z of ZONES_CONFIG) {
-        const d = Math.sqrt(Math.pow(p[0]-z.rgb[0],2)+Math.pow(p[1]-z.rgb[1],2)+Math.pow(p[2]-z.rgb[2],2));
-        if (d < minDistance) { minDistance = d; closest = z; }
+function detectZone(xPct, yPct) {
+  if (_zc.width === 0) return null;
+  const x = (parseFloat(xPct) / 100) * _zc.width;
+  const y = (parseFloat(yPct) / 100) * _zc.height;
+  const p = _zctx.getImageData(x, y, 1, 1).data;
+  
+  const bright = p[0] + p[1] + p[2];
+  if (bright > 730 || bright < 40) return null; 
+
+  let closest = null;
+  let minD = Infinity;
+  for (const z of ZONES_CONFIG) {
+    const d = Math.sqrt((p[0]-z.rgb[0])**2 + (p[1]-z.rgb[1])**2 + (p[2]-z.rgb[2])**2);
+    if (d < minD) {
+      minD = d;
+      closest = z;
     }
-    return closest; 
+  }
+  return minD < 160 ? closest : null;
 }
 
-function applyZoneTag(el,zone){
-  el.textContent=zone?zone.name+' zone':'Unknown zone';
-  el.style.background=zone?zone.bg:'#374151';
-  el.style.color=zone?zone.color:'#d1d5db';
+function applyZoneTag(el, zone) {
+  el.textContent = zone ? zone.name + ' zone' : 'Unknown zone';
+  el.style.background = zone ? zone.bg : '#374151';
+  el.style.color = zone ? zone.color : '#d1d5db';
 }
-
-// ═══════════════════════════════
-// STORAGE
-// ═══════════════════════════════
-const SK='montgri_v5';
-function loadStore(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch{return{}}}
-function saveStore(s){try{localStorage.setItem(SK,JSON.stringify(s))}catch{}}
-
-let store=loadStore();
-if(!store.myMaps)store.myMaps={};
-if(!store.recvMaps)store.recvMaps={};
-
 // ═══════════════════════════════
 // STATE
 // ═══════════════════════════════
