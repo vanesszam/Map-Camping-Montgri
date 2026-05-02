@@ -82,11 +82,13 @@ const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
 // CALIBRATED CONFIGURATION
 const ZONES_CONFIG = [
-  { name: 'Grey',   rgb: [179, 179, 179], bg: '#6b7280', color: '#fff' }, 
+  // Gris plus froid/bleuté pour ne pas glisser vers le marron
+  { name: 'Grey',   rgb: [160, 165, 175], bg: '#6b7280', color: '#fff' }, 
   { name: 'Yellow', rgb: [252, 242, 31],  bg: '#facc15', color: '#000' }, 
   { name: 'Orange', rgb: [235, 130, 12],  bg: '#ea580c', color: '#fff' },
   { name: 'Blue',   rgb: [25, 145, 205],  bg: '#1d4ed8', color: '#fff' },
-  { name: 'Brown',  rgb: [141, 99, 83],   bg: '#92400e', color: '#fff' }, 
+  // Marron avec des valeurs plus sombres et saturées
+  { name: 'Brown',  rgb: [120, 80, 60],   bg: '#92400e', color: '#fff' }, 
   { name: 'Red',    rgb: [220, 38, 38],   bg: '#dc2626', color: '#fff' }
 ];
 
