@@ -437,6 +437,45 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 // ═══════════════════════════════
 // ZONES
 // ═══════════════════════════════
+// Zone picker CSS
+const styleEl=document.createElement('style');
+styleEl.textContent=`.zp-btn{
+  padding:7px 14px;border:2px solid transparent;border-radius:20px;
+  font-size:12px;font-weight:800;cursor:pointer;transition:all .15s;
+  opacity:0.55;letter-spacing:.03em;
+}
+.zp-btn.selected{opacity:1;border-color:rgba(255,255,255,0.8);transform:scale(1.08);}
+.zp-btn:active{transform:scale(0.95);}`;
+document.head.appendChild(styleEl);
+
+function buildZonePicker(selectedName){
+  const picker=document.getElementById('zone-picker');
+  picker.innerHTML='';
+  // Add "none" option first
+  const noneBtn=document.createElement('button');
+  noneBtn.className='zp-btn'+(selectedName===''?' selected':'');
+  noneBtn.dataset.zone='';
+  noneBtn.textContent='None';
+  noneBtn.style.background='#374151';noneBtn.style.color='#d1d5db';
+  noneBtn.addEventListener('click',()=>{
+    picker.querySelectorAll('.zp-btn').forEach(b=>b.classList.remove('selected'));
+    noneBtn.classList.add('selected');
+  });
+  picker.appendChild(noneBtn);
+  ZONES.forEach(z=>{
+    const btn=document.createElement('button');
+    btn.className='zp-btn'+(selectedName===z.name?' selected':'');
+    btn.dataset.zone=z.name;
+    btn.textContent=z.name;
+    btn.style.background=z.bg;btn.style.color=z.color;
+    btn.addEventListener('click',()=>{
+      picker.querySelectorAll('.zp-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+    picker.appendChild(btn);
+  });
+}
+
 const ZONES=[
   // Order: most specific/small first, large zones last
   {name:'Red',    color:'#fff',bg:'#dc2626',xMin:65, xMax:100,yMin:65,yMax:100},
@@ -446,15 +485,15 @@ const ZONES=[
   {name:'Orange', color:'#fff',bg:'#ea580c',xMin:50, xMax:90, yMin:36,yMax:88 },
   {name:'Blue',   color:'#fff',bg:'#1d4ed8',xMin:0,  xMax:55, yMin:0, yMax:62 },
 ];
-function detectZone(x,y){
-  const xp=parseFloat(x),yp=parseFloat(y);
-  for(const z of ZONES)if(xp>=z.xMin&&xp<=z.xMax&&yp>=z.yMin&&yp<=z.yMax)return z;
-  return null;
-}
+function detectZone(x,y){ return null; } // replaced by manual selection
+function getZoneByName(name){ return ZONES.find(z=>z.name===name)||null; }
 function applyZoneTag(el,zone){
-  el.textContent=zone?zone.name+' zone':'Unknown zone';
+  el.textContent=zone?zone.name+' zone':'— no zone';
   el.style.background=zone?zone.bg:'#374151';
   el.style.color=zone?zone.color:'#d1d5db';
+}
+function applyZoneTagByName(el,name){
+  applyZoneTag(el,name?getZoneByName(name):null);
 }
 
 // ═══════════════════════════════
@@ -648,7 +687,7 @@ function renderList(){
   const anns=currentMap.annotations||[];
   if(!anns.length){panel.innerHTML='<p style="padding:11px 14px;color:#6b9e6b;font-size:12px">No notes yet.</p>';return}
   panel.innerHTML=anns.map(a=>{
-    const z=detectZone(a.x,a.y);
+    const z=a.zone?getZoneByName(a.zone):null;
     return `<div class="list-item" data-id="${a.id}">
       <div class="li-num">${esc(a.num||'?')}</div>
       <span class="li-zone" style="background:${z?z.bg:'#374151'};color:${z?z.color:'#d1d5db'}">${z?z.name:'?'}</span>
@@ -714,7 +753,7 @@ function handleMapTap(ev){
   document.getElementById('edit-num').value='';
   document.getElementById('edit-text').value='';
   document.getElementById('edit-del').style.display='none';
-  applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(pendingX,pendingY));
+  buildZonePicker('');
   document.getElementById('edit-modal').classList.add('open');
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
@@ -729,7 +768,7 @@ function openEditNote(id){
   document.getElementById('edit-num').value=a.num||'';
   document.getElementById('edit-text').value=a.text||'';
   document.getElementById('edit-del').style.display='';
-  applyZoneTag(document.getElementById('edit-zone-tag'),detectZone(a.x,a.y));
+  buildZonePicker(a.zone||'');
   document.getElementById('edit-modal').classList.add('open');
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
@@ -738,8 +777,10 @@ document.getElementById('edit-save').addEventListener('click',()=>{
   const num=document.getElementById('edit-num').value.trim();
   if(!txt&&!num)return;
   if(!currentMap.annotations)currentMap.annotations=[];
-  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId);if(a){a.text=txt;a.num=num}}
-  else currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num});
+  const chosenZone=document.querySelector('#zone-picker .zp-btn.selected');
+  const zoneName=chosenZone?chosenZone.dataset.zone:'';
+  if(editingId!==null){const a=currentMap.annotations.find(a=>a.id===editingId);if(a){a.text=txt;a.num=num;a.zone=zoneName;}}
+  else currentMap.annotations.push({id:Date.now(),x:pendingX,y:pendingY,text:txt,num,zone:zoneName});
   persistCurrent();render();
   document.getElementById('edit-modal').classList.remove('open');
 });
@@ -758,7 +799,7 @@ function openViewNote(id){
   const a=currentMap.annotations.find(a=>a.id===id);
   document.getElementById('view-modal-title').textContent='Bungalow '+(a.num||'?');
   document.getElementById('view-text').textContent=a.text;
-  applyZoneTag(document.getElementById('view-zone-tag'),detectZone(a.x,a.y));
+  applyZoneTagByName(document.getElementById('view-zone-tag'),a.zone);
   // In readonly: hide edit+done, show only close
   if(isReadOnly){
     document.getElementById('view-edit').style.display='none';
@@ -818,7 +859,7 @@ document.getElementById('share-close').addEventListener('click',()=>document.get
 function generatePdf(map){
   const anns=map.annotations||[];
   let rows=anns.length?anns.map(a=>{
-    const z=detectZone(a.x,a.y);
+    const z=a.zone?getZoneByName(a.zone):null;
     return `<tr>
       <td style="padding:10px 14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap">
         <strong style="color:#c0392b;font-size:15px">Bungalow ${a.num||'?'}</strong><br>
