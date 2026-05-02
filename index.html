@@ -256,6 +256,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   <div id="map-container">
     <div id="map-wrapper">
       <img id="mapImg" src="camping-castell-montgri-plattegrond.jpg" alt="Camping map"/>
+      <canvas id="zoneCanvas" style="display:none"></canvas>
     </div>
   </div>
   <button id="mv-toggle-list">▼ NOTE LIST</button>
@@ -311,10 +312,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
         Recipient opens in <strong style="color:#a8d5a2">read-only mode</strong> and can download PDF.<br>
         Map stays saved until they delete it.
       </p>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <div class="fs-label">Map link</div>
-        <textarea class="share-ta" id="share-link-ta" readonly></textarea>
+      <div id="share-map-info" style="background:#162616;border-radius:12px;padding:14px;border:1px solid #2d4a2d">
+        <div style="font-size:16px;font-weight:800;color:#a8d5a2" id="share-map-name">—</div>
+        <div style="font-size:12px;color:#6b9e6b;margin-top:4px" id="share-map-detail">—</div>
       </div>
+      <textarea id="share-link-ta" readonly style="position:absolute;left:-9999px;height:1px;opacity:0"></textarea>
     </div>
     <div class="fs-footer">
       <button class="fsf-done" id="share-wa" style="background:#25D366">📲 WhatsApp</button>
@@ -435,42 +437,43 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 })();
 
 // ═══════════════════════════════
-// ZONES
+// ZONES — pixel-based detection
 // ═══════════════════════════════
-const mapImg = document.getElementById('mapImg');
-const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('2d', { willReadFrequently: true });
-
-const ZONES_CONFIG = [
-  { name: 'Grey',   rgb: [179, 179, 179], bg: '#6b7280', color: '#fff' }, 
-  { name: 'Yellow', rgb: [252, 242, 31],  bg: '#facc15', color: '#000' }, 
-  { name: 'Orange', rgb: [235, 130, 12],  bg: '#ea580c', color: '#fff' },
-  { name: 'Blue',   rgb: [25, 145, 205],  bg: '#1d4ed8', color: '#fff' },
-  { name: 'Brown',  rgb: [141, 99, 83],   bg: '#92400e', color: '#fff' }, 
-  { name: 'Red',    rgb: [220, 38, 38],   bg: '#dc2626', color: '#fff' }
+const ZONES=[
+  {name:'Blue',   rgb:[25,145,205],  bg:'#1d4ed8', color:'#fff'},
+  {name:'Yellow', rgb:[252,242,31],  bg:'#facc15', color:'#000'},
+  {name:'Orange', rgb:[235,130,12],  bg:'#ea580c', color:'#fff'},
+  {name:'Grey',   rgb:[179,179,179], bg:'#6b7280', color:'#fff'},
+  {name:'Brown',  rgb:[141,99,83],   bg:'#92400e', color:'#fff'},
+  {name:'Red',    rgb:[220,38,38],   bg:'#dc2626', color:'#fff'},
 ];
+const _zc=document.getElementById('zoneCanvas');
+const _zctx=_zc.getContext('2d',{willReadFrequently:true});
+const _zimg=document.getElementById('mapImg');
+function _loadZoneCanvas(){
+  if(_zimg.naturalWidth>0){_zc.width=_zimg.naturalWidth;_zc.height=_zimg.naturalHeight;_zctx.drawImage(_zimg,0,0);}
+}
+_zimg.addEventListener('load',_loadZoneCanvas);
+if(_zimg.complete)_loadZoneCanvas();
 
-mapImg.onload = () => {
-    canvas.width = mapImg.naturalWidth;
-    canvas.height = mapImg.naturalHeight;
-    ctx.drawImage(mapImg, 0, 0);
-};
-
-function getZoneByPixel(xPct, yPct) {
-    if (canvas.width === 0) return null;
-    const x = (xPct / 100) * canvas.width;
-    const y = (yPct / 100) * canvas.height;
-    const p = ctx.getImageData(x, y, 1, 1).data;
-    const bright = p[0] + p[1] + p[2];
-    if (bright > 745 || bright < 35) return null;
-
-    let closest = null;
-    let minDistance = Infinity;
-    for (let z of ZONES_CONFIG) {
-        const d = Math.sqrt(Math.pow(p[0]-z.rgb[0],2)+Math.pow(p[1]-z.rgb[1],2)+Math.pow(p[2]-z.rgb[2],2));
-        if (d < minDistance) { minDistance = d; closest = z; }
-    }
-    return closest; 
+function detectZone(xPct,yPct){
+  if(_zc.width===0)return null;
+  const x=(parseFloat(xPct)/100)*_zc.width;
+  const y=(parseFloat(yPct)/100)*_zc.height;
+  const p=_zctx.getImageData(x,y,1,1).data;
+  const bright=p[0]+p[1]+p[2];
+  if(bright>745||bright<35)return null;
+  let closest=null,minD=Infinity;
+  for(const z of ZONES){
+    const d=Math.sqrt((p[0]-z.rgb[0])**2+(p[1]-z.rgb[1])**2+(p[2]-z.rgb[2])**2);
+    if(d<minD){minD=d;closest=z;}
+  }
+  return minD<120?closest:null;
+}
+function applyZoneTag(el,zone){
+  el.textContent=zone?zone.name+' zone':'Unknown zone';
+  el.style.background=zone?zone.bg:'#374151';
+  el.style.color=zone?zone.color:'#d1d5db';
 }
 
 // ═══════════════════════════════
@@ -555,16 +558,8 @@ function renderHome(){
 }
 renderHome();
 
-function deleteMyMap(id){
-  showConfirm('Delete Map #'+store.myMaps[id].num+'?',()=>{
-    delete store.myMaps[id];saveStore(store);renderHome();
-  });
-}
-function deleteRecvMap(id){
-  showConfirm('Delete received map?',()=>{
-    delete store.recvMaps[id];saveStore(store);renderHome();
-  });
-}
+function deleteMyMap(id){delete store.myMaps[id];saveStore(store);renderHome();}
+function deleteRecvMap(id){delete store.recvMaps[id];saveStore(store);renderHome();}
 
 // ═══════════════════════════════
 // CREATE NEW MAP
@@ -800,6 +795,8 @@ document.getElementById('view-close').addEventListener('click',()=>document.getE
 document.getElementById('mv-share').addEventListener('click',()=>{
   const link=buildShareLink();
   document.getElementById('share-link-ta').value=link;
+  document.getElementById('share-map-name').textContent='🗺️ Map #'+currentMap.num+' — '+currentMap.userName;
+  document.getElementById('share-map-detail').textContent='📅 '+currentMap.date+' · '+(currentMap.annotations?.length||0)+' notes';
   document.getElementById('share-modal').classList.add('open');
 });
 
