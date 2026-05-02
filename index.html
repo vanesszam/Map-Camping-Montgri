@@ -439,13 +439,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 // ═══════════════════════════════
 // ZONES — pixel-based detection
 // ═══════════════════════════════
+
 const ZONES=[
-  {name:'Blue',   rgb:[25,145,205],  bg:'#1d4ed8', color:'#fff'},
-  {name:'Yellow', rgb:[252,242,31],  bg:'#facc15', color:'#000'},
-  {name:'Orange', rgb:[235,130,12],  bg:'#ea580c', color:'#fff'},
-  {name:'Grey',   rgb:[179,179,179], bg:'#6b7280', color:'#fff'},
-  {name:'Brown',  rgb:[141,99,83],   bg:'#92400e', color:'#fff'},
-  {name:'Red',    rgb:[220,38,38],   bg:'#dc2626', color:'#fff'},
+  {name:'Red',    color:'#fff', bg:'#dc2626', xMin:65, xMax:100, yMin:65, yMax:100},
+  {name:'Yellow', color:'#000', bg:'#eab308', xMin:0,  xMax:22,  yMin:60, yMax:100},
+  {name:'Grey',   color:'#fff', bg:'#6b7280', xMin:50, xMax:74,  yMin:16, yMax:58 }, // ZONE GRISE
+  {name:'Brown',  color:'#fff', bg:'#92400e', xMin:15, xMax:55,  yMin:43, yMax:76 },
+  {name:'Orange', color:'#fff', bg:'#ea580c', xMin:50, xMax:90,  yMin:36, yMax:88 },
+  {name:'Blue',   color:'#fff', bg:'#1d4ed8', xMin:0,  xMax:55,  yMin:0,  yMax:62 },
 ];
 const _zc=document.getElementById('zoneCanvas');
 const _zctx=_zc.getContext('2d',{willReadFrequently:true});
