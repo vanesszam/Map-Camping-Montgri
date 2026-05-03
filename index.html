@@ -7,8 +7,6 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;min-height:100vh}
-
-/* HOME */
 #home-screen{position:fixed;inset:0;background:#111d11;z-index:9999;display:flex;flex-direction:column;overflow-y:auto}
 .home-header{background:#1e3320;padding:18px 16px 14px;border-bottom:1px solid #2d4a2d;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .home-header h1{font-size:18px;font-weight:800;color:#a8d5a2;flex:1}
@@ -26,20 +24,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .received-tag{background:#b45309;color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px;margin-left:6px}
 .fab{position:fixed;bottom:24px;right:20px;z-index:10000;background:#22c55e;color:#fff;border:none;border-radius:99px;padding:14px 22px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.4)}
 .fab:active{background:#16a34a}
-
-/* NAME DIALOG */
 .name-dialog{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10001;display:none;align-items:center;justify-content:center}
 .name-dialog.open{display:flex}
 .name-box{background:#1e3320;border-radius:16px;padding:22px 18px;width:290px;border:1px solid #2d4a2d}
 .name-box h3{font-size:15px;font-weight:700;color:#a8d5a2;margin-bottom:12px}
-.name-box input{width:100%;font-size:18px;font-weight:700;background:#162616;border:1px solid #3d5c3d;border-radius:10px;padding:11px 13px;color:#e8f5e8;font-family:inherit;margin-bottom:12px}
+.name-box input{width:100%;font-size:16px;font-weight:700;background:#162616;border:1px solid #3d5c3d;border-radius:10px;padding:11px 13px;color:#e8f5e8;font-family:inherit;margin-bottom:10px}
 .name-box input:focus{outline:none;border-color:#22c55e}
-.name-box-btns{display:flex;gap:8px}
+.name-box-btns{display:flex;gap:8px;margin-top:4px}
 .name-box-btns button{flex:1;padding:11px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
 .nb-ok{background:#22c55e;color:#fff}
 .nb-cancel{background:#3d5c3d;color:#c8e6c8}
-
-/* MAP VIEW */
 #map-view{display:none;flex-direction:column;height:100vh;position:fixed;inset:0;z-index:100}
 #map-view.open{display:flex}
 #mv-header{background:#1e3320;padding:8px 10px;flex-shrink:0;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2d4a2d}
@@ -56,13 +50,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 #map-container{flex:1;overflow:auto;position:relative;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
 #map-wrapper{position:relative;width:100%;min-width:100%}
 #mapImg{width:100%;display:block;touch-action:auto;user-select:none}
-
-/* PIN */
 .pin{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:20;width:4px;height:4px;display:flex;align-items:center;justify-content:center;background:transparent}
 .pin-dot{width:3px;height:3px;background:#dc2626;border-radius:50%;border:1px solid rgba(255,255,255,.95);box-shadow:0 0 2px rgba(0,0,0,1),0 0 4px rgba(220,38,38,.6);transition:transform .1s;pointer-events:none;flex-shrink:0}
 .pin:active .pin-dot{transform:scale(3)}
-
-/* LIST */
 #mv-toggle-list{width:100%;background:#1a2e1a;border:none;border-top:1px solid #2d4a2d;color:#6b9e6b;font-size:11px;padding:6px;cursor:pointer;text-align:center;flex-shrink:0}
 #mv-list-panel{background:#162616;max-height:0;overflow:hidden;transition:max-height .3s ease;flex-shrink:0}
 #mv-list-panel.open{max-height:40vh;overflow-y:auto}
@@ -71,8 +61,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .li-num{background:#dc2626;color:#fff;font-size:11px;font-weight:800;border-radius:5px;min-width:30px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0 5px}
 .li-zone{font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;flex-shrink:0;align-self:center}
 .li-text{font-size:12px;color:#c8e6c8;white-space:pre-wrap;word-break:break-word;flex:1;line-height:1.4}
-
-/* FULLSCREEN MODALS */
 .fs-modal{display:none;position:fixed;inset:0;z-index:500;background:#111d11;flex-direction:column}
 .fs-modal.open{display:flex}
 .fs-top{background:#1e3320;padding:12px 14px 10px;flex-shrink:0;display:flex;align-items:center;gap:10px;border-bottom:1px solid #2d4a2d}
@@ -94,16 +82,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 .fsf-save{background:#1d4ed8;color:#fff}
 .fsf-edit{background:#3d5c3d;color:#c8e6c8}
 .fsf-done{background:#22c55e;color:#fff}
-
-/* SHARE */
 #share-modal{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.82);align-items:center;justify-content:center;padding:16px}
 #share-modal.open{display:flex}
 #share-inner{background:#1e3320;border-radius:16px;border:1px solid #2d4a2d;width:100%;max-width:480px;display:flex;flex-direction:column;max-height:90vh;overflow:hidden}
 #share-inner .fs-top{border-radius:16px 16px 0 0}
 #share-inner .fs-body{padding:14px;gap:12px}
 #share-inner .fs-footer{border-radius:0 0 16px 16px;padding:12px 14px 16px}
-
-/* CONFIRM */
 .confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;align-items:center;justify-content:center}
 .confirm-overlay.open{display:flex}
 .confirm-box{background:#1e3320;border-radius:16px;padding:24px 20px;width:285px;text-align:center;border:1px solid #2d4a2d}
@@ -133,11 +117,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   <button class="fab" id="btn-new-map">+ New map</button>
 </div>
 
-<!-- NAME DIALOG -->
+<!-- NAME DIALOG — now with Name + Title -->
 <div class="name-dialog" id="name-dialog">
   <div class="name-box">
-    <h3>Your name</h3>
+    <h3>New map</h3>
+    <div style="font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px">Your name</div>
     <input id="name-input" type="text" placeholder="e.g. Vanessa" autocomplete="off"/>
+    <div style="font-size:11px;color:#6b9e6b;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px">Map title</div>
+    <input id="title-input" type="text" placeholder="e.g. Morning arrivals, BBQ check..." autocomplete="off"/>
     <div class="name-box-btns">
       <button class="nb-cancel" id="nb-cancel">Cancel</button>
       <button class="nb-ok" id="nb-ok">Create →</button>
@@ -197,8 +184,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
     <div class="note-view-text" id="view-text"></div>
   </div>
   <div class="fs-footer" id="view-footer">
+    <button class="fsf-del" id="view-del">🗑 Delete</button>
     <button class="fsf-edit" id="view-edit">✏️ Edit</button>
-    <button class="fsf-done" id="view-done">✓ Done — remove</button>
+    <button class="fsf-done" id="view-done">✓ Done</button>
   </div>
 </div>
 
@@ -239,16 +227,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
 </div>
 
 <script>
-// ═══════════════════════════════
-// PINCH ZOOM & PAN
-// ═══════════════════════════════
+// ═══ PINCH ZOOM ═══
 (function(){
   const container=document.getElementById('map-container');
   const wrapper=document.getElementById('map-wrapper');
-  let scale=1,originX=0,originY=0;
-  let startDist=0,startScale=1,startX=0,startY=0,startOX=0,startOY=0;
+  let scale=1,originX=0,originY=0,startDist=0,startScale=1;
+  let startX=0,startY=0,startOX=0,startOY=0;
   let isPinching=false,isDragging=false,lastTap=0;
-
   function clamp(v,mn,mx){return Math.min(Math.max(v,mn),mx)}
   function applyTransform(){
     const cw=container.clientWidth,ch=container.clientHeight;
@@ -260,12 +245,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   }
   function dist(t){const dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.sqrt(dx*dx+dy*dy)}
   function mid(t){return{x:(t[0].clientX+t[1].clientX)/2,y:(t[0].clientY+t[1].clientY)/2}}
-
   container.addEventListener('touchstart',e=>{
-    if(e.touches.length===2){
-      isPinching=true;isDragging=false;
-      startDist=dist(e.touches);startScale=scale;e.preventDefault();
-    } else if(e.touches.length===1){
+    if(e.touches.length===2){isPinching=true;isDragging=false;startDist=dist(e.touches);startScale=scale;e.preventDefault();}
+    else if(e.touches.length===1){
       isDragging=true;isPinching=false;
       startX=e.touches[0].clientX;startY=e.touches[0].clientY;startOX=originX;startOY=originY;
       const now=Date.now();
@@ -273,7 +255,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
       lastTap=now;
     }
   },{passive:false});
-
   container.addEventListener('touchmove',e=>{
     if(isPinching&&e.touches.length===2){
       const ns=clamp(startScale*(dist(e.touches)/startDist),1,15);
@@ -282,36 +263,25 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
       const f=ns/scale;originX=(originX-px)*f+px;originY=(originY-py)*f+py;
       scale=ns;applyTransform();e.preventDefault();
     } else if(isDragging&&e.touches.length===1&&scale>1){
-      originX=startOX+(e.touches[0].clientX-startX);
-      originY=startOY+(e.touches[0].clientY-startY);
+      originX=startOX+(e.touches[0].clientX-startX);originY=startOY+(e.touches[0].clientY-startY);
       applyTransform();e.preventDefault();
     }
   },{passive:false});
-
-  container.addEventListener('touchend',e=>{
-    if(e.touches.length<2)isPinching=false;
-    if(e.touches.length===0)isDragging=false;
-  });
-
+  container.addEventListener('touchend',e=>{if(e.touches.length<2)isPinching=false;if(e.touches.length===0)isDragging=false;});
   container.addEventListener('wheel',e=>{
     e.preventDefault();
     const ns=clamp(scale*(e.deltaY<0?1.15:0.87),1,15);
     const rect=container.getBoundingClientRect();
     const px=e.clientX-rect.left-rect.width/2,py=e.clientY-rect.top-rect.height/2;
-    const f=ns/scale;originX=(originX-px)*f+px;originY=(originY-py)*f+py;
-    scale=ns;applyTransform();
+    const f=ns/scale;originX=(originX-px)*f+px;originY=(originY-py)*f+py;scale=ns;applyTransform();
   },{passive:false});
-
   window.resetMapZoom=function(){scale=1;originX=0;originY=0;applyTransform();}
 })();
 
-// ═══════════════════════════════
-// PIXEL COLOR DETECTION (from working code doc 4)
-// ═══════════════════════════════
+// ═══ PIXEL COLOR DETECTION ═══
 const mapImg=document.getElementById('mapImg');
 const canvas=document.createElement('canvas');
 const ctx=canvas.getContext('2d',{willReadFrequently:true});
-
 const ZONES_CONFIG=[
   {name:'Grey',   rgb:[165,165,165], bg:'#6b7280', color:'#fff'},
   {name:'Yellow', rgb:[252,242,31],  bg:'#facc15', color:'#000'},
@@ -320,14 +290,11 @@ const ZONES_CONFIG=[
   {name:'Brown',  rgb:[110,85,65],   bg:'#92400e', color:'#fff'},
   {name:'Red',    rgb:[220,38,38],   bg:'#dc2626', color:'#fff'},
 ];
-
 mapImg.onload=()=>{canvas.width=mapImg.naturalWidth;canvas.height=mapImg.naturalHeight;ctx.drawImage(mapImg,0,0)};
 if(mapImg.complete&&mapImg.naturalWidth>0){canvas.width=mapImg.naturalWidth;canvas.height=mapImg.naturalHeight;ctx.drawImage(mapImg,0,0)}
-
 function getZoneByPixel(xPct,yPct){
   if(canvas.width===0)return null;
-  const x=(parseFloat(xPct)/100)*canvas.width;
-  const y=(parseFloat(yPct)/100)*canvas.height;
+  const x=(parseFloat(xPct)/100)*canvas.width,y=(parseFloat(yPct)/100)*canvas.height;
   const p=ctx.getImageData(x,y,1,1).data;
   const bright=p[0]+p[1]+p[2];
   if(bright>745||bright<35)return null;
@@ -338,16 +305,13 @@ function getZoneByPixel(xPct,yPct){
   }
   return closest;
 }
-
 function applyZoneTag(el,zone){
   el.textContent=zone?zone.name+' zone':'Unknown zone';
   el.style.background=zone?zone.bg:'#374151';
   el.style.color=zone?zone.color:'#d1d5db';
 }
 
-// ═══════════════════════════════
-// STORAGE
-// ═══════════════════════════════
+// ═══ STORAGE ═══
 const SK='montgri_v5';
 function loadStore(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch{return{}}}
 function saveStore(s){try{localStorage.setItem(SK,JSON.stringify(s))}catch{}}
@@ -355,43 +319,34 @@ let store=loadStore();
 if(!store.myMaps)store.myMaps={};
 if(!store.recvMaps)store.recvMaps={};
 
-// ═══════════════════════════════
-// STATE
-// ═══════════════════════════════
+// ═══ STATE ═══
 let currentMapId=null,currentMap=null,isReadOnly=false;
 let pendingX,pendingY,editingId=null,viewingId=null,confirmCallback=null;
 
-// ═══════════════════════════════
-// SHARED LINK CHECK
-// ═══════════════════════════════
+// ═══ SHARED LINK ═══
 (function(){
   const raw=new URLSearchParams(window.location.search).get('data');
   if(!raw)return;
   try{
     const payload=JSON.parse(decodeURIComponent(atob(raw)));
     const rid='recv_'+payload.id;
-    if(!store.recvMaps[rid]){
-      store.recvMaps[rid]={...payload,receivedAt:new Date().toISOString(),isReadOnly:true};
-      saveStore(store);
-    }
+    if(!store.recvMaps[rid]){store.recvMaps[rid]={...payload,receivedAt:new Date().toISOString(),isReadOnly:true};saveStore(store);}
     openMapView(store.recvMaps[rid],true);
   }catch(e){console.error(e)}
 })();
 
-// ═══════════════════════════════
-// HOME
-// ═══════════════════════════════
+// ═══ HOME ═══
 function renderHome(){
   document.getElementById('home-today').textContent=
     '📅 '+new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-
   const myEl=document.getElementById('my-maps-list');
   const myIds=Object.keys(store.myMaps).sort((a,b)=>store.myMaps[b].num-store.myMaps[a].num);
   myEl.innerHTML=myIds.length?myIds.map(id=>{
     const m=store.myMaps[id];
+    const titleLine=m.title?`<span style="color:#22c55e;font-size:11px;font-weight:700"> · ${m.title}</span>`:'';
     return `<div class="map-card" onclick="openMapView(store.myMaps['${id}'],false)">
       <div class="map-card-left">
-        <div class="map-card-num">Map #${m.num} — ${m.userName}</div>
+        <div class="map-card-num">Map #${m.num} — ${m.userName}${titleLine}</div>
         <div class="map-card-sub">📅 ${m.date} · ${m.annotations?.length||0} notes</div>
       </div>
       <span class="map-card-badge">${m.annotations?.length||0}</span>
@@ -403,9 +358,10 @@ function renderHome(){
   const rvIds=Object.keys(store.recvMaps).sort((a,b)=>new Date(store.recvMaps[b].receivedAt)-new Date(store.recvMaps[a].receivedAt));
   rvEl.innerHTML=rvIds.length?rvIds.map(id=>{
     const m=store.recvMaps[id];
+    const titleLine=m.title?`<span style="color:#22c55e;font-size:11px;font-weight:700"> · ${m.title}</span>`:'';
     return `<div class="map-card" onclick="openMapView(store.recvMaps['${id}'],true)">
       <div class="map-card-left">
-        <div class="map-card-num">Map #${m.num} — ${m.userName} <span class="received-tag">received</span></div>
+        <div class="map-card-num">Map #${m.num} — ${m.userName}${titleLine} <span class="received-tag">received</span></div>
         <div class="map-card-sub">📅 ${m.date} · ${m.annotations?.length||0} notes · Received ${new Date(m.receivedAt).toLocaleDateString('en-GB')}</div>
       </div>
       <span class="map-card-badge">${m.annotations?.length||0}</span>
@@ -415,50 +371,47 @@ function renderHome(){
 }
 renderHome();
 
-// DELETE — no confirmation
-function deleteMyMap(id){showConfirm("Delete this map?",()=>{delete store.myMaps[id];saveStore(store);renderHome();});}
-function deleteRecvMap(id){showConfirm("Delete this map?",()=>{delete store.recvMaps[id];saveStore(store);renderHome();});}
+function deleteMyMap(id){showConfirm('Delete this map?',()=>{delete store.myMaps[id];saveStore(store);renderHome();});}
+function deleteRecvMap(id){showConfirm('Delete this map?',()=>{delete store.recvMaps[id];saveStore(store);renderHome();});}
 
-// ═══════════════════════════════
-// CREATE MAP
-// ═══════════════════════════════
+// ═══ CREATE MAP ═══
 document.getElementById('btn-new-map').addEventListener('click',()=>{
   document.getElementById('name-input').value='';
+  document.getElementById('title-input').value='';
   document.getElementById('name-dialog').classList.add('open');
   setTimeout(()=>document.getElementById('name-input').focus(),200);
 });
 document.getElementById('nb-cancel').addEventListener('click',()=>document.getElementById('name-dialog').classList.remove('open'));
 document.getElementById('nb-ok').addEventListener('click',createMap);
-document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')createMap()});
+document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('title-input').focus()});
+document.getElementById('title-input').addEventListener('keydown',e=>{if(e.key==='Enter')createMap()});
 
 function createMap(){
   const n=document.getElementById('name-input').value.trim();
+  const t=document.getElementById('title-input').value.trim();
   if(!n)return;
   const nums=Object.values(store.myMaps).map(m=>m.num||0);
   const id='map_'+Date.now();
-  store.myMaps[id]={id,num:nums.length?Math.max(...nums)+1:1,userName:n,
+  store.myMaps[id]={id,num:nums.length?Math.max(...nums)+1:1,userName:n,title:t,
     date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),annotations:[]};
   saveStore(store);
   document.getElementById('name-dialog').classList.remove('open');
   openMapView(store.myMaps[id],false);
 }
 
-// ═══════════════════════════════
-// OPEN MAP VIEW
-// ═══════════════════════════════
+// ═══ OPEN MAP VIEW ═══
 function openMapView(map,readOnly){
   currentMap={...map,annotations:[...(map.annotations||[])]};
   currentMapId=map.id;isReadOnly=readOnly;
   document.getElementById('home-screen').style.display='none';
   document.getElementById('map-view').classList.add('open');
-  document.getElementById('mv-title').textContent=(readOnly?'👁️ ':'🗺️ ')+'Map #'+map.num+' — '+map.userName+' · '+map.date;
+  const titlePart=map.title?' · '+map.title:'';
+  document.getElementById('mv-title').textContent=(readOnly?'👁️ ':'🗺️ ')+'Map #'+map.num+' — '+map.userName+titlePart+' · '+map.date;
   document.getElementById('ro-banner').style.display=readOnly?'block':'none';
-  document.getElementById('ro-name').textContent=map.userName+' · Map #'+map.num;
+  document.getElementById('ro-name').textContent=map.userName+(map.title?' · '+map.title:'')+' · Map #'+map.num;
   document.getElementById('mv-share').style.display=readOnly?'none':'';
   document.getElementById('mv-reset').style.display=readOnly?'none':'';
-  document.getElementById('mv-hint').textContent=readOnly
-    ?'Read-only — tap a pin to view note'
-    :'Tap to add a note · Pinch to zoom · Double-tap to reset';
+  document.getElementById('mv-hint').textContent=readOnly?'Read-only — tap a pin to view note':'Tap to add a note · Pinch to zoom · Double-tap to reset';
   render();
 }
 
@@ -475,9 +428,7 @@ function persistCurrent(){
   saveStore(store);
 }
 
-// ═══════════════════════════════
-// RENDER PINS + LIST
-// ═══════════════════════════════
+// ═══ RENDER ═══
 function render(){
   document.querySelectorAll('.pin').forEach(e=>e.remove());
   (currentMap.annotations||[]).forEach(a=>{
@@ -512,9 +463,7 @@ document.getElementById('mv-toggle-list').addEventListener('click',()=>{
   document.getElementById('mv-toggle-list').textContent=o?'▲ NOTE LIST':'▼ NOTE LIST';
 });
 
-// ═══════════════════════════════
-// MAP TAP
-// ═══════════════════════════════
+// ═══ MAP TAP ═══
 document.getElementById('map-wrapper').addEventListener('click',ev=>{
   if(isReadOnly||ev.target.closest('.pin'))return;
   const wr=document.getElementById('map-wrapper').getBoundingClientRect();
@@ -530,9 +479,7 @@ document.getElementById('map-wrapper').addEventListener('click',ev=>{
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
 });
 
-// ═══════════════════════════════
-// EDIT NOTE
-// ═══════════════════════════════
+// ═══ EDIT NOTE ═══
 function openEditNote(id){
   editingId=id;
   const a=currentMap.annotations.find(a=>a.id===id);
@@ -545,7 +492,6 @@ function openEditNote(id){
   document.getElementById('edit-modal').classList.add('open');
   setTimeout(()=>document.getElementById('edit-num').focus(),150);
 }
-
 document.getElementById('edit-save').addEventListener('click',()=>{
   const txt=document.getElementById('edit-text').value.trim();
   const num=document.getElementById('edit-num').value.trim();
@@ -561,17 +507,16 @@ document.getElementById('edit-save').addEventListener('click',()=>{
   persistCurrent();render();
   document.getElementById('edit-modal').classList.remove('open');
 });
-
 document.getElementById('edit-del').addEventListener('click',()=>{
-  currentMap.annotations=currentMap.annotations.filter(a=>a.id!==editingId);
-  persistCurrent();render();document.getElementById('edit-modal').classList.remove('open');
+  showConfirm('Delete this note?',()=>{
+    currentMap.annotations=currentMap.annotations.filter(a=>a.id!==editingId);
+    persistCurrent();render();document.getElementById('edit-modal').classList.remove('open');
+  });
 });
 document.getElementById('edit-close').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
 document.getElementById('edit-cancel').addEventListener('click',()=>document.getElementById('edit-modal').classList.remove('open'));
 
-// ═══════════════════════════════
-// VIEW NOTE
-// ═══════════════════════════════
+// ═══ VIEW NOTE ═══
 function openViewNote(id){
   viewingId=id;
   const a=currentMap.annotations.find(a=>a.id===id);
@@ -579,38 +524,46 @@ function openViewNote(id){
   document.getElementById('view-text').textContent=a.text;
   const z=a.zone?ZONES_CONFIG.find(z=>z.name===a.zone):getZoneByPixel(a.x,a.y);
   applyZoneTag(document.getElementById('view-zone-tag'),z);
-  document.getElementById('view-edit').style.display=isReadOnly?'none':'';
-  document.getElementById('view-done').style.display=isReadOnly?'none':'';
+  const ro=isReadOnly;
+  document.getElementById('view-edit').style.display=ro?'none':'';
+  document.getElementById('view-done').style.display=ro?'none':'';
+  document.getElementById('view-del').style.display=ro?'none':'';
   document.getElementById('view-modal').classList.add('open');
 }
 document.getElementById('view-done').addEventListener('click',()=>{
   currentMap.annotations=currentMap.annotations.filter(a=>a.id!==viewingId);
   persistCurrent();render();document.getElementById('view-modal').classList.remove('open');
 });
+document.getElementById('view-del').addEventListener('click',()=>{
+  showConfirm('Delete this note?',()=>{
+    currentMap.annotations=currentMap.annotations.filter(a=>a.id!==viewingId);
+    persistCurrent();render();document.getElementById('view-modal').classList.remove('open');
+  });
+});
 document.getElementById('view-edit').addEventListener('click',()=>{
   document.getElementById('view-modal').classList.remove('open');openEditNote(viewingId);
 });
 document.getElementById('view-close').addEventListener('click',()=>document.getElementById('view-modal').classList.remove('open'));
 
-// ═══════════════════════════════
-// SHARE
-// ═══════════════════════════════
+// ═══ SHARE ═══
 function buildShareLink(){
   const payload={id:currentMap.id,num:currentMap.num,userName:currentMap.userName,
-    date:currentMap.date,annotations:currentMap.annotations||[]};
+    title:currentMap.title||'',date:currentMap.date,annotations:currentMap.annotations||[]};
   return window.location.href.split('?')[0]+'?data='+btoa(encodeURIComponent(JSON.stringify(payload)));
 }
-
 document.getElementById('mv-share').addEventListener('click',()=>{
   const link=buildShareLink();
   document.getElementById('share-link-ta').value=link;
-  document.getElementById('share-map-name').textContent='🗺️ Map #'+currentMap.num+' — '+currentMap.userName;
+  const titlePart=currentMap.title?' · '+currentMap.title:'';
+  document.getElementById('share-map-name').textContent='🗺️ Map #'+currentMap.num+' — '+currentMap.userName+titlePart;
   document.getElementById('share-map-detail').textContent='📅 '+currentMap.date+' · '+(currentMap.annotations?.length||0)+' notes';
   document.getElementById('share-modal').classList.add('open');
 });
 document.getElementById('share-wa').addEventListener('click',()=>{
   const link=buildShareLink();
-  const msg='🏕️ Camping Castell Montgrí\nMap #'+currentMap.num+' — '+currentMap.userName+'\n📅 '+currentMap.date+'\n\n👉 Open map:\n'+link;
+  const titlePart=currentMap.title?' · '+currentMap.title:'';
+  const n=currentMap.annotations?.length||0;
+  const msg='🏕️ Map #'+currentMap.num+' — '+currentMap.userName+titlePart+'\n📅 '+currentMap.date+' · '+n+' note'+(n!==1?'s':'')+'\n'+link;
   window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
 });
 document.getElementById('share-copy').addEventListener('click',()=>{
@@ -621,28 +574,51 @@ document.getElementById('share-copy').addEventListener('click',()=>{
 });
 document.getElementById('share-close').addEventListener('click',()=>document.getElementById('share-modal').classList.remove('open'));
 
-// ═══════════════════════════════
-// PDF
-// ═══════════════════════════════
+// ═══ PDF — grouped by zone ═══
 function generatePdf(map){
   const anns=map.annotations||[];
-  const rows=anns.length?anns.map(a=>{
-    const z=a.zone?ZONES_CONFIG.find(z=>z.name===a.zone):null;
-    return `<tr>
-      <td style="padding:10px 14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap">
-        <strong style="color:#c0392b;font-size:15px">Bungalow ${a.num||'?'}</strong><br>
-        <span style="background:${z?z.bg:'#6b7280'};color:${z?z.color:'#fff'};border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700">${z?z.name:'?'} zone</span>
-      </td>
-      <td style="padding:10px 14px;border-bottom:1px solid #eee;font-size:13px;line-height:1.7;vertical-align:top;white-space:pre-wrap">${a.text}</td>
-    </tr>`;
-  }).join(''):'<tr><td colspan="2" style="padding:20px;color:#999;text-align:center">No notes.</td></tr>';
+  const zoneOrder=['Blue','Yellow','Orange','Grey','Brown','Red'];
+  const grouped={};
+  anns.forEach(a=>{const k=a.zone||'Unknown';if(!grouped[k])grouped[k]=[];grouped[k].push(a);});
+  // Add any zones not in order (Unknown etc)
+  Object.keys(grouped).forEach(k=>{if(!zoneOrder.includes(k))zoneOrder.push(k);});
 
+  let sections='';
+  zoneOrder.forEach(zn=>{
+    const list=grouped[zn];
+    if(!list||!list.length)return;
+    const zObj=ZONES_CONFIG.find(z=>z.name===zn);
+    const zbg=zObj?zObj.bg:'#6b7280',zcol=zObj?zObj.color:'#fff';
+    sections+=`<tr><td colspan="2" style="padding:8px 14px;background:${zbg}">
+      <strong style="color:${zcol};font-size:12px;letter-spacing:.06em;text-transform:uppercase">— ${zn} Zone —</strong>
+    </td></tr>`;
+    list.forEach(a=>{
+      sections+=`<tr>
+        <td style="padding:8px 14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap;width:100px">
+          <strong style="color:#c0392b;font-size:14px">Bungalow ${a.num||'?'}</strong>
+        </td>
+        <td style="padding:8px 14px;border-bottom:1px solid #eee;font-size:12px;line-height:1.6;vertical-align:top;white-space:pre-wrap">${a.text||''}</td>
+      </tr>`;
+    });
+  });
+  if(!sections)sections='<tr><td colspan="2" style="padding:20px;color:#999;text-align:center">No notes.</td></tr>';
+
+  const titlePart=map.title?` · ${map.title}`:'';
   const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Notes ${map.userName}</title>
-  <style>body{font-family:Arial,sans-serif;padding:28px;color:#222}h1{color:#1a5c1a;font-size:19px;margin-bottom:4px}.sub{color:#666;font-size:13px;margin-bottom:22px}table{width:100%;border-collapse:collapse}th{background:#1a5c1a;color:#fff;padding:10px 14px;text-align:left;font-size:13px}tr:nth-child(even)td{background:#f6faf6}.footer{margin-top:20px;font-size:11px;color:#bbb}</style>
+  <style>
+    body{font-family:Arial,sans-serif;padding:28px;color:#222}
+    .logo{color:#1a5c1a;font-size:20px;font-weight:800;margin-bottom:2px}
+    .sub-logo{color:#888;font-size:12px;margin-bottom:4px;font-style:italic}
+    .info{color:#555;font-size:13px;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #1a5c1a}
+    table{width:100%;border-collapse:collapse}
+    tr:nth-child(even) td{background:#f9f9f9}
+    .footer{margin-top:20px;font-size:11px;color:#bbb}
+  </style>
   </head><body>
-  <h1>🏕️ Camping Castell Montgrí</h1>
-  <div class="sub">Operator: <strong>${map.userName}</strong> &nbsp;|&nbsp; Map: <strong>#${map.num}</strong> &nbsp;|&nbsp; ${map.date}</div>
-  <table><thead><tr><th>Bungalow</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>
+  <div class="logo">🏕️ Camping Castell Montgrí</div>
+  <div class="sub-logo">Lifestyle Holiday</div>
+  <div class="info">Operator: <strong>${map.userName}</strong>${titlePart} &nbsp;|&nbsp; Map <strong>#${map.num}</strong> &nbsp;|&nbsp; ${map.date}</div>
+  <table><tbody>${sections}</tbody></table>
   <div class="footer">Generated ${new Date().toLocaleString('en-GB')}</div>
   <script>window.onload=function(){window.print()}<\/script></body></html>`;
 
@@ -655,16 +631,12 @@ function generatePdf(map){
 document.getElementById('mv-pdf').addEventListener('click',()=>generatePdf(currentMap));
 function roDownloadPdf(){generatePdf(currentMap)}
 
-// ═══════════════════════════════
-// RESET
-// ═══════════════════════════════
+// ═══ RESET ═══
 document.getElementById('mv-reset').addEventListener('click',()=>{
   showConfirm('Reset all notes on this map?',()=>{currentMap.annotations=[];persistCurrent();render();});
 });
 
-// ═══════════════════════════════
-// CONFIRM
-// ═══════════════════════════════
+// ═══ CONFIRM ═══
 function showConfirm(msg,cb){
   document.getElementById('confirm-msg').textContent=msg;
   confirmCallback=cb;document.getElementById('confirm-overlay').classList.add('open');
