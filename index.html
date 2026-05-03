@@ -186,7 +186,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#111d11;color:#fff;m
   <div class="fs-footer" id="view-footer">
     <button class="fsf-del" id="view-del">🗑 Delete</button>
     <button class="fsf-edit" id="view-edit">✏️ Edit</button>
-    <button class="fsf-done" id="view-done">✓ Done</button>
+    <button class="fsf-done" id="view-done">✓ Done — fixed!</button>
   </div>
 </div>
 
@@ -526,13 +526,20 @@ function openViewNote(id){
   applyZoneTag(document.getElementById('view-zone-tag'),z);
   const ro=isReadOnly;
   document.getElementById('view-edit').style.display=ro?'none':'';
-  document.getElementById('view-done').style.display=ro?'none':'';
+  document.getElementById('view-done').style.display=''; // always visible — recipient can mark done
   document.getElementById('view-del').style.display=ro?'none':'';
   document.getElementById('view-modal').classList.add('open');
 }
 document.getElementById('view-done').addEventListener('click',()=>{
   currentMap.annotations=currentMap.annotations.filter(a=>a.id!==viewingId);
-  persistCurrent();render();document.getElementById('view-modal').classList.remove('open');
+  if(isReadOnly){
+    // Save progress back to recvMaps so it persists
+    const rid='recv_'+currentMap.id;
+    if(store.recvMaps[rid]){store.recvMaps[rid].annotations=currentMap.annotations;saveStore(store);}
+  } else {
+    persistCurrent();
+  }
+  render();document.getElementById('view-modal').classList.remove('open');
 });
 document.getElementById('view-del').addEventListener('click',()=>{
   showConfirm('Delete this note?',()=>{
